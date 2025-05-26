@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/courses-style.css' %}">
+        <!-- Icon Library -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header Section -->
+    {% include 'header.html' %}
+
+    <!-- courses start here  -->
+    <img src="static/images/banner.png" alt="Courses Header" class="header-image">
+    <h1>Courses Offered</h1>
+
+    <!-- Section to hold all course cards -->
+<section class="courses-container">
+
+    <!-- Loop through each course object passed from Django context -->
+    {% for course in courses %}
+    
+        <!-- Individual course card -->
+        <div class="course-card">
+        
+            <!-- Check if course has an image -->
+            {% if course.image %}
+            
+                <!-- Display the course image -->
+                <img src="{{ course.image.url }}" alt="{{ course.title }}" width="300">
+            
+            {% else %}
+                <!-- If image is not available, show a fallback message -->
+                <p>No image available</p>
+            {% endif %}
+            
+            <!-- Display the course title -->
+            <h2>{{ course.title }}</h2>
+            
+            <!-- Display the course description -->
+            <p>{{ course.description }}</p>
+            
+            <!-- Show the course price -->
+            <p><strong>Price:</strong> {{ course.price }}</p>
+            
+            <!-- Display information about the course project -->
+            <p><strong>Project Info:</strong> {{ course.project_info }}</p>
+            
+            <!-- Display certificate details -->
+            <p><strong>Certificate Info:</strong> {{ course.certificate_info }}</p>
+            
+            <!-- Button to open the course link in a new tab -->
+            <a href="{{ course.course_link }}" target="_blank" class="btn">View Course</a>
+        </div>
+    
+    {% endfor %}
+
+</div> <!-- NOTE: This closing div seems misplaced and doesn't match an opening tag. Likely an error -->
+
+<!-- Include chatbot interface HTML (reusable template) -->
+{% include 'includes/chatbot.html' %}
+
+</section> <!-- End of courses section -->
+
+<!-- Include footer HTML (reusable template) -->
+{% include 'footer.html' %}
+
+<!-- JavaScript to style container dynamically on page load -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Select the first element with class "container"
+    let container = document.querySelector(".container");
+
+    // Make the container use flex layout
+    container.style.display = "flex";
+
+    // Allow items inside to wrap to the next line
+    container.style.flexWrap = "wrap";
+
+    // Space out items with even gaps around them
+    container.style.justifyContent = "space-around";
+});
+</script>
+
+</body>
+</html>

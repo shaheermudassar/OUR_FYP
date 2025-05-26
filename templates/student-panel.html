@@ -1,0 +1,558 @@
+{% load static %} <!-- Load static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Align Skills</title>
+
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/student-panel-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+
+    <style>
+        .logout-btn{
+     border-radius: .5rem; /* Rounded corners for buttons */
+    padding: 1rem 3rem; /* Padding inside the buttons */
+    font-size: 1.5rem; /* Set font size for buttons */
+    color: #fff; /* White text color */
+    margin-top: 1rem; /* Add top margin */
+    text-transform: capitalize; /* Capitalize text in buttons */
+    cursor: pointer; /* Change cursor to pointer when hovering over button */
+    text-align: center; /* Center text inside the buttons */
+    background-color: var(--main-color);
+     display: block; /* Make these buttons block-level */
+    width: 100%; /* Make these buttons take full width */
+}
+.logout-btn:hover{
+ background-color: var(--black); /* Darken the background on hover */
+    color: var(--white); /* Change text color on hover */
+    }
+        /* Styling for the search box container */
+        .search-box {
+            display: flex;
+            /* Flexbox layout to align items horizontally */
+            align-items: center;
+            /* Vertically center the contents of the search box */
+            background: white;
+            /* Set background color to white */
+            border-radius: 25px;
+            /* Rounded corners for the search box */
+            padding: 10px;
+            /* Padding around the content */
+            padding-left: 15px;
+            /* Extra padding on the left side for spacing */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow effect to create depth */
+        }
+
+        /* Styling for the search input field */
+        .search-box input {
+            border: none;
+            /* Remove the default border */
+            outline: none;
+            /* Remove the outline when the input is focused */
+            padding: 10px;
+            /* Padding inside the input field */
+            font-size: 16px;
+            /* Set font size for the input text */
+            width: 300px;
+            /* Fixed width for the input field */
+            height: 0;
+            /* This seems incorrect, as it will make the input height zero */
+        }
+
+        /* Styling for the search icon */
+        .search-box i {
+            font-size: 13px;
+            /* Set the icon font size */
+            color: gray;
+            /* Set the icon color to gray */
+            margin-right: 14px;
+            /* Add some spacing between the icon and the input field */
+        }
+
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Child items ko horizontally center karega */
+            justify-content: center;
+            /* (optional) Agar vertical bhi center chahte ho */
+        }
+
+        .text-avatar {
+            width: 70px;
+            height: 70px;
+            background-color: white;
+            /* Your golden color */
+            color: black;
+            font-weight: bold;
+            font-size: 24px;
+            border-radius: 50%;
+            /* Make it round */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            /* Space between avatar and username */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Little shadow for nice look */
+        }
+
+        .username {
+            font-size: 15px;
+            /* یا جتنا بڑا چاہیے اتنا */
+            font-weight: bold;
+            /* اگر تھوڑا موٹا (bold) کرنا ہو */
+            color: black;
+            /* یا جو بھی رنگ چاہیے */
+            margin-top: 5px;
+            /* تھوڑا space اوپر سے اگر چاہیے */
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Automatically puts space between children */
+            gap: 25rem;
+            /* optional: adds extra gap between items */
+        }
+
+        @media (max-width: 768px) {
+            .search-box {
+                display: none;
+                /* Make sure the search box is displayed as flex */
+                width: 100%;
+                /* Make the search box full width */
+                padding: 8px 15px;
+                /* Adjust padding for better spacing */
+                margin-right: 0;
+                /* Remove right margin */
+            }
+
+            .search-box input {
+                width: 100%;
+                /* Make the input field take full width */
+                font-size: 14px;
+                /* Reduce font size for smaller screens */
+            }
+
+            .search-box i {
+                font-size: 12px;
+                /* Adjust icon size */
+                margin-right: 10px;
+                /* Adjust spacing between icon and input */
+            }
+        }
+
+      @media (max-width: 768px) {
+    .btn {
+        display: inline-block; /* Show the button on small screens */
+        font-size: 1rem;
+        padding: 10px 20px; /* Adjust padding for better button size */
+        width: auto; /* Ensure width is not fixed */
+        box-sizing: border-box;
+        margin: 10px 0; /* Adjust margin for spacing */
+    }
+
+    /* Additional adjustments for header if necessary */
+    .header .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .header .flex .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- header start  -->
+    <!-- Header section -->
+    <header class="header">
+              
+        <!-- Flex container for alignment -->
+        <section class="flex" style="    height: 67.6px;">
+
+            <!-- Logo container with the brand name -->
+            <div class="logo-container">
+                <!-- Link to the profile edit page -->
+ 
+                <!-- Display the logo image -->
+                <img src="{% static 'images/logo website.png' %}" alt="Logo" class="logo">
+                <!-- Brand name displayed next to the logo -->
+                <span class="logoname">AlignSkills</span>
+            </div>
+
+            <!-- Search form for courses -->
+            <form id="searchForm" action="{% url 'search_courses' %}" method="GET">
+                <div class="search-box" id="search_box">
+                    <!-- Search icon -->
+                    <i class="fas fa-search"></i>
+                    <!-- Input field for course search -->
+                    <input type="text" id="courseSearch" name="q" placeholder="Search courses..." autocomplete="off">
+                    <!-- Div to display search results -->
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+                
+            </form>
+
+            <!-- Icon container for menu, search, and user -->
+            <div class="icon">
+
+            <!-- Logout button linking to the logout URL -->
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+                <!-- Menu button (hamburger) hidden initially -->
+                <div id="menu-btn" class="fas fa-bars" style="display: none;"></div>
+                <!-- Search button hidden initially -->
+                <div id="search-btn" class="fas fa-search" style="display: none;"></div>
+                <!-- User icon button hidden initially -->
+                <div id="user-btn" class="fas fa-user" style="display: none;"></div>
+
+            </div>
+    
+        </section>
+    </header>
+    <!-- header end -->
+
+    <!-- slide bar section  start -->
+    <!-- Slide bar container -->
+    <div class="slide-bar">
+
+        <!-- Close button for the slide bar -->
+        <div class="close-slide-bar" id="close-slide-btn">
+            <!-- Font Awesome icon for closing the slide bar -->
+            <i class="fas fa-times"></i>
+        </div>
+
+        <!-- Profile section -->
+        <div class="profile">
+
+            <!-- Text-based avatar displaying first two letters of the username (converted to uppercase) -->
+            <div class="text-avatar">
+                {{ user.username|slice:":2"|upper }}
+            </div>
+
+            <!-- Displaying the full username -->
+            <span class="username">{{ user.username }}</span>
+
+            <!-- Link to edit profile page -->
+            <a href="/profile" class="btn">Edit Profile</a>
+        </div>
+
+        <!-- Navigation bar links inside the slide bar -->
+        <nav class="navbar">
+            <!-- Link to the home page -->
+            <a href="/"><i class="fas fa-home"></i><span>Home</span></a>
+            <!-- Link to the about us page -->
+            <a href="/about-us"><i class="fas fa-question"></i><span>About Us</span></a>
+            <!-- Link to the courses page -->
+            <a href="/courses"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+            <!-- Link to the contact us page -->
+            <a href="/contact-us"><i class="fas fa-headset"></i><span>Contact Us</span></a>
+        </nav>
+
+    </div>
+
+
+    <!-- Sidebar Section -->
+
+
+    {% include 'includes/chatbot.html' %}
+
+    <!-- quick seclction start -->
+    <!-- Greeting section for the user -->
+    <div class="greeting-container">
+        <!-- Greeting message, dynamically changed via JS -->
+        <h1 id="greeting-message">Hello!</h1>
+        <!-- Displaying time-of-day message dynamically -->
+        <p id="time-of-day"></p>
+    </div>
+
+    <!-- Quick options section -->
+    <section class="quick-select">
+        <!-- Section heading -->
+        <h1 class="heading">Quick options</h1>
+
+        <!-- Container for all quick option boxes -->
+        <div class="box-container">
+
+            <!-- Box for "My Courses" -->
+            <div class="box">
+                <h3 class="title">My Courses</h3>
+                <!-- Description of the "My Courses" section -->
+                <p>
+                    Here are the courses you’re currently enrolled in. Each course offers valuable learning materials,
+                    assignments, and resources to help you track your progress. Stay up to date with new lessons,
+                    quizzes,
+                    and any announcements related to your courses. This section allows you to manage your learning
+                    journey,
+                    engage with course content, and enhance your skills in your chosen field.
+                </p>
+                <!-- Link to the dashboard courses page -->
+                <a href="{% url 'dashboard_courses' %}">
+                    <i class="inline-btn"><span>courses</span></i>
+                </a>
+            </div>
+
+            <!-- Box for "My Projects" -->
+            <div class="box">
+                <h3 class="title">My Projects</h3>
+                <!-- Description of the "My Projects" section -->
+                <p>
+                    Project submission showcases your work and skills, reflecting your effort and understanding. It’s an
+                    opportunity for feedback and contributes to your success.
+                </p>
+                <!-- Link to the student projects page -->
+                <a href="{% url 'student_projects' %}">
+                    <i class="inline-btn"><span>Projects</span></i>
+                </a>
+            </div>
+
+            <!-- Box for "My Comments" -->
+            <div class="box">
+                <h3 class="title">My Comments</h3>
+                <!-- Description of the "My Comments" section -->
+                <p>
+                    These are the comments you’ve shared for the courses you’ve enrolled in. Feel free to review your
+                    thoughts, ask questions, and help improve the learning. Your feedback helps us improve and engage
+                    with
+                    the community.
+                </p>
+                <!-- Link to the dashboard comments page -->
+                <a href="{% url 'dashboard_comments' %}">
+                    <i class="inline-btn"><span>comments</span></i>
+                </a>
+            </div>
+
+            <!-- Box for "Resume Builder" -->
+            <div class="box" id="resume">
+                <h3 class="title">Built The Resume</h3>
+                <!-- Description for the Resume Builder section -->
+                <p>
+                    Create a professional resume effortlessly with our Resume Builder! Highlight your skills,
+                    certifications,
+                    and projects in a polished, job-winning format. Whether you're a student, professional, or career
+                    changer,
+                    our platform tailors your resume to showcase your achievements and stand out to employers. Start
+                    building your
+                    future today.
+                </p>
+                <!-- Link to start building the resume -->
+                <a href="/resume-main-page" class="inline-btn">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- quick seclction end -->
+
+
+
+    <!-- courses start here  -->
+    <!-- Main heading for the recommended courses section -->
+    <h1 class="heading">Recommend Courses</h1>
+
+    <!-- Section to display the recommended courses -->
+    <section class="courses-container">
+
+        <!-- First course card: Introduction to IT -->
+        <div class="container">
+            <div class="course-card">
+                <!-- Course image -->
+                <img src="{% static 'images/it.png' %}" alt="Database_Course">
+                <!-- Course title (corrected spelling) -->
+                <h3>Introduction to IT Course</h3>
+                <!-- Course description -->
+                <p>
+                    "This course teaches database design, management, and querying, focusing on data modeling,
+                    optimization, and efficient handling of real-world data."
+                </p><br>
+                <p>Free Of Cost</p>
+                <p>Hands-on project at the end of the course.</p>
+                <p>Certificate will be provided.</p><br>
+                <!-- Course link button -->
+                <a href="/enroll-course-pages/3/" class="btn">View Course</a>
+            </div>
+        </div>
+
+        <!-- Second course card: Artificial Intelligence -->
+        <div class="container">
+            <div class="course-card">
+                <img src="{% static 'images/AI.png' %}" alt="Artificial course">
+                <!-- Fixed spelling -->
+                <h3>Artificial Intelligence Course</h3>
+                <p>
+                    "Learn the basics and advanced concepts of Artificial Intelligence to build smart systems and solve
+                    real-world problems."
+                </p><br>
+                <p>Free Of Cost</p>
+                <p>Hands-on project at the end of the course.</p>
+                <p>Certificate will be provided.</p><br><br>
+                <a href="/enroll-course-pages/2/" class="btn">View Course</a>
+            </div>
+        </div>
+
+        <!-- Third course card: Python Programming -->
+        <div class="container">
+            <div class="course-card">
+                <img src="{% static 'images/python.png' %}" alt="Python course">
+                <h3>Python Course</h3>
+                <p>
+                    "This course covers the basics of Python programming, including data types, loops, functions, and
+                    file handling, as well as advanced topics."
+                </p><br>
+                <p>Free Of Cost</p>
+                <p>Hands-on project at the end of the course.</p>
+                <p>Certificate will be provided.</p><br>
+                <a href="/enroll-course-pages/5/" class="btn">View Course</a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- courses end here  -->
+
+
+
+    <!-- resume end here for student panel -->
+    <!-- Main heading for the page -->
+    <h1 class="heading">built your own resume</h1>
+
+    <!-- Resume section starts here -->
+    <section class="resume-section">
+
+        <!-- Section title -->
+        <h1>Build Your Perfect Resume</h1>
+
+        <!-- Description about the resume builder -->
+        <p>
+            Create a professional resume in minutes with Align Skill's easy-to-use Resume Builder.
+            Highlight your skills, certifications, and projects effortlessly.
+        </p>
+
+        <!-- Button link to start building the resume -->
+        <a href="/resume-main-page" class="resume-button">
+            <!-- Font Awesome icon for file -->
+            <i class="fas fa-file-alt"></i> Start Building
+        </a>
+
+    </section>
+
+    <!-- resume end here for student panel -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Content Block (For Other Pages) -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer Start -->
+
+    <!-- Custom JS -->
+    <script>
+
+
+        // Get the current hour (0-23) from the user's system time
+        let currentHour = new Date().getHours();
+
+        // Get the current minutes (0-59) from the user's system time
+        let currentMinutes = new Date().getMinutes();
+
+        // Get the current time in a human-readable format (e.g., "03:45 PM")
+        let currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        // Get the HTML element where the greeting message will be displayed
+        let greetingMessage = document.getElementById("greeting-message");
+
+        // Get the HTML element where the detailed time-of-day message will be displayed
+        let timeOfDay = document.getElementById("time-of-day");
+
+        // Check the current hour and set the appropriate greeting and message
+        if (currentHour >= 5 && currentHour < 12) {
+            // If it's morning (between 5 AM and 11:59 AM)
+            greetingMessage.textContent = " Good Morning!";
+            timeOfDay.textContent = `The time is ${currentTime}. Have a great day ahead!`;
+        } else if (currentHour >= 12 && currentHour < 18) {
+            // If it's afternoon (between 12 PM and 5:59 PM)
+            greetingMessage.textContent = " Good Afternoon!";
+            timeOfDay.textContent = `The time is ${currentTime}. Hope you're having a productive afternoon!`;
+        } else {
+            // If it's evening or night (6 PM to 4:59 AM)
+            greetingMessage.textContent = " Good Evening!";
+            timeOfDay.textContent = `The time is ${currentTime}. Relax and enjoy your evening!`;
+        }
+
+        // Run this function when the DOM content is fully loaded
+        document.addEventListener("DOMContentLoaded", () => {
+            // Log a message to the console for debugging or confirmation
+            console.log("Smart Art Chapter List loaded!");
+        });
+
+    </script>
+</body>
+
+</html>

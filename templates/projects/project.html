@@ -1,0 +1,789 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0rem;
+            /* Removes margin around the body */
+            font-family: Arial, sans-serif;
+            /* Sets the font for the body */
+            background-color: #f9f9f9;
+            /* Sets the background color */
+            color: white;
+            /* Sets the text color to white */
+        }
+
+        /* Header Styles */
+
+        /* Main content area (full width) */
+        main {
+            width: 100%;
+            /* Ensures the main section takes the full width */
+            padding: 50px 20px;
+            /* Adds padding to the main section */
+            background: #ffffff;
+            /* Sets the background color of the main section */
+            margin: 0;
+            /* Removes any margin */
+            border-radius: 15px;
+            /* Rounds the corners */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* Adds a shadow effect */
+            border: 1px solid #e9e9f3;
+            /* Adds a light border */
+            flex-grow: 1;
+            /* Allows it to expand and fill available space */
+            box-sizing: border-box;
+            /* Ensures padding is included in the element's width */
+        }
+
+        /* Headings */
+        h1 {
+            text-align: center;
+            /* Centers the heading */
+            color: #2c3e50;
+            /* Sets the color */
+            font-size: 2.2rem;
+            /* Sets the font size */
+            margin-bottom: 20px;
+            /* Adds bottom margin */
+        }
+
+        h2 {
+            color: #5a5a75;
+            /* Sets the color */
+            font-size: 1.5rem;
+            /* Sets the font size */
+            margin-bottom: 20px;
+            /* Adds bottom margin */
+            text-align: center;
+            /* Centers the heading */
+        }
+
+        /* Paragraph and List */
+        .paragraph {
+            color: black;
+            /* Sets the text color */
+            font-size: 1.1rem;
+            /* Sets the font size */
+            line-height: 1.8;
+            /* Increases line height for readability */
+            margin-bottom: 20px;
+            /* Adds bottom margin */
+            margin-left: 3rem;
+            /* Adds left margin */
+            margin-right: 3rem;
+            /* Adds right margin */
+        }
+
+        /* Style for the list container */
+        .ul {
+            list-style-type: none;
+            /* Removes default list bullets */
+            padding: 0;
+            /* Removes padding */
+            margin-left: 3rem;
+            /* Adds left margin */
+            margin-right: 3rem;
+            /* Adds right margin */
+        }
+
+        /* Style for each list item */
+        .ul .li {
+            background-color: #f9f9f9;
+            /* Sets background color */
+            border: 1px solid #ddd;
+            /* Adds a light border */
+            color: #000;
+            /* Sets text color */
+            border-radius: 8px;
+            /* Rounds the corners */
+            padding: 15px;
+            /* Adds padding */
+            margin-bottom: 15px;
+            /* Adds bottom margin */
+            transition: all 0.3s ease;
+            /* Adds transition for hover effect */
+        }
+
+        /* Style for the strong text (headings inside list items) */
+        .ul .li strong {
+            color: #2c3e50;
+            /* Sets the color */
+            font-size: 1.1em;
+            /* Sets the font size */
+            font-weight: bold;
+            /* Makes the text bold */
+        }
+
+        /* Style for links */
+        .ul .li a {
+            color: #3498db;
+            /* Sets link color */
+            text-decoration: none;
+            /* Removes underline */
+        }
+
+        /* Hover effect for list items */
+        .ul .li:hover {
+            background-color: #f1f1f1;
+            /* Changes background on hover */
+            border-color: #bbb;
+            /* Changes border color */
+            transform: translateY(-5px);
+            /* Adds slight upward movement */
+        }
+
+        /* Hover effect for links */
+        .ul .li a:hover {
+            color: #2980b9;
+            /* Changes link color on hover */
+        }
+
+
+        /* Upload Project Box */
+        .upload-box {
+            background-color: #f8f9fa;
+            /* Sets background color */
+            padding: 40px 40px;
+            /* Adds padding */
+            border-radius: 12px;
+            /* Rounds corners */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* Adds shadow effect */
+            margin: 50px auto;
+            /* Adds margin around the box */
+            max-width: 500px;
+            /* Sets a maximum width */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Adds transition effects */
+        }
+
+        .upload-box:hover {
+            transform: translateY(-5px);
+            /* Adds slight upward movement on hover */
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+            /* Changes shadow effect */
+        }
+
+        /* Label Styling */
+        .upload-box label {
+            font-size: 1.2rem;
+            /* Sets font size */
+            font-weight: 600;
+            /* Makes the label bold */
+            color: #333;
+            /* Sets the text color */
+            display: block;
+            /* Makes the label a block element */
+            margin-bottom: 15px;
+            /* Adds bottom margin */
+            text-align: center;
+            /* Centers the label */
+        }
+
+        /* File Input Styling */
+        .upload-box input[type="file"] {
+            width: 75%;
+            /* Sets the width */
+            margin-left: 3rem;
+            /* Adds left margin */
+            padding: 15px;
+            /* Adds padding */
+            border: 2px solid #ccc;
+            /* Adds border */
+            border-radius: 8px;
+            /* Rounds corners */
+            background-color: #f8f9fa;
+            /* Sets background color */
+            font-size: 1rem;
+            /* Sets font size */
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+            /* Adds transition effects */
+            color: #333;
+            /* Sets text color */
+        }
+
+        .upload-box input[type="file"]:focus {
+            border-color: #007bff;
+            /* Changes border color on focus */
+            outline: none;
+            /* Removes outline on focus */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+            /* Adds a shadow effect */
+        }
+
+        /* Button Styling */
+        .upload-box button {
+            display: block;
+            /* Makes the button block level */
+            width: 100%;
+            /* Makes the button full width */
+            padding: 13px;
+            /* Adds padding */
+            background: #c9b75f;
+            /* Sets background color */
+            color: white;
+            /* Sets text color */
+            border: none;
+            /* Removes border */
+            border-radius: 8px;
+            /* Rounds corners */
+            font-size: 1.2rem;
+            /* Sets font size */
+            font-weight: 600;
+            /* Makes the text bold */
+            cursor: pointer;
+            /* Changes cursor to pointer */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            /* Adds transition effects */
+            margin-top: 20px;
+            /* Adds top margin */
+            box-sizing: border-box;
+            /* Includes padding in the width */
+        }
+
+        .upload-box button:hover {
+            background: #dfcc60;
+            /* Changes background color on hover */
+            transform: translateY(-3px);
+            /* Adds slight upward movement */
+        }
+
+        .upload-box button:active {
+            transform: translateY(0);
+            /* Removes movement when button is clicked */
+        }
+
+        /* Styling for the "Choose a file..." text inside the input */
+        .upload-box input[type="file"]::before {
+            content: 'Choose a file...';
+            /* Sets the text */
+            color: #007bff;
+            /* Sets the text color */
+            text-align: center;
+            /* Centers the text */
+            padding: 10px;
+            /* Adds padding */
+            display: inline-block;
+            /* Makes it inline-block */
+            font-weight: 500;
+            /* Makes the text semi-bold */
+        }
+
+
+        /* Container Styles */
+        .container-2 {
+            display: flex;
+            /* Uses flexbox for layout */
+            justify-content: flex-start;
+            /* Aligns items to the start (left) */
+            gap: 50px;
+            /* Adds space between items */
+            flex-wrap: wrap;
+            /* Allows items to wrap onto new lines when needed */
+        }
+
+        /* Project container styles */
+        .project-container {
+            display: flex;
+            /* Uses flexbox for layout */
+            flex-direction: column;
+            /* Arranges child items in a column */
+            width: 250px;
+            /* Sets fixed width */
+            height: 200px;
+            /* Sets fixed height */
+            align-items: center;
+            /* Centers items horizontally */
+            background-color: #ffffff;
+            /* Sets background color */
+            border-radius: 8px;
+            /* Rounds corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Adds shadow effect */
+            padding: 20px;
+            /* Adds padding inside the container */
+            margin: 0;
+            /* Removes margin */
+        }
+
+        /* Certificate container styles */
+        .certificate-container {
+            display: flex;
+            /* Uses flexbox for layout */
+            flex-direction: column;
+            /* Arranges child items in a column */
+            width: 250px;
+            /* Sets fixed width */
+            height: 200px;
+            /* Sets fixed height */
+            align-items: center;
+            /* Centers items horizontally */
+            background-color: #ffffff;
+            /* Sets background color */
+            border-radius: 8px;
+            /* Rounds corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Adds shadow effect */
+            padding: 20px;
+            /* Adds padding inside the container */
+            margin: 0;
+            /* Removes margin */
+        }
+
+        /* Popup Styles */
+        #overlay {
+            position: fixed;
+            /* Fixes the overlay to the screen */
+            top: 0;
+            /* Aligns at the top */
+            left: 0;
+            /* Aligns at the left */
+            width: 100%;
+            /* Takes full width */
+            height: 100%;
+            /* Takes full height */
+            background: rgba(0, 0, 0, 0.7);
+            /* Adds semi-transparent black background */
+            z-index: 1000;
+            /* Ensures it's on top of other content */
+            display: none;
+            /* Initially hides the overlay */
+        }
+
+        #popup {
+            position: fixed;
+            /* Fixes the popup to the screen */
+            color: #000;
+            /* Sets text color */
+            top: 50%;
+            /* Centers vertically */
+            left: 50%;
+            /* Centers horizontally */
+            transform: translate(-50%, -50%);
+            /* Corrects positioning to center the popup */
+            background: white;
+            /* Sets background color */
+            padding: 30px;
+            /* Adds padding */
+            border-radius: 10px;
+            /* Rounds corners */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            /* Adds shadow effect */
+            z-index: 1001;
+            /* Places it above the overlay */
+            width: 80%;
+            /* Sets width to 80% of the screen */
+            max-width: 400px;
+            /* Maximum width of 400px */
+            text-align: center;
+            /* Centers the text */
+            display: none;
+            /* Initially hides the popup */
+        }
+
+        #popup button {
+            margin-top: 20px;
+            /* Adds top margin */
+            padding: 8px 20px;
+            /* Adds padding */
+            background: #c9b75f;
+            /* Sets background color */
+            color: white;
+            /* Sets text color */
+            border: none;
+            /* Removes border */
+            border-radius: 5px;
+            /* Rounds corners */
+            cursor: pointer;
+            /* Changes cursor to pointer */
+            font-size: 16px;
+            /* Sets font size */
+        }
+
+        #popup button:hover {
+            background: #dfcc60;
+            /* Changes background color on hover */
+        }
+
+        /* Form Group Styles */
+        .form-group {
+            margin-bottom: 20px;
+            /* Adds bottom margin */
+        }
+
+        /* Label Styling */
+        .form-group label {
+            display: block;
+            /* Makes the label a block element */
+            font-weight: bold;
+            /* Makes the label bold */
+            margin-bottom: 8px;
+            /* Adds bottom margin */
+            color: #333;
+            /* Sets text color */
+        }
+
+        /* Input and Select Box Styling */
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            /* Sets input/select to take full width */
+            padding: 10px 12px;
+            /* Adds padding */
+            font-size: 16px;
+            /* Sets font size */
+            border: 1px solid #ccc;
+            /* Adds border */
+            border-radius: 8px;
+            /* Rounds corners */
+            box-sizing: border-box;
+            /* Ensures padding is included in width */
+            transition: border-color 0.3s;
+            /* Adds transition for border color */
+        }
+
+        /* Input Focus Effect */
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #007bff;
+            /* Changes border color on focus */
+            outline: none;
+            /* Removes outline */
+        }
+
+        /* Small Help Text */
+        .form-text.text-muted {
+            font-size: 14px;
+            /* Sets font size */
+            color: #777;
+            /* Sets text color */
+            margin-top: 5px;
+            /* Adds top margin */
+        }
+
+        /* Error Messages */
+        .form-group .errorlist {
+            color: #e74c3c;
+            /* Sets text color to red */
+            margin-top: 5px;
+            /* Adds top margin */
+            list-style: none;
+            /* Removes list style */
+            padding-left: 0;
+            /* Removes padding */
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #007bff;
+            /* Sets background color */
+            color: white;
+            /* Sets text color */
+            padding: 10px 20px;
+            /* Adds padding */
+            font-size: 16px;
+            /* Sets font size */
+            border: none;
+            /* Removes border */
+            border-radius: 8px;
+            /* Rounds corners */
+            cursor: pointer;
+            /* Changes cursor to pointer */
+            transition: background-color 0.3s;
+            /* Adds transition for background color */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            /* Changes background color on hover */
+        }
+
+        /* Fade-In Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                /* Starts with 0 opacity */
+                transform: translate(-50%, -60%);
+                /* Starts with translation */
+            }
+
+            to {
+                opacity: 1;
+                /* Ends with full opacity */
+                transform: translate(-50%, -50%);
+                /* Ends at center position */
+            }
+        }
+
+        /* Responsive Header */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                /* Changes layout to column */
+                align-items: center;
+                /* Centers items */
+                padding: 15px;
+                /* Adds padding */
+            }
+
+            .logo-container {
+                margin-bottom: 10px;
+                /* Adds bottom margin */
+            }
+
+            nav {
+                flex-wrap: wrap;
+                /* Allows navigation items to wrap */
+                justify-content: center;
+                /* Centers navigation items */
+                gap: 10px;
+                /* Adds space between navigation items */
+            }
+
+            .search-bar {
+                width: 100%;
+                /* Sets search bar width to 100% */
+                margin: 10px 0;
+                /* Adds top and bottom margin */
+            }
+
+            .right-menu {
+                flex-direction: column;
+                /* Changes layout to column */
+                gap: 10px;
+                /* Adds space between menu items */
+            }
+        }
+
+        /* Footer Section Styles */
+        .footer-section h2 {
+            text-align: left;
+            /* Aligns footer heading to the left */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    {% include 'header.html' %}
+    <!-- Includes the header part from the header.html file, typically containing navigation or logo -->
+
+    <main>
+        <h2>{{ project.title }}</h2>
+        <!-- Displays the title of the project dynamically fetched from the 'project' object -->
+        <h1>{{ project.project_name }}</h1>
+        <!-- Displays the project name dynamically fetched from the 'project' object -->
+
+        <p class="paragraph">{{ project.description }}</p>
+        <!-- Displays the project description dynamically fetched from the 'project' object -->
+
+        {% if project.link_text %} <!-- Conditional check to display a link only if the 'link_text' is available -->
+        <a href="#" class="btn">{{ project.link_text }}</a>
+        <!-- Displays a button with the link text. The href="#" can be replaced with an actual link -->
+        {% endif %}
+
+        <h2>Final Submission Guidelines</h2> <!-- Heading for the section showing the submission guidelines -->
+        <p class="paragraph">The final submission for this project should include the following components:</p>
+        <!-- Explanation paragraph for submission guidelines -->
+
+        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <!-- Flexbox layout for dividing the page into two sections -->
+            <!-- Left side content (dynamic requirements list) -->
+            <div style="flex: 1; padding-right: 20px;"> <!-- Left section for requirements list -->
+                <ul class="ul"> <!-- Unordered list for displaying the project requirements -->
+                    {% for requirement in project.requirements.all %}
+                    <!-- Loops through each requirement in the project -->
+                    <li class="li" style="width: 70rem;"> <!-- List item for each requirement -->
+                        <strong>{{ requirement.title }}:</strong> <!-- Displays the title of the requirement -->
+                        {{ requirement.description|safe }}
+                        <!-- Displays the description of the requirement. 'safe' makes it render HTML content if any -->
+                        {% if requirement.example_links %}
+                        <!-- Conditional check to display example links if available -->
+                        {{ requirement.example_links|safe }} <!-- Displays the example links dynamically -->
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Right side content (file uploads/viewing) -->
+            <div style="flex: 1;"> <!-- Right section, currently empty for file upload or viewing -->
+                <!-- File upload/viewing section would go here -->
+            </div>
+        </div>
+
+        <div class="upload-box"> <!-- A section to contain the file upload form -->
+            <h2>Upload Your Project</h2> <!-- Heading for the file upload section -->
+            <form method="post" enctype="multipart/form-data" action="{% url 'submit_project' project.id %}">
+                <!-- The form to upload the project, using POST method to submit the data -->
+                {% csrf_token %} <!-- CSRF token for security, to protect against Cross-Site Request Forgery attacks -->
+
+                <div class="form-group"> <!-- Form group for the course title dropdown -->
+                    <label for="id_course_title">Course Title:</label> <!-- Label for the course title dropdown -->
+                    {{ form.course_title }} <!-- Dynamically renders the course title dropdown from the form object -->
+                    {% if form.course_title.errors %}
+                    <!-- Conditional check to display errors for the course title field -->
+                    <ul> <!-- Unordered list for displaying errors -->
+                        {% for error in form.course_title.errors %}
+                        <!-- Loops through each error for the course title -->
+                        <li>{{ error }}</li> <!-- Displays the error message -->
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group"> <!-- Form group for the project file upload -->
+                    <label for="id_project_file">Project File:</label> <!-- Label for the project file upload -->
+                    {{ form.project_file }} <!-- Renders the file upload field dynamically -->
+                    {{ form.project_file.errors }} <!-- Displays any errors related to the project file upload -->
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit for Approval</button>
+                <!-- Submit button to submit the form for approval -->
+
+                {% if form.non_field_errors %}
+                <!-- Conditional check for non-field errors (errors not tied to a specific form field) -->
+                <div class="alert alert-danger"> <!-- Div container for displaying errors -->
+                    {% for error in form.non_field_errors %} <!-- Loops through all non-field errors -->
+                    {{ error }} <!-- Displays each error -->
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </form> <!-- End of the form -->
+        </div> <!-- End of the upload-box section -->
+    </main>
+
+    <!-- Popup overlay for success message -->
+    <div id="overlay" style="display:none;"></div>
+    <!-- Hidden overlay element for displaying a background when the popup is shown -->
+
+    <div id="popup" style="display:none;"> <!-- Hidden popup element for displaying success message -->
+        <p id="popupMessage">Project submitted successfully!</p>
+        <!-- Success message to show after project submission -->
+        <button onclick="closePopup()">OK</button> <!-- Button to close the popup -->
+    </div>
+
+    {% include 'footer.html' %}
+    <!-- Includes the footer part from the footer.html file, typically containing footer information -->
+
+
+    <!-- courses end here  -->
+    <script>
+
+        // --------------------File Upload Form Handling----------------------------------------
+
+
+        document.addEventListener("DOMContentLoaded", function () {  // Wait until the DOM is fully loaded before running the script
+            // Check for successful submission in URL
+            const urlParams = new URLSearchParams(window.location.search);  // Get the URL query parameters
+            if (urlParams.get('submitted') === 'true') {  // Check if the 'submitted' parameter is set to 'true' in the URL
+                showPopup("Your project has been submitted successfully!");  // Show a success popup message if the project was submitted
+            }
+
+            // File upload form handling
+            const fileInput = document.querySelector("input[type='file']");  // Get the file input element for file uploads
+            const uploadForm = document.querySelector("form[action*='submit_AI_project']");  // Get the form element that has an action attribute containing 'submit_AI_project'
+            const submitBtn = uploadForm?.querySelector("button[type='submit']");  // Get the submit button inside the form, if the form exists
+
+            if (uploadForm && submitBtn) {  // Check if both the form and the submit button exist
+                uploadForm.addEventListener("submit", function (event) {  // Add an event listener to the form's submit event
+                    if (fileInput.files.length === 0) {  // Check if no file is selected for upload
+                        event.preventDefault();  // Prevent form submission if no file is selected
+                        showPopup("⚠️ Please upload a project file before submitting.");  // Show a warning popup message
+                        return;
+                    }
+
+                    // Show loading state if needed
+                    submitBtn.disabled = true;  // Disable the submit button to prevent multiple submissions
+                    submitBtn.textContent = "Submitting...";  // Change the button text to indicate submission is in progress
+                });
+            }
+
+            // ---------------------Newsletter form handling (keep your existing code)---------------------
+
+
+
+
+            const newsletterForm = document.getElementById('newsletter-form');  // Get the newsletter form by its ID
+            const newsletterMessage = document.getElementById('newsletter-message');  // Get the element to display messages after form submission
+
+            if (newsletterForm && newsletterMessage) {  // Check if both the form and message element exist
+                newsletterForm.addEventListener('submit', function (e) {  // Add a submit event listener to the newsletter form
+                    e.preventDefault();  // Prevent the default form submission behavior
+
+                    const email = document.getElementById('newsletter-email').value;  // Get the email value from the input field
+                    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;  // Get the CSRF token from the form for security
+
+                    fetch("{% url 'ajax_subscribe_newsletter' %}", {  // Make a fetch request to the 'ajax_subscribe_newsletter' URL
+                        method: 'POST',  // Use the POST method to send data
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',  // Set the content type for the request
+                            'X-CSRFToken': csrfToken,  // Set the CSRF token header for security
+                        },
+                        body: new URLSearchParams({ email: email })  // Send the email as part of the request body
+                    })
+                        .then(response => response.json())  // Parse the JSON response from the server
+                        .then(data => {  // Handle the response data
+                            newsletterMessage.textContent = data.message;  // Display the response message in the newsletter message element
+                            newsletterMessage.style.color =
+                                data.status === 'success' ? 'green' :  // If the status is success, set the text color to green
+                                    (data.status === 'info' ? 'orange' : 'red');  // If the status is info, set the color to orange, otherwise red for error
+                            if (data.status === 'success') {  // If the status is success, reset the form
+                                newsletterForm.reset();
+                            }
+                        })
+                        .catch(error => {  // Catch any errors during the fetch request
+                            console.error('Error:', error);  // Log the error to the console
+                            newsletterMessage.textContent = 'Something went wrong. Please try again.';  // Display an error message
+                            newsletterMessage.style.color = 'red';  // Set the text color to red for errors
+                        });
+                });
+            }
+        });
+
+
+
+        // ----------------------------Universal popup handling---------------------------------------
+
+
+
+        function showPopup(message) {  // Function to show a popup with a custom message
+            const popup = document.getElementById("popup");  // Get the popup element by ID
+            const overlay = document.getElementById("overlay");  // Get the overlay element by ID
+            const popupMessage = document.getElementById("popupMessage");  // Get the popup message element by ID
+
+            if (popup && overlay && popupMessage) {  // Check if all the necessary elements exist
+                popupMessage.textContent = message;  // Set the message to be displayed in the popup
+                popup.style.display = "block";  // Show the popup
+                overlay.style.display = "block";  // Show the overlay to dim the background
+
+                // Add click handler to close when clicking overlay
+                overlay.onclick = function () {  // Close the popup when clicking the overlay
+                    closePopup();
+                };
+            }
+        }
+
+        function closePopup() {  // Function to close the popup
+            const popup = document.getElementById("popup");  // Get the popup element by ID
+            const overlay = document.getElementById("overlay");  // Get the overlay element by ID
+
+            if (popup && overlay) {  // Check if both elements exist
+                popup.style.display = "none";  // Hide the popup
+                overlay.style.display = "none";  // Hide the overlay
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

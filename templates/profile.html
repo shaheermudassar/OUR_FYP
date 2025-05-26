@@ -1,0 +1,927 @@
+{% load static %} <!-- Load static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Align Skill</title>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/student-panel-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/edit-profile.css' %}">
+    <style>
+        /* Search box container styling */
+        .search-box {
+            display: flex;
+            /* Align items horizontally in a row */
+            align-items: center;
+            /* Vertically center the items in the box */
+            background: white;
+            /* Set background color to white */
+            border-radius: 25px;
+            /* Round the corners of the search box */
+            padding: 10px;
+            /* Add padding around the box */
+            padding-left: 15px;
+            /* Extra space on the left side */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for 3D effect */
+        }
+
+        /* Input field inside the search box */
+        .search-box input {
+            border: none;
+            /* Remove border */
+            outline: none;
+            /* Remove focus outline */
+            padding: 10px;
+            /* Add padding inside the input */
+            font-size: 16px;
+            /* Set font size */
+            width: 300px;
+            /* Fixed width for the input */
+            height: 0;
+            /* Height of input set to 0, will stretch with padding */
+        }
+
+        /* Icon inside the search box */
+        .search-box i {
+            font-size: 13px;
+            /* Smaller font size for the icon */
+            color: gray;
+            /* Gray color for the icon */
+            margin-right: 14px;
+            /* Space to the right of the icon */
+        }
+
+        /* Profile section styling */
+        .profile {
+            display: flex;
+            /* Use flexbox layout */
+            flex-direction: column;
+            /* Arrange items vertically */
+            align-items: center;
+            /* Center items horizontally */
+            justify-content: center;
+            /* Optionally center items vertically */
+        }
+
+        /* Text-based avatar styling */
+        .text-avatar {
+            width: 70px;
+            /* Set width of the avatar */
+            height: 70px;
+            /* Set height of the avatar */
+            background-color: white;
+            /* White background for avatar */
+            color: black;
+            /* Text color inside avatar */
+            font-weight: bold;
+            /* Bold text inside avatar */
+            font-size: 24px;
+            /* Font size for text */
+            border-radius: 50%;
+            /* Make the avatar circular */
+            display: flex;
+            /* Use flexbox to center content */
+            align-items: center;
+            /* Vertically center the text */
+            justify-content: center;
+            /* Horizontally center the text */
+            text-transform: uppercase;
+            /* Capitalize the text */
+            margin-bottom: 10px;
+            /* Space between avatar and username */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Soft shadow around avatar */
+        }
+
+        /* Username styling */
+        .username {
+            font-size: 15px;
+            /* Set font size for the username */
+            font-weight: bold;
+            /* Make the username bold */
+            color: black;
+            /* Text color for the username */
+            margin-top: 5px;
+            /* Small space above the username */
+        }
+
+        /* Flexbox layout with items spaced apart */
+        .flex {
+            display: flex;
+            /* Use flexbox layout */
+            align-items: center;
+            /* Vertically align items in the center */
+            justify-content: space-between;
+            /* Distribute items with space between */
+            gap: 25rem;
+            /* Large gap between items (optional) */
+        }
+
+        /* Error alert styling */
+        .alert-error {
+            background-color: #e74c3c;
+            /* Red background for error alert */
+            color: white;
+            /* White text color */
+            padding: 10px;
+            /* Padding around the alert */
+            border-radius: 5px;
+            /* Rounded corners */
+            margin-bottom: 10px;
+            /* Space below the alert */
+        }
+
+        /* Success alert styling */
+        .alert-success {
+            background-color: #2ecc71;
+            /* Green background for success alert */
+            color: white;
+            /* White text color */
+            padding: 10px;
+            /* Padding around the alert */
+            border-radius: 5px;
+            /* Rounded corners */
+            margin-bottom: 10px;
+            /* Space below the alert */
+        }
+
+        /* Overlay styling for pop-ups */
+        .overlay {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Fix position to viewport */
+            top: 0;
+            /* Position at the top */
+            left: 0;
+            /* Position at the left */
+            width: 100%;
+            /* Full width of the viewport */
+            height: 100%;
+            /* Full height of the viewport */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent black background */
+            z-index: 9998;
+            /* Place behind the pop-up */
+        }
+
+        /* Pop-up message box styling */
+        .message {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Fixed position for pop-up */
+            top: 50%;
+            /* Center vertically */
+            left: 50%;
+            /* Center horizontally */
+            transform: translate(-50%, -50%);
+            /* Adjust for true center */
+            padding: 20px 40px;
+            /* Padding inside the message box */
+            background-color: #c9b75f;
+            /* Custom background color */
+            color: white;
+            /* White text color */
+            border-radius: 8px;
+            /* Rounded corners */
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            /* Soft shadow for 3D effect */
+            font-size: 16px;
+            /* Text size */
+            font-weight: bold;
+            /* Bold text */
+            text-align: center;
+            /* Center the text */
+            z-index: 9999;
+            /* Place above the overlay */
+        }
+
+        /* Error-specific pop-up message styling */
+        .message.error {
+            background-color: #e74c3c;
+            /* Red background for error messages */
+        }
+
+        /* Toast notification styling */
+        .toast-notification {
+            position: fixed;
+            /* Fixed position for notification */
+            top: 50%;
+            /* Center vertically */
+            left: 50%;
+            /* Center horizontally */
+            transform: translate(-50%, -50%) translateY(-30px);
+            /* Center both ways with slight vertical offset */
+            padding: 30px 40px;
+            /* Increased padding for a larger notification */
+            font-size: 1.5rem;
+            /* Larger font size */
+            border-radius: 10px;
+            /* Larger rounded corners */
+            color: white;
+            /* White text color */
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            /* Larger shadow for prominence */
+            z-index: 1000;
+            /* High z-index for visibility */
+            display: flex;
+            /* Use flexbox for layout */
+            align-items: center;
+            /* Vertically center the items */
+            justify-content: space-between;
+            /* Space between content */
+            max-width: 600px;
+            /* Maximum width */
+            min-width: 350px;
+            /* Minimum width */
+            opacity: 0;
+            /* Start with no opacity */
+            transition: all 0.4s ease;
+            /* Smooth transition for showing and hiding */
+            text-align: center;
+            /* Center text inside the notification */
+        }
+
+        /* Show the toast notification */
+        .toast-notification.show {
+            opacity: 1;
+            /* Make it fully visible */
+            transform: translate(-50%, -50%) translateY(0);
+            /* Move to the final position */
+        }
+
+        /* Success toast notification styling */
+        .toast-success {
+            background: #4CAF50;
+            /* Green background for success */
+        }
+
+        /* Error toast notification styling */
+        .toast-error {
+            background: #F44336;
+            /* Red background for error */
+        }
+
+        /* Close button inside the toast notification */
+        .toast-close {
+            background: transparent;
+            /* Transparent background */
+            border: none;
+            /* No border */
+            color: white;
+            /* White text color */
+            font-size: 1.6rem;
+            /* Larger font for the close icon */
+            margin-left: 20px;
+            /* Space between close icon and text */
+            cursor: pointer;
+            /* Change cursor on hover */
+            padding: 0 10px;
+            /* Padding around the button */
+        }
+
+        /* Popup overlay styling */
+        .message-overlay {
+            position: fixed;
+            /* Fixed position */
+            top: 0;
+            /* Position at the top */
+            left: 0;
+            /* Position at the left */
+            width: 100vw;
+            /* Full width of the viewport */
+            height: 100vh;
+            /* Full height of the viewport */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Dimmed background */
+            display: flex;
+            /* Use flexbox layout */
+            align-items: center;
+            /* Vertically center the popup */
+            justify-content: center;
+            /* Horizontally center the popup */
+            z-index: 9999;
+            /* High z-index to overlay other content */
+        }
+
+        /* Popup message styling */
+        .message-popup {
+            position: relative;
+            /* Relative position for internal positioning */
+            background: white;
+            /* Custom background color */
+            color: black;
+            /* Black text color */
+            padding: 20px 40px;
+            /* Padding around the message */
+            border-radius: 10px;
+            /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            /* Soft shadow for 3D effect */
+            font-size: 18px;
+            /* Larger font size */
+            max-width: 90%;
+            /* Max width of 90% of screen */
+            width: fit-content;
+            /* Auto width based on content */
+            text-align: center;
+            /* Center the text */
+        }
+
+        /* Close button for the popup */
+        .close-btn {
+            position: absolute;
+            /* Position the close button inside the popup */
+            top: 10px;
+            /* Top position */
+            right: 15px;
+            /* Right position */
+            font-size: 24px;
+            /* Larger font size */
+            font-weight: bold;
+            /* Bold text */
+            color: #888;
+            /* Grey color */
+            cursor: pointer;
+            /* Pointer cursor on hover */
+        }
+
+        /* Hover effect for the close button */
+        .close-btn:hover {
+            color: #000;
+            /* Change color to black on hover */
+        }
+/* Styling for the search box container */
+        .search-box {
+            display: flex;
+            /* Flexbox layout to align items horizontally */
+            align-items: center;
+            /* Vertically center the contents of the search box */
+            background: white;
+            /* Set background color to white */
+            border-radius: 25px;
+            /* Rounded corners for the search box */
+            padding: 10px;
+            /* Padding around the content */
+            padding-left: 15px;
+            /* Extra padding on the left side for spacing */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow effect to create depth */
+        }
+
+        /* Styling for the search input field */
+        .search-box input {
+            border: none;
+            /* Remove the default border */
+            outline: none;
+            /* Remove the outline when the input is focused */
+            padding: 10px;
+            /* Padding inside the input field */
+            font-size: 16px;
+            /* Set font size for the input text */
+            width: 300px;
+            /* Fixed width for the input field */
+            height: 0;
+            /* This seems incorrect, as it will make the input height zero */
+        }
+
+        /* Styling for the search icon */
+        .search-box i {
+            font-size: 13px;
+            /* Set the icon font size */
+            color: gray;
+            /* Set the icon color to gray */
+            margin-right: 14px;
+            /* Add some spacing between the icon and the input field */
+        }
+
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Child items ko horizontally center karega */
+            justify-content: center;
+            /* (optional) Agar vertical bhi center chahte ho */
+        }
+
+        .text-avatar {
+            width: 70px;
+            height: 70px;
+            background-color: white;
+            /* Your golden color */
+            color: black;
+            font-weight: bold;
+            font-size: 24px;
+            border-radius: 50%;
+            /* Make it round */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            /* Space between avatar and username */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Little shadow for nice look */
+        }
+
+        .username {
+            font-size: 15px;
+            /* یا جتنا بڑا چاہیے اتنا */
+            font-weight: bold;
+            /* اگر تھوڑا موٹا (bold) کرنا ہو */
+            color: black;
+            /* یا جو بھی رنگ چاہیے */
+            margin-top: 5px;
+            /* تھوڑا space اوپر سے اگر چاہیے */
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Automatically puts space between children */
+            gap: 25rem;
+            /* optional: adds extra gap between items */
+        }
+
+        @media (max-width: 768px) {
+            .search-box {
+                display: none;
+                /* Make sure the search box is displayed as flex */
+                width: 100%;
+                /* Make the search box full width */
+                padding: 8px 15px;
+                /* Adjust padding for better spacing */
+                margin-right: 0;
+                /* Remove right margin */
+            }
+
+            .search-box input {
+                width: 100%;
+                /* Make the input field take full width */
+                font-size: 14px;
+                /* Reduce font size for smaller screens */
+            }
+
+            .search-box i {
+                font-size: 12px;
+                /* Adjust icon size */
+                margin-right: 10px;
+                /* Adjust spacing between icon and input */
+            }
+        }
+
+       @media (max-width: 768px) {
+
+    /* Header Styling - remove unnecessary margin */
+   .header .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allow flex items to wrap in smaller screens */
+    gap: 15px; /* Adjust the gap between items */
+}
+.header .flex .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+    /* Button Styling */
+   /* For small screens */
+@media (max-width: 768px) {
+    .btn {
+        font-size: 1rem;
+        padding: 10px 20px; /* Adjust padding for better button size */
+        width: auto; /* Ensure width is not fixed */
+        box-sizing: border-box;
+        display: inline-block; /* Make it fit better in the header */
+        margin: 10px 0; /* Adjust margin for spacing */
+    }
+}
+       }
+        /* Pop-up fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                /* Start with invisible */
+                transform: translateY(-20px);
+                /* Start with a slight upward offset */
+            }
+
+            to {
+                opacity: 1;
+                /* Fully visible */
+                transform: translateY(0);
+                /* Reset to original position */
+            }
+        }
+
+        /* Pop-up fade-out animation */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                /* Start fully visible */
+                transform: translateY(0);
+                /* Start at normal position */
+            }
+
+            to {
+                opacity: 0;
+                /* Fade out */
+                transform: translateY(20px);
+                /* Slight downward movement */
+            }
+        }
+
+        /* Apply fade-in and fade-out animations */
+        .show-popup {
+            display: block;
+            /* Show the pop-up */
+            animation: fadeIn 0.5s ease-out;
+            /* Apply fade-in animation */
+        }
+
+        .hide-popup {
+            animation: fadeOut 0.5s ease-out;
+            /* Apply fade-out animation */
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- header start  -->
+    <header class="header">
+        <section class="flex"> <!-- Flexbox container to arrange the header elements -->
+
+            <!-- Logo and brand name section -->
+            <div class="logo-container">
+                <!-- Static image logo with alt text for accessibility -->
+                <img src="{% static 'images/logo website.png' %}" alt="Logo" class="logo">
+                <!-- Brand name text next to the logo -->
+                <span class="logoname">AlignSkills</span>
+            </div>
+
+            <!-- Search form to search courses -->
+            <form id="searchForm" action="{% url 'search_courses' %}" method="GET">
+                <div class="search-box" id="search_box"> <!-- Search box container -->
+                    <!-- Search icon -->
+                    <i class="fas fa-search"></i>
+                    <!-- Text input for course search, it has a placeholder and autocomplete turned off -->
+                    <input type="text" id="courseSearch" name="q" placeholder="Search courses..." autocomplete="off">
+                    <!-- Container to show search results dynamically (can be populated with JS) -->
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+            </form>
+
+            <!-- User and menu icons -->
+            <div class="icon">
+                <!-- Menu icon (hidden by default) -->
+                <div id="menu-btn" class="fas fa-bars" style="display: none;"></div>
+                <!-- Search icon (hidden by default) -->
+                <div id="search-btn" class="fas fa-search" style="display: none;"></div>
+                <!-- User profile icon (hidden by default) -->
+                <div id="user-btn" class="fas fa-user" style="display: none;"></div>
+                <!-- Logout link -->
+                <a href="{% url 'logout' %}" class="inline-btn">Logout</a>
+            </div>
+
+        </section>
+    </header>
+
+    <!-- header end -->
+
+    <!-- slide bar section  start -->
+    <!-- Sidebar Section -->
+    <div class="slide-bar">
+        <!-- Close Button for the Slide Bar -->
+        <div class="close-slide-bar" id="close-slide-btn">
+            <i class="fas fa-times"></i>
+        </div>
+
+        <!-- Profile Section inside the Sidebar -->
+        <div class="profile">
+            <!-- Display the user's avatar with the first two letters of the username in uppercase -->
+            <div class="text-avatar">
+                {{ user.username|slice:":2"|upper }}
+            </div>
+            <!-- Display the full username of the user -->
+            <span class="username">{{ user.username }}</span>
+            <!-- Link to the user’s profile page -->
+            <a href="/student-panel" class="btn">My profile</a>
+        </div>
+
+        <!-- Navbar Links inside the Sidebar -->
+        <nav class="navbar">
+            <a href="/"><i class="fas fa-home"></i><span>home</span></a>
+            <a href="/about-us"><i class="fas fa-question"></i><span>about us</span></a>
+            <a href="/courses"><i class="fas fa-graduation-cap"></i><span>courses</span></a>
+            <a href="/contact-us"><i class="fas fa-headset"></i><span>contact us</span></a>
+        </nav>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <!-- User Profile Section -->
+        <div class="profile">
+            <!-- Display the user’s avatar with the first two letters of the username -->
+            <div class="text-avatar">
+                {{ user.username|slice:":2"|upper }}
+            </div>
+            <!-- Display the user's username or "Guest" if no user is logged in -->
+            <h3>{{ user.username|default:"Guest" }}</h3>
+            <span>Student</span> <!-- Role or label (hardcoded as "Student" in this case) -->
+        </div>
+
+
+
+
+
+        <!-- -----------------------Profile Settings Heading--------------------------------- -->
+        <h1>Profile Settings</h1>
+
+        <!-- Tabs Section for Profile Settings -->
+        <div class="tabs">
+            <!-- Personal Information Tab -->
+            <div class="tab-container">
+                <!-- Radio button to select the "Personal Information" tab -->
+                <input type="radio" id="basic-info-tab" name="tab" class="tab-radio" checked>
+                <label for="basic-info-tab" class="tab">Personal Information</label>
+
+                <!-- Content for the "Personal Information" Tab -->
+                <div class="tab-content">
+                    <h3>Personal Info</h3>
+
+                    <!-- Form for updating personal information -->
+                    <form id="profile-form" method="POST" action="{% url 'edit_profile_api' %}" class="form-group">
+                        <!-- CSRF token for security -->
+                        {% csrf_token %}
+
+                        <!-- Input field to change username -->
+                        <label for="username">Change Username</label>
+                        <input type="text" name="username" value="{{ user.username }}" required class="form-control">
+
+                        <!-- Input field to change email -->
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" value="{{ user.email }}" class="form-control">
+                        </div>
+
+                        <!-- Submit button to save the changes -->
+                        <button type="submit" class="btn">Save</button>
+                    </form>
+                </div>
+            </div>
+    
+
+
+
+
+
+
+
+
+
+        <!-- ------------Popup Message Container for notifications or messages------------------ -->
+        {% if messages %}
+        <div class="message-overlay" id="messageOverlay">
+            {% for message in messages %}
+            <div class="message-popup alert alert-{{ message.tags }}">
+                <!-- Close button to dismiss the message -->
+                <span class="close-btn" onclick="closeMessage()">&times;</span>
+                <!-- Display the message content -->
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+
+
+
+
+
+
+
+    <!-- ---------------------------Change Password Tab---------------------------------------- -->
+    <div class="tab-container">
+        <!-- Radio button to select the "Change Password" tab -->
+        <input type="radio" id="change-password-tab" name="tab" class="tab-radio">
+        <label for="change-password-tab" class="tab">Change Password</label>
+
+        <div class="tab-content">
+            <h3>Change Password</h3>
+
+            <!-- Form to change the user's password -->
+            <form method="POST" action="{% url 'change_password' %}">
+                <!-- CSRF token for security -->
+                {% csrf_token %}
+
+                <!-- Old password input field -->
+                <div class="form-group">
+                    <label for="old_password">Old Password</label>
+                    <input type="password" name="old_password" id="old_password" required
+                        class="form-control {% if form.old_password.errors %}is-invalid{% endif %}">
+
+                    <!-- Display validation errors for the old password -->
+                    {% if form.old_password.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.old_password.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+
+                <!-- New password input field -->
+                <div class="form-group">
+                    <label for="new_password1">New Password</label>
+                    <input type="password" name="new_password1" id="new_password1" required
+                        class="form-control {% if form.new_password1.errors %}is-invalid{% endif %}">
+
+                    <!-- Display validation errors for the new password -->
+                    {% if form.new_password1.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.new_password1.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+
+                <!-- Confirm new password input field -->
+                <div class="form-group">
+                    <label for="new_password2">Confirm New Password</label>
+                    <input type="password" name="new_password2" id="new_password2" required
+                        class="form-control {% if form.new_password2.errors %}is-invalid{% endif %}">
+
+                    <!-- Display non-field validation errors (e.g., passwords don't match) -->
+                    {% if form.non_field_errors %}
+                    <ul class="errorlist">
+                        {% for error in form.non_field_errors %}
+                        <li style="color: red;">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+
+                <!-- Submit button to update the password -->
+                <button type="submit" class="btn" style="background-color: #c9b75f;">Update Password</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+    <script>
+        // Auto-hide messages after 5 seconds
+  function closeMessage() {
+        const overlay = document.getElementById('messageOverlay');
+        if (overlay) {
+            overlay.style.display = 'none';  // Hide the entire overlay
+        }
+    }
+
+    // Auto-close logic after 5 seconds
+    document.addEventListener('DOMContentLoaded', function () {
+        const overlay = document.getElementById('messageOverlay');
+        if (overlay) {
+            setTimeout(function () {
+                overlay.style.display = 'none';  // Auto-hide the whole overlay
+            }, 5000);
+        }
+    });
+
+//  -------------------------profile update form-------------------------------------------
+
+
+
+       // Attach event listener to the profile form when it is submitted
+document.getElementById('profile-form').addEventListener('submit', async function (e) {
+
+    // Prevent the form from submitting the traditional way
+    e.preventDefault();
+
+    // Access the form element and the submit button
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML; // Save original button text
+console.log(form.querySelector('[name=csrfmiddlewaretoken]'));  // null تو نہیں؟
+console.log(form.querySelector('[name=csrfmiddlewaretoken]').value);  // value empty تو نہیں؟
+    try {
+        // Show loading state on the submit button (disable and change text)
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+        // Make the AJAX request using fetch
+        const response = await fetch(form.action, {
+            method: 'POST', // POST request to the server
+            body: new FormData(form), // Send form data as body
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest', // Indicate this is an AJAX request
+                'Accept': 'application/json',  // Expect JSON response from the server
+                'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value // Include CSRF token for security
+            }
+        });
+
+        // Check if the response is JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            const errorHtml = await response.text();
+            console.error('Server returned HTML:', errorHtml);
+            throw new Error('Server configuration error - contact support');
+        }
+
+        // Parse the JSON response
+        const data = await response.json();
+
+        // If the response is not OK, throw an error
+        if (!response.ok) {
+            throw new Error(data.message || 'Update failed');
+        }
+
+        // On successful update, update the UI with new username and initials
+        document.querySelectorAll('.username, h3').forEach(el => {
+            el.textContent = data.new_username;
+        });
+
+        document.querySelectorAll('.text-avatar').forEach(el => {
+            el.textContent = data.initials;
+        });
+
+        // Show a success toast notification
+        showToast('success', data.message);
+
+    } catch (error) {
+        // Handle errors
+        console.error('Error:', error);
+        showToast('error', error.message || 'Request failed');
+
+        // If it's a server configuration error, log additional details
+        if (error.message.includes('configuration error')) {
+            console.error('Full error details:', error);
+        }
+    } finally {
+        // Restore the submit button's original state (enabled and original text)
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+    }
+});
+
+
+
+// Toast notification function to show success or error messages
+function showToast(type, message) {
+    // Remove any existing toast notifications
+    const existingToasts = document.querySelectorAll('.toast-notification');
+    existingToasts.forEach(toast => toast.remove());
+
+    // Create a new toast element
+    const toast = document.createElement('div');
+    toast.className = `toast-notification toast-${type}`; // Set class based on type (success/error)
+    toast.innerHTML = `
+        <div class="toast-message">${message}</div>
+        <button class="toast-close">&times;</button>
+    `;
+
+    // Add the toast to the document body
+    document.body.appendChild(toast);
+
+    // Show the toast with a small animation delay
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+
+    // Remove the toast after 5 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+
+    // Add manual close functionality
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    });
+}
+
+    </script>
+</body>
+
+</html>

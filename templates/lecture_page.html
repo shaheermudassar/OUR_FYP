@@ -1,0 +1,46 @@
+{% load static %}  <!-- Load static files (like CSS, JS) -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">  <!-- Character encoding for the page -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- For responsive design -->
+    <title>{{ chapter.title }} - {{ course.title }} Lecture Topics</title>  <!-- Dynamic page title displaying chapter and course title -->
+    <link rel="stylesheet" href="{% static 'css/lecture-page-style.css' %}">  <!-- Linking CSS for lecture page styling -->
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">  <!-- Linking CSS for chatbot styling -->
+
+</head>
+<body>
+    <div class="page-container">  <!-- Main container for the page content -->
+        <header class="header">
+            <h1>{{ chapter.title }} Lecture Topics</h1>  <!-- Dynamic header displaying chapter and course title -->
+        </header>
+
+        <main class="topics-container">  <!-- Main section displaying lecture topics -->
+            {% for lecture in lectures %}  <!-- Loop through each lecture in the lectures list -->
+            <div class="topic-card">  <!-- Topic card container -->
+                <div class="card-icon">&#128187;</div>  <!-- Icon for lecture topic (laptop icon) -->
+                <a href="{% url 'lecture_content' lecture.id %}" class="topic-title">  <!-- Link to lecture content page -->
+                    {{ lecture.title }}  <!-- Display the title of the lecture -->
+                </a>
+            </div>
+            {% endfor %}  <!-- End of the lecture loop -->
+
+            {% if quiz %}  <!-- Check if there is a quiz associated with the chapter -->
+            <div class="topic-card">  <!-- Quiz card container -->
+                <div class="card-icon">&#128247;</div>  <!-- Icon for quiz (camera icon) -->
+                <a href="{% url 'quiz_page' quiz.id %}" class="topic-title">Quiz</a>  <!-- Link to the quiz page -->
+            </div>
+            {% endif %}  <!-- End of the quiz check -->
+        
+        </main>
+
+        <footer class="footer" style="position: absolute; right: 0; bottom: 0; width: 24%; text-align: right; margin-bottom: 1rem; margin-right: 1rem;">  <!-- Footer section with specific positioning -->
+            <p>&copy; 2025 Align Skills. All rights reserved.</p>  <!-- Copyright information -->
+        </footer>
+        
+        {% include 'includes/chatbot.html' %}  <!-- Include chatbot component from another HTML file -->
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My courses</title>
+  <style>
+    /* Dashboard Background */
+    body {
+      background: linear-gradient(to right, #f8f9fa, #e0eafc);
+      /* Smooth gradient background from light gray to blue */
+      font-family: 'Poppins', sans-serif;
+      /* Font style for the page */
+      margin: 0;
+      /* Remove default margin */
+      padding: 0;
+      /* Remove default padding */
+    }
+
+    .dashboard-container {
+      max-width: 1200px;
+      /* Maximum width for the dashboard container */
+      margin: 3rem auto;
+      /* Center the container with margin */
+      padding: 2rem;
+      /* Add padding inside the container */
+      background: #ffffff;
+      /* White background */
+      border-radius: 16px;
+      /* Rounded corners */
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      /* Soft shadow around the container */
+    }
+
+    h2 {
+      text-align: center;
+      /* Center the heading text */
+      margin-bottom: 2rem;
+      /* Add space below the heading */
+      font-size: 2.5rem;
+      /* Large font size for the heading */
+      color: #47445e;
+      /* Dark color for the heading text */
+    }
+
+    .enrollment-stats {
+      background: #f1f3f5;
+      /* Light gray background for the stats section */
+      padding: 1.2rem;
+      /* Padding inside the stats box */
+      border-radius: 8px;
+      /* Rounded corners for the stats box */
+      margin-bottom: 2rem;
+      /* Add space below the stats section */
+      text-align: center;
+      /* Center the text inside */
+      font-size: 1.2rem;
+      /* Medium font size for the stats text */
+      color: #333;
+      /* Dark gray text color */
+    }
+
+    /* Courses Grid */
+    .course-list ul {
+      display: grid;
+      /* Use grid layout for the course list */
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      /* Automatically adjust columns based on screen size */
+      gap: 2rem;
+      /* Space between grid items */
+      list-style: none;
+      /* Remove default list style */
+      padding: 0;
+      /* Remove default padding */
+      margin: 0;
+      /* Remove default margin */
+    }
+
+    .course-card {
+      background: #ffffff;
+      /* White background for each course card */
+      padding: 1.5rem;
+      /* Padding inside the course card */
+      border-radius: 12px;
+      /* Rounded corners for the course card */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      /* Soft shadow around the course card */
+      transition: all 0.3s ease;
+      /* Smooth transition effect for hover state */
+      text-align: center;
+      /* Center the text inside the course card */
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+      /* Slight upward movement on hover */
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+      /* Darker shadow on hover */
+    }
+
+    .course-card h4 {
+      color: #2c3e50;
+      /* Dark color for the course title */
+      margin-bottom: 0.8rem;
+      /* Add space below the title */
+    }
+
+    .course-card p {
+      color: #6c757d;
+      /* Medium gray color for the course description */
+      margin-bottom: 1rem;
+      /* Space below the description */
+      font-size: 0.95rem;
+      /* Slightly smaller font size for the description */
+    }
+
+    /* View Course Button */
+    .course-btn {
+      display: inline-block;
+      /* Display the button inline */
+      background: #c9b75f;
+      /* Blue background for the button */
+      color: white;
+      /* White text for the button */
+      padding: 0.6rem 1.2rem;
+      /* Padding inside the button */
+      border-radius: 25px;
+      /* Rounded corners for the button */
+      text-decoration: none;
+      /* Remove underline from the button */
+      transition: background 0.3s;
+      /* Smooth background transition on hover */
+      font-weight: 500;
+      /* Medium font weight for the button text */
+    }
+
+    .course-btn:hover {
+      background: #dfcc60;
+      /* Darker blue background on hover */
+    }
+
+    /* No Courses Style */
+    .no-courses {
+      text-align: center;
+      /* Center the text */
+      margin-top: 2rem;
+      /* Add space on top */
+      color: #6c757d;
+      /* Medium gray color for the "No courses" message */
+    }
+  </style>
+</head>
+
+<body>
+  {% include 'header.html' %} <!-- Header file ko include karta hai jo page ke top pe display hota hai -->
+
+  <!-- Dashboard Container: Main content container for displaying courses -->
+  <div class="dashboard-container">
+    <h2>My Enrolled Courses</h2> <!-- Page ka title jo display hota hai -->
+
+    <!-- Enrollment Stats: Shows the total number of courses the user is enrolled in -->
+    <div class="enrollment-stats">
+      <p>You are currently enrolled in <strong>{{ enrolled_count }}</strong> course{{ enrolled_count|pluralize }}.</p>
+      <!-- Displaying the number of enrolled courses dynamically using the `enrolled_count` variable -->
+      <!-- The `pluralize` filter ensures the word 'course' is pluralized if needed -->
+    </div>
+
+    <!-- Check if there are any enrolled courses -->
+    {% if enrolled_courses %}
+    <!-- If there are enrolled courses, display them in a list -->
+    <div class="course-list">
+      <ul>
+        {% for enrollment in enrolled_courses %}
+        <li class="course-card">
+          <!-- Displaying course image if available -->
+          {% if enrollment.course.image %}
+          <!-- If the course has an image, it would be shown here -->
+          <!-- <img src="{{ enrollment.course.image.url }}" alt="{{ enrollment.course.title }}" width="300"> -->
+          {% else %}
+          <p>No image available</p> <!-- If no image, a message is displayed -->
+          {% endif %}
+
+          <!-- Displaying course title -->
+          <h4>{{ enrollment.course.title }}</h4>
+
+          <!-- Displaying enrollment date -->
+          <p>Enrolled on: {{ enrollment.enrolled_at|date:"F j, Y" }}</p>
+          <!-- Using the `date` filter to format the enrollment date -->
+
+          <!-- Displaying the course description -->
+          <p>{{ enrollment.course.description }}</p>
+
+          <!-- Link to the course page -->
+          <a href="{{ enrollment.course.course_link }}" target="_blank" class="course-btn">View Course</a>
+          <!-- The `href` links to the course page and `target="_blank"` opens it in a new tab -->
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% else %}
+    <!-- If no courses are found, display a message -->
+    <p>No courses found matching your search.</p>
+    {% endif %}
+  </div>
+
+  {% include 'footer.html' %} <!-- Footer file ko include karta hai jo page ke bottom pe display hota hai -->
+</body>
+</html>

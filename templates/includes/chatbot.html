@@ -1,0 +1,33 @@
+{% load static %}  <!-- Loads the static files, which include CSS, JavaScript, etc., for the Django project -->
+
+<!-- Links to the external CSS file (chatbot styling) -->
+<link rel="stylesheet" href="static/css/chatbot.css">
+
+<!-- Chat Icon: This element, when clicked, toggles the visibility of the chat box -->
+<div class="chat-icon" onclick="toggleChat()">
+    💬  <!-- This is the chat icon (a speech bubble emoji) -->
+</div>
+
+<!-- Chat Box: The container that holds the chatbot's UI -->
+<div class="chat-container" id="chatBox">
+    <!-- Chat Header: Displays the name of the chatbot -->
+    <div class="chat-header">Align Skills AI Chat</div>
+    
+    <!-- Chat Messages: This is where all user and bot messages will appear -->
+    <div class="chat-messages" id="chatMessages"></div>
+    
+    <!-- Loading Spinner: Displays when the chatbot is processing or waiting for a response -->
+    <div class="spinner" id="loadingSpinner"></div>
+    
+    <!-- Chat Input Area: This is where the user types their messages -->
+    <div class="chat-input">
+        <!-- User Input Field: The text input box where the user types their message -->
+        <input type="text" id="userInput" placeholder="Type your message..." onfocus="openChat()">
+        
+        <!-- Send Button: When clicked, the sendMessage() function is called to send the user’s message -->
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<!-- External JavaScript file for chatbot functionality -->
+<script src="{% static 'js/chatbot.js' %}" defer></script>

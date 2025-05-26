@@ -1,0 +1,193 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.title }} Chapters</title>
+    <link rel="stylesheet" href="{% static 'css/chapterstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    /* Container that wraps both the project and certificate cards */
+.container-2 {
+    display: flex; /* Use Flexbox layout */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    flex-wrap: wrap; /* Allow items to wrap to next line on smaller screens */
+    gap: 30px; /* Space between the cards */
+    width: 100%; /* Full width of parent */
+    max-width: 1200px; /* Limit max width to keep content centered on large screens */
+    padding: 20px; /* Space inside the container */
+    box-sizing: border-box; /* Include padding in total width/height */
+}
+
+/* Shared styling for both the project and certificate cards */
+.project-container,
+.certificate-container {
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: center; /* Center children vertically */
+    width: 300px; /* Fixed width for card */
+    height: 250px; /* Fixed height */
+    background-color: #ffffff; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft drop shadow */
+    padding: 20px; /* Inner spacing */
+    text-align: center; /* Center text */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth animation on hover */
+    text-decoration: none; /* Remove link underline */
+}
+
+/* Hover effect: makes the card pop up slightly and intensifies shadow */
+.project-container:hover,
+.certificate-container:hover {
+    transform: translateY(-10px); /* Move the card slightly up */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+}
+
+/* Styling for the card titles */
+.project-title,
+.certificate-title {
+    font-size: 22px; /* Larger text */
+    font-weight: bold; /* Bold font */
+    color: #333333; /* Dark gray color */
+    margin: 15px 0 10px; /* Top and bottom margin */
+    text-decoration: none; /* No underline */
+}
+
+/* Styling for card descriptions */
+.project-description,
+.certificate-description {
+    font-size: 14px; /* Smaller text size */
+    color: #666666; /* Medium gray text color */
+    line-height: 1.5; /* Space between lines */
+    margin-top: 10px; /* Space above the description */
+}
+
+/* Icon style at the top of each card */
+.card-icon {
+    font-size: 40px; /* Big icon */
+    color: #47445e; /* Dark bluish color */
+    margin-bottom: 10px; /* Space below icon */
+}
+
+/* Responsive adjustments for tablets and phones */
+@media (max-width: 768px) {
+
+    /* Adjust card size and padding */
+    .project-container,
+    .certificate-container {
+        width: 90%; /* Nearly full width */
+        height: auto; /* Let height adjust automatically */
+        padding: 20px; /* Maintain padding */
+    }
+
+    /* Reduce space between cards */
+    .container-2 {
+        gap: 20px;
+    }
+}
+
+  </style>
+</head>
+
+<body>
+    <!-- Main container for chapters -->
+    <div class="container">
+
+        <!-- Loop through each chapter in the 'chapters' list -->
+        {% for chapter in chapters %}
+
+        <!-- Each chapter block -->
+        <div class="chapter" id="chapter-{{ chapter.id }}">
+            
+            <!-- Container for chapter image -->
+            <div class="chapter-img">
+
+                <!-- If chapter has an image, display it -->
+                {% if chapter.image %}
+                <img src="{{ chapter.image.url }}" alt="{{ chapter.title }}" class="chapter-image">
+
+                <!-- If not, show default placeholder image -->
+                {% else %}
+                <img src="{% static 'images/default_chapter.png' %}" alt="Default Chapter Image" class="chapter-image">
+                {% endif %}
+            </div>
+
+            <!-- Container for chapter title and description -->
+            <div class="chapter-description">
+                
+                <!-- Link to lecture page using chapter title -->
+                <a href="{% url 'lecture_page' chapter.title %}" class="h2">
+                    {{ chapter.title }}
+                </a>
+
+                <!-- Show chapter description or fallback if not provided -->
+                <p>{{ chapter.description|default:"No description available" }}</p>
+            </div>
+        </div>
+
+        {% empty %}
+        <!-- Message shown if no chapters are available -->
+        <div class="no-chapters">
+            <p>No chapters available for this course.</p>
+        </div>
+
+        {% endfor %}
+    </div> <!-- End of chapter container -->
+
+    </div> <!-- (Note: This extra closing </div> might be a mistake) -->
+
+    <!-- Container for project and certificate cards -->
+    <div class="container-2">
+
+        <!-- Project card section -->
+        <div class="project-container" id="project">
+            
+            <!-- Icon for the card -->
+            <div class="card-icon">
+                <i class="fas fa-tasks"></i>
+            </div>
+
+            <!-- If a project exists, show link to submit -->
+            {% if project %}
+            <a href="{% url 'submit_project' project.id %}" class="project-title">Submit Project</a>
+            {% endif %}
+            
+            <!-- Project description -->
+            <p class="project-description">
+                This project aims to simplify tasks and improve efficiency with smart technology.
+            </p>
+        </div>
+
+        <!-- Certificate card section -->
+        <div class="certificate-container" id="certificate">
+
+            <!-- Icon for the card -->
+            <div class="card-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+
+            <!-- Link to view certificate using course title -->
+            <a href="{% url 'view_certificate' course.title %}" class="certificate-title">Certificate</a>
+
+            <!-- Certificate description -->
+            <p class="certificate-description">
+                Earn your certificate with recognition for your academic achievements.
+            </p>
+        </div>
+    </div>
+
+    <!-- Include chatbot HTML file -->
+    {% include 'includes/chatbot.html' %}
+</body>
+
+</html>

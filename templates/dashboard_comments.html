@@ -1,0 +1,271 @@
+{% load tz %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments Section</title>
+    <style>
+        /* General styles */
+        /* Apply box-sizing: border-box to all elements and their pseudo-elements */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            /* Ensures padding and border are included in total width/height */
+        }
+
+        /* Basic body styling */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            /* Font family stack */
+            background-color: #f9f9f9;
+            /* Light background color */
+            color: #333;
+            /* Default text color */
+            margin: 0;
+            /* Remove default margin */
+            padding: 0;
+            /* Remove default padding */
+        }
+
+        /* Container for the entire comments section */
+        .comments-section {
+            background-color: #fff;
+            /* White background */
+            padding: 20px;
+            /* Inner spacing */
+            margin: 20px auto;
+            /* Vertical margin and center horizontally */
+            border-radius: 8px;
+            /* Rounded corners */
+            max-width: 1200px;
+            /* Max container width */
+            width: 100%;
+            /* Take full available width up to max-width */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            /* Light shadow for depth */
+            color: #333;
+            /* Text color */
+            transition: transform 0.3s ease;
+            /* Smooth transition for hover effect */
+            overflow: hidden;
+            /* Hide overflowing content */
+        }
+
+        /* On hover, slightly lift the comment section */
+        .comments-section:hover {
+            transform: translateY(-5px);
+            /* Move upward by 5px */
+        }
+
+        /* Styling for the heading */
+        .comments-section h3 {
+            font-size: 2rem;
+            /* Large font */
+            color: #2c3e50;
+            /* Dark navy text */
+            margin-bottom: 20px;
+            /* Space below the heading */
+            font-weight: 700;
+            /* Bold text */
+            text-align: center;
+            /* Centered heading */
+            position: relative;
+            /* Required for the underline */
+            padding-bottom: 15px;
+            /* Space below text before underline */
+            letter-spacing: 1px;
+            /* Slight spacing between letters */
+            text-transform: uppercase;
+            /* Make all letters uppercase */
+        }
+
+        /* Underline effect for heading */
+        .comments-section h3::after {
+            content: "";
+            /* Empty content for visual element */
+            position: absolute;
+            /* Position relative to h3 */
+            left: 50%;
+            /* Start at center */
+            bottom: 0;
+            /* Bottom of heading */
+            transform: translateX(-50%);
+            /* Center horizontally */
+            width: 80px;
+            /* Underline width */
+            height: 4px;
+            /* Underline height */
+            background-color: #c9b75f;
+            /* Golden color */
+            border-radius: 2px;
+            /* Rounded edges */
+        }
+
+        /* On hover, extend underline width */
+        .comments-section h3:hover::after {
+            width: 120px;
+            /* Increase width on hover */
+            transition: width 0.4s ease;
+            /* Smooth transition */
+        }
+
+        /* List of comments styled as flex column */
+        .comments-section ul {
+            display: flex;
+            /* Use flex layout */
+            flex-direction: column;
+            /* Stack items vertically */
+            gap: 20px;
+            /* Space between comments */
+            list-style: none;
+            /* Remove bullet points */
+            padding-left: 0;
+            /* Remove default padding */
+            margin: 0;
+            /* Remove margin */
+        }
+
+        /* Each comment item styling */
+        .comments-section li {
+            padding: 15px;
+            /* Inner spacing */
+            background-color: #fafafa;
+            /* Light gray background */
+            border: 1px solid #ddd;
+            /* Light border */
+            border-top: 5px solid #c9b75f;
+            /* Golden top border */
+            border-radius: 8px;
+            /* Rounded corners */
+            transition: background 0.3s ease, transform 0.3s ease;
+            /* Hover effects */
+            display: flex;
+            /* Flex layout */
+            flex-direction: column;
+            /* Vertical stacking */
+            width: 100%;
+            /* Full width */
+        }
+
+        /* Hover effect for each comment */
+        .comments-section li:hover {
+            background-color: #f0f0f0;
+            /* Slightly darker background */
+            transform: scale(1.02);
+            /* Slight zoom-in effect */
+        }
+
+        /* Styling for paragraph text inside comment */
+        .comments-section li p {
+            margin: 8px 0;
+            /* Vertical spacing */
+            font-size: 1rem;
+            /* Standard font size */
+        }
+
+        /* Styling for bold labels */
+        .comments-section li strong {
+            color: #333;
+            /* Dark text */
+            font-size: 1.1rem;
+            /* Slightly larger font */
+        }
+
+        /* Styling for timestamp text */
+        .comments-section li small {
+            color: #888;
+            /* Gray text */
+            font-size: 0.9rem;
+            /* Smaller font */
+            font-style: italic;
+            /* Italic style */
+        }
+
+        /* Styling for project count span inside a paragraph */
+        .p .span {
+            font-size: 1.2rem;
+            /* Larger font */
+            color: #333;
+            /* Dark color */
+            font-weight: bold;
+            /* Bold */
+        }
+
+        /* General link styling */
+        a {
+            text-decoration: none;
+            /* Remove underline */
+            color: #007bff;
+            /* Bootstrap blue */
+            font-size: 1rem;
+            /* Base font */
+            font-weight: 500;
+            /* Medium weight */
+            display: inline-block;
+            /* Allow padding/margin */
+            padding: 8px 15px;
+            /* Button padding */
+            margin-top: 15px;
+            /* Space above */
+            border-radius: 5px;
+            /* Rounded corners */
+            background-color: #f0f0f0;
+            /* Light gray background */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            /* Hover effects */
+        }
+
+        /* Hover effect for link */
+        a:hover {
+            background-color: #e0e0e0;
+            /* Slightly darker gray */
+            transform: scale(1.05);
+            /* Slight zoom-in */
+        }
+
+        /* Margin for span element */
+        .span {
+            margin-left: 5px;
+            /* Small left spacing */
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Displaying all comments -->
+    <div class="comments-section">
+        <h3>My comments: <span class="span">{{ project_count }}</span></h3>
+        <!-- Check if there are comments to display -->
+        {% if comments %}
+        <ul>
+            <!-- Loop through each comment -->
+            {% for comment in comments %}
+            <li>
+                <!-- Display course title -->
+                <p class="p"><strong>Course:</strong> {{ comment.course.title }}</p>
+                <!-- Display the comment message -->
+                <p class="p"><strong>Comment:</strong> {{ comment.message }}</p>
+                <!-- Display comment creation date and time -->
+                {% timezone "Asia/Karachi" %}
+                <p class="p"><small>Posted on: {{ comment.created_at|date:"F j, Y, g:i A" }} PKT</small></p>
+                {% endtimezone %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <!-- If no comments exist, display this message -->
+        <p>You haven't posted any comments yet.</p>
+        {% endif %}
+    </div>
+
+    <footer>
+    </footer>
+
+</body>
+
+</html>

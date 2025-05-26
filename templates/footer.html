@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AlignSkills</title>
+    <link rel="stylesheet" href="{% static 'css/footer-styling.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<style>
+    
+</style>
+</head>
+<body>
+    <footer>
+    <!-- Footer Container -->
+    <div class="footer-container">
+        
+        <!-- First Footer Section: About Us -->
+        <div class="footer-section">
+            <h2>Learning Redefined</h2> <!-- Title of the section -->
+            <p>Your skills are the key to success. At AlignSkills, we provide the resources & training to help you unlock your true potential.</p>
+            <p>Empowering learners worldwide.</p> <!-- Additional text for encouragement -->
+        </div>
+
+        <!-- Second Footer Section: Quick Links -->
+        <div class="footer-section">
+            <h2>Quick Links</h2> <!-- Title of the section -->
+            <ul>
+                <li><a href="/">Home</a></li> <!-- Link to Home page -->
+                <li><a href="/about-us">About Us</a></li> <!-- Link to About Us page -->
+                <li><a href="/courses">Courses</a></li> <!-- Link to Courses page -->
+                <li><a href="/resume-main-page">Resume Builder</a></li> <!-- Link to Resume Builder page -->
+                <li><a href="/contact-us">Contact Us</a></li> <!-- Link to Contact Us page -->
+            </ul>
+        </div>
+
+        <!-- Third Footer Section: Newsletter -->
+        <div class="footer-section newsletter">
+            <h2>Newsletter</h2> <!-- Title of the section -->
+            <p>Stay updated with our latest courses and offers. Subscribe now!</p> <!-- Subscription message -->
+            
+            <!-- Newsletter Subscription Form -->
+            <form id="newsletter-form">
+                <div class="newsletter-form">
+                    {% csrf_token %} <!-- CSRF token for security -->
+                    <div class="form-group">
+                        <input type="email" class="email-input" placeholder="Enter your email" id="newsletter-email" required> <!-- Email input field -->
+                        <button type="submit" class="submit-btn">Subscribe</button> <!-- Subscribe button -->
+                    </div>
+                </div>
+            </form>
+            <p id="newsletter-message"></p> <!-- To display the status message after form submission -->
+        </div>
+
+        <!-- Fourth Footer Section: Contact Information -->
+        <div class="footer-section contact">
+            <h2>Contact Us</h2> <!-- Title of the section -->
+            <p>Email: alignskills456@gmail.com</p> <!-- Email contact information -->
+            <div class="social-icons">
+                <!-- Social Media Icons for Facebook, Instagram, and GitHub -->
+                <a href="https://www.facebook.com/profile.php?id=61574998993810"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/alignskills?igsh=MWVoZHZ5b3BnMzE3cQ="><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/Alignskill"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Bottom: Copyright Notice -->
+    <div class="footer-bottom">
+        <p class="center">© 2025 AlignSkills. All rights reserved.</p> <!-- Copyright notice -->
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" onclick="scrollToTop()">↑</button> <!-- Scroll button that moves the page to the top -->
+</footer>
+
+
+<!-- JavaScript -->
+<script>
+
+
+    // --------Flexbox layout apply karna (first DOMContentLoaded event)----------------
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  let container = document.querySelector(".container"); // Find the element with class 'container'
+
+  // Apply correct flex properties to the container
+  container.style.display = "flex"; // Set the display property to 'flex' to enable flexbox layout
+  container.style.flexWrap = "wrap"; // Allow the items in the container to wrap into multiple lines if necessary
+  container.style.justifyContent = "space-around"; // Distribute items with space around them
+});
+
+
+
+
+//  -----------------AJAX Request for Newsletter Subscription for footer--------------------
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById('newsletter-form'); // Find the form with id 'newsletter-form'
+  const message = document.getElementById('newsletter-message'); // Find the element for displaying messages
+
+  if (form && message) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent form from submitting normally, to handle via AJAX
+
+      const email = document.getElementById('newsletter-email').value; // Get the email value from the form
+      const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Get the CSRF token for security
+
+      // Make AJAX request using fetch API
+      fetch("{% url 'ajax_subscribe_newsletter' %}", {
+        method: 'POST', // POST method to send data
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded', // Set the content type to URL-encoded form data
+          'X-CSRFToken': csrfToken, // Include the CSRF token in the request
+          'X-Requested-With': 'XMLHttpRequest', // Set this to indicate that it's an AJAX request
+        },
+        body: new URLSearchParams({ email: email }) // Send the email in the request body
+      })
+      .then(response => response.json()) // Parse the response as JSON
+      .then(data => {
+        // Display message based on the response data
+        message.textContent = data.message; // Show the response message
+        message.style.color = data.status === 'success' ? 'green' : (data.status === 'info' ? 'orange' : 'red'); // Change the message color based on status
+        if (data.status === 'success') {
+          form.reset(); // Reset the form if the subscription was successful
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error); // Log any errors in the console
+        message.textContent = 'Something went wrong. Please try again.'; // Display error message
+        message.style.color = 'red'; // Set error message color to red
+      });
+    });
+  } else {
+    console.error("Form or message element not found"); // Log error if form or message element is not found
+  }
+});
+
+
+
+
+
+</script>
+
+</body>
+</html>

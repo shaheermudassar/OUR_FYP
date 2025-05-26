@@ -1,0 +1,881 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ lecture.title }}</title>
+  <link rel="stylesheet" href="/static/css/lectures_page_content_style.css">
+  <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+  <style>
+    :root {
+      --main-color: #47445e;
+      --green: #c9b75f;
+      --back-color: #f9f9f9;
+      --red: #e74c3c;
+      --orange: #f39c12;
+      --light-color: #888;
+      --light-bg: #eee;
+      --black: #2c3e50;
+      --white: #fff;
+      --border: .1rem solid rgba(0, 0, 0, .2);
+      --highlight-color: #f39c12;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--back-color);
+      color: var(--black);
+      line-height: 1.6;
+      font-size: 16px;
+      padding: 0 10px;
+      /* margin-top:; */
+    }
+
+
+    /* Keep the header fixed at the top */
+    header {
+      background-color: var(--green);
+      color: var(--white);
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      /* Ensures header stays above other content */
+      margin-bottom: 0;
+      /* Remove margin from the bottom */
+      width: 100%;
+      /* Ensure the header spans the full width */
+      max-height: 130px;
+      /* Adjust this based on the height of your header */
+    }
+
+    /* Push the body content down so it's not hidden under the fixed header */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--back-color);
+      color: var(--black);
+      line-height: 1.6;
+      font-size: 16px;
+      padding: 0 10px;
+      padding-top: 180px;
+      /* Ensure content starts below the header */
+    }
+
+    /* Adjust the menu button for a fixed header */
+    .menu {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+    }
+
+    /* Adjust lecture content to avoid overlap with the fixed header */
+    .lecture-content {
+      padding: 30px;
+      height: auto;
+      background-color: var(--white);
+      margin: 0 auto 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+      transition: all 0.3s ease;
+      margin-top: 180px;
+      /* Push lecture content down to avoid overlap */
+    }
+
+    /* Add margin to section content to ensure good spacing */
+    section {
+      margin-top: 20px;
+    }
+
+
+
+
+    header h1 {
+      margin-bottom: 15px;
+      font-size: 2.5em;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .menu {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+    }
+
+    .menu-btn {
+      background: transparent;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: 30px;
+      height: 18px;
+      cursor: pointer;
+      padding: 0;
+      position: relative;
+      top: -5px;
+      z-index: 2;
+    }
+
+    .menu-btn .line {
+      pointer-events: none;
+      background-color: var(--white);
+      height: 3px;
+      width: 100%;
+      border-radius: 2px;
+      z-index: 3;
+      position: relative;
+      transition: background-color 0.3s;
+    }
+
+    .menu-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 32px;
+      background-color: rgb(226, 224, 221);
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .menu-btn:hover::before {
+      opacity: 0.5;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .menu-btn.menu-open::before {
+      opacity: 0.5;
+      transform: translate(-50%, -50%) scale(1.1);
+      background-color: rgb(192, 192, 191);
+      border: 2px solid #ffffff;
+    }
+
+    .menu-btn:hover .line {
+      background-color: var(--white);
+    }
+
+    .menu-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 30px;
+      background: var(--white);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      z-index: 9;
+      width: 270px;
+    }
+
+    .menu-content.show {
+      display: block;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 15px 15px;
+      text-decoration: none;
+      color: #333;
+      font-size: 15px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .menu-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .icon {
+      font-size: 19px;
+      color: #555;
+      margin-right: 25px;
+    }
+
+    button.toggle-content {
+      background-color: var(--main-color);
+      color: var(--white);
+      border: none;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button.toggle-content:hover {
+      background-color: var(--black);
+      transform: scale(1.05);
+    }
+
+    /* Default styles for the buttons */
+    .navigation-btns {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .navigation-btns {
+      text-align: center;
+      margin-top: 20px;
+      padding-bottom: 3rem;
+      margin-right: 32rem;
+      margin-left: 35rem;
+    }
+
+    .navigation-btns a.btn,
+    .navigation-btns span.btn {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: var(--green);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1.2em;
+      margin: 0;
+      /* 👈 Remove space between buttons */
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .navigation-btns a.btn:hover {
+      background-color: var(--highlight-color);
+      transform: scale(1.05);
+    }
+
+    .navigation-btns .btn.disabled {
+      background-color: #cccccc;
+      color: #666666;
+      cursor: not-allowed;
+      pointer-events: none;
+      transform: none;
+    }
+
+    .lecture-content {
+      padding: 30px;
+      height: auto;
+      background-color: var(--white);
+      margin: 0 auto 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+      transition: all 0.3s ease;
+    }
+
+    .lecture-content p {
+      font-size: 1.1em;
+      text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: var(--main-color);
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    h3 {
+      color: var(--main-color);
+      font-size: 1.6em;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      padding-left: 10px;
+      font-size: 1.1em;
+    }
+
+    ul li {
+
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-content">
+      <h1>{{ lecture.title }}</h1> <!-- Display the title of the lecture dynamically -->
+    </div>
+    <div class="menu">
+      <button class="menu-btn"> <!-- Button to toggle the menu -->
+        <div class="line"></div> <!-- Line for the menu button (hamburger icon) -->
+        <div class="line"></div> <!-- Line for the menu button -->
+        <div class="line"></div> <!-- Line for the menu button -->
+      </button>
+      <div class="menu-content"> <!-- Menu content (Read Aloud and Download links) -->
+        <a href="#" id="read-aloud" class="menu-item">
+          <i class="icon fa fa-volume-up"></i> <!-- Icon for Read Aloud -->
+          <span>Read Aloud</span> <!-- Text for Read Aloud -->
+        </a>
+        <a href="#" id="download" class="menu-item">
+          <i class="icon fa fa-download"></i> <!-- Icon for Download -->
+          <span>Download Lecture</span> <!-- Text for Download -->
+        </a>
+      </div>
+    </div>
+
+  </header>
+
+  <section class="lecture-content" id="lecture-content">
+    {% for content in lecture.contents.all %} <!-- Loop through all the content of the lecture -->
+    {% if content.content_type == 'heading1' %} <!-- Check if the content type is 'heading1' -->
+    <h1>{{ content.text }}</h1> <!-- Display content as H1 -->
+    {% elif content.content_type == 'heading2' %} <!-- Check if the content type is 'heading2' -->
+    <h2>{{ content.text }}</h2> <!-- Display content as H2 -->
+    {% elif content.content_type == 'heading3' %} <!-- Check if the content type is 'heading3' -->
+    <h3>{{ content.text }}</h3> <!-- Display content as H3 -->
+    {% elif content.content_type == 'paragraph' %} <!-- Check if the content type is 'paragraph' -->
+    <p>{{ content.text }}</p> <!-- Display content as a paragraph -->
+    {% elif content.content_type == 'list' %} <!-- Check if the content type is 'list' -->
+    <ul> <!-- Start unordered list -->
+      {% for item in content.split_text %} <!-- Loop through each item in the list -->
+      {% if item.strip %} <!-- Check if the item is not empty -->
+      <li>{{ item }}</li> <!-- Display list item -->
+      {% endif %}
+      {% endfor %}
+    </ul> <!-- End unordered list -->
+    {% elif content.content_type == 'image' and content.image %} <!-- Check if the content type is 'image' -->
+    <img src="{{ content.image.url }}" alt="{{ content.text|default:'Lecture image' }}" class="lecture-image">
+    <!-- Display the image -->
+    {% endif %}
+    {% endfor %}
+  </section>
+
+  <div class="navigation-btns"> <!-- Container for navigation buttons -->
+    {% if previous_lecture %} <!-- Check if there is a previous lecture -->
+    <a href="{% url 'lecture_page_with_lecture' chapter_title previous_lecture.id %}" class="btn">Previous</a>
+    <!-- Link to previous lecture -->
+    {% else %}
+    <span class="btn disabled">Previous</span> <!-- Disabled button if no previous lecture -->
+    {% endif %}
+
+    {% if next_lecture %} <!-- Check if there is a next lecture -->
+    <a href="{% url 'lecture_page_with_lecture' chapter_title next_lecture.id %}" class="btn">Next</a>
+    <!-- Link to next lecture -->
+    {% else %}
+    <span class="btn disabled">Next</span> <!-- Disabled button if no next lecture -->
+    {% endif %}
+  </div>
+
+  {% include 'includes/chatbot.html' %} <!-- Include the chatbot component -->
+
+
+  <script>
+
+
+
+    // ---------------------------------menu button--------------------------------------
+
+    // Select the button and menu content
+    const menuBtn = document.querySelector('.menu-btn');
+    const menuContent = document.querySelector('.menu-content');
+
+    // Toggle menu visibility
+    menuBtn.addEventListener('click', () => {
+      const isOpen = menuContent.style.display === 'block';
+
+      if (isOpen) {
+        menuContent.style.display = 'none';
+        menuBtn.classList.remove('menu-open'); // Remove hover-like effect
+      } else {
+        menuContent.style.display = 'block';
+        menuBtn.classList.add('menu-open'); // Add hover-like effect
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!menuContent.contains(event.target) && event.target !== menuBtn) {
+        menuContent.style.display = 'none';
+        menuBtn.classList.remove('menu-open'); // Remove hover-like effect
+      }
+    });
+
+
+
+
+    // ---------------------------------READ ALOUD--------------------------------------
+
+    const readAloudBtn = document.getElementById('read-aloud');  // Get the "Read Aloud" button from the DOM
+    const lectureContent = document.getElementById('lecture-content');  // Get the element containing the lecture content
+    const synth = window.speechSynthesis;  // Access the speech synthesis API to convert text to speech
+    let utterance = null;  // Declare a variable for the speech utterance
+    let isPlaying = false;  // Flag to track if speech is playing
+    let isPaused = false;  // Flag to track if speech is paused
+    let wordIndex = 0;  // Variable to keep track of the current word being spoken
+    let words = [];  // Array to store all the words in the lecture content
+
+    // Function to wrap each word in a span element for easy styling
+    function wrapWords() {
+      const textNodes = [];  // Array to hold text nodes
+
+      // Function to recursively find all text nodes within the lecture content
+      function getTextNodes(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          textNodes.push(node);  // If it's a text node, add it to the array
+        } else {
+          node.childNodes.forEach(getTextNodes);  // Otherwise, iterate through child nodes
+        }
+      }
+
+      getTextNodes(lectureContent);  // Find all text nodes in the lecture content
+
+      textNodes.forEach(node => {
+        const wordsArray = node.textContent.match(/\S+|\s+/g);  // Split the content into words and spaces
+        const spanElements = wordsArray.map(word => {
+          if (word.trim() !== "") {
+            const span = document.createElement("span");  // Create a span element for each word
+            span.className = "word";  // Add the "word" class for styling
+            span.textContent = word;  // Set the word as the text content of the span
+            return span;  // Return the span element
+          }
+          return document.createTextNode(word);  // If it's a space, return a text node
+        });
+
+        node.replaceWith(...spanElements);  // Replace the original text node with the new span elements
+      });
+
+      words = document.querySelectorAll('.word');  // Get all the words wrapped in span elements
+    }
+
+    wrapWords();  // Call the function to wrap all words in spans
+
+    // Create the controls for the "Read Aloud" feature
+    const readAloudControls = document.createElement('div');
+    readAloudControls.classList.add('read-aloud-controls');  // Add a class for styling
+    readAloudControls.innerHTML = `
+  <button id="toggle-btn" title="Play"><i class="fas fa-play"></i></button>
+  <button id="stop-btn" title="Stop"><i class="fas fa-stop"></i></button>
+  <button id="speed-btn" title="Speed"><i class="fas fa-tachometer-alt"></i></button>
+  <button id="close-btn" title="Close"><i class="fas fa-times"></i></button>
+`;  // Define the HTML for the control buttons
+
+    document.body.appendChild(readAloudControls);  // Add the controls to the document body
+    readAloudControls.style.display = 'none';  // Initially hide the controls
+
+    // Get the buttons for controlling the speech
+    const toggleBtn = document.getElementById('toggle-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const speedBtn = document.getElementById('speed-btn');
+
+    // Create the speed control container
+    const speedContainer = document.createElement('div');
+    speedContainer.classList.add('speed-container');  // Add a class for styling
+    speedContainer.innerHTML = `
+  <label for="speed-slider" id="speed-label">Speed</label>
+  <input type="range" id="speed-slider" min="0.5" max="2" step="0.1" value="1" />
+`;  // Create a slider for adjusting the speed of the speech
+
+    document.body.appendChild(speedContainer);  // Append the speed control to the document body
+
+    // Event listener to toggle the visibility of the speed control
+    speedBtn.addEventListener('click', (event) => {
+      event.stopPropagation();  // Prevent event bubbling
+      const currentDisplay = speedContainer.style.display;
+      speedContainer.style.display = currentDisplay === 'none' ? 'flex' : 'none';  // Toggle the display of speed control
+    });
+
+    // Event listener to hide the speed control when clicking outside of it
+    document.addEventListener('click', (event) => {
+      if (!speedContainer.contains(event.target) && !speedBtn.contains(event.target)) {
+        speedContainer.style.display = 'none';  // Hide the speed control if clicked outside
+      }
+    });
+
+    // Prevent the click event from propagating when clicking inside the speed container
+    speedContainer.addEventListener('click', (event) => {
+      event.stopPropagation();  // Prevent click event from propagating
+    });
+
+    // Event listener for the "Read Aloud" button
+    readAloudBtn.addEventListener('click', () => {
+      const menuRect = menuContent.getBoundingClientRect();  // Get the position of the menu content
+
+      menuContent.style.display = 'none';  // Hide the menu content when the read-aloud feature is activated
+      readAloudBtn.disabled = true;  // Disable the read-aloud button
+      readAloudBtn.style.opacity = '0.5';  // Reduce opacity to indicate it's disabled
+      readAloudBtn.style.cursor = 'not-allowed';  // Change the cursor to indicate it's not clickable
+
+      // Display the read-aloud controls
+      readAloudControls.style.display = 'flex';
+      readAloudControls.style.position = 'fixed';
+      readAloudControls.style.top = '0';
+      readAloudControls.style.left = '0';
+      readAloudControls.style.width = '100%';
+      readAloudControls.style.height = '40px';
+      readAloudControls.style.padding = '10px';
+      readAloudControls.style.background = 'lightgray';
+      readAloudControls.style.boxSizing = 'border-box';
+      readAloudControls.style.overflow = 'hidden';
+      readAloudControls.style.zIndex = '1000';
+      readAloudControls.style.justifyContent = 'flex-end';
+      readAloudControls.style.paddingRight = '20px';
+
+      toggleBtn.innerHTML = isPlaying && !isPaused ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';  // Set the icon based on play/pause state
+    });
+
+    // Event listener to close the read-aloud controls
+    closeBtn.addEventListener('click', () => {
+      readAloudControls.style.display = 'none';  // Hide the controls
+      synth.cancel();  // Stop the speech synthesis
+      isPlaying = false;  // Reset playing state
+      isPaused = false;  // Reset paused state
+      wordIndex = 0;  // Reset the word index
+      words.forEach(word => word.classList.remove('highlight'));  // Remove highlighting from words
+      toggleBtn.innerHTML = '<i class="fas fa-play"></i>';  // Set the button icon to play
+
+      menuContent.style.display = 'block';  // Show the menu content again
+      readAloudBtn.disabled = false;  // Enable the read-aloud button
+      readAloudBtn.style.opacity = '1';  // Reset button opacity
+      readAloudBtn.style.cursor = 'pointer';  // Reset cursor style
+    });
+
+    // Function to play the speech
+    function playSpeech() {
+      if (!isPaused) {
+        const text = Array.from(words).slice(wordIndex).map(word => word.textContent).join(' ');  // Get the text from the current word index onwards
+        utterance = new SpeechSynthesisUtterance(text);  // Create a speech utterance with the selected text
+        utterance.lang = 'en-US';  // Set the language of the speech
+        utterance.rate = parseFloat(speedSlider.value);  // Set the speech speed based on the slider value
+        synth.cancel();  // Cancel any ongoing speech
+        synth.speak(utterance);  // Start speaking the utterance
+
+        let lastSpokenWord = 0;  // Track the last spoken word
+        let lastScrollIndex = 0;  // Track the last scroll index
+        const SCROLL_THRESHOLD = 13;  // Set a threshold for scrolling
+        const LINE_HEIGHT = 24;  // Set the height of a line
+
+        if (wordIndex < words.length) {
+          words.forEach(word => word.classList.remove('highlight'));  // Remove highlighting from all words
+          words[wordIndex].classList.add('highlight');  // Highlight the current word
+        }
+
+        utterance.onboundary = (event) => {
+          if (event.name === 'word') {  // If a word boundary is detected
+            let charIndex = event.charIndex;  // Get the character index
+            let currentText = text.substring(0, charIndex);  // Get the current spoken text
+            let currentWordIndex = currentText.split(/\s+/).length - 1;  // Calculate the word index
+
+            if (currentWordIndex > lastSpokenWord) {
+              wordIndex += (currentWordIndex - lastSpokenWord);  // Update the word index
+              lastSpokenWord = currentWordIndex;  // Update the last spoken word index
+
+              if (wordIndex < words.length) {
+                words.forEach(word => word.classList.remove('highlight'));  // Remove highlighting
+                words[wordIndex].classList.add('highlight');  // Highlight the current word
+
+                const lastWordRect = words[words.length - 1].getBoundingClientRect();  // Get the position of the last word
+                const viewportHeight = window.innerHeight;  // Get the height of the viewport
+
+                if (lastWordRect.bottom > viewportHeight) {  // If the last word is outside the viewport
+                  if (wordIndex - lastScrollIndex > SCROLL_THRESHOLD) {  // If the scroll threshold is exceeded
+                    window.scrollBy({
+                      top: LINE_HEIGHT * 2,
+                      behavior: "smooth"
+                    });  // Scroll the page down
+                    lastScrollIndex = wordIndex;  // Update the last scroll index
+                  }
+                }
+              }
+            }
+          }
+        };
+      } else {
+        synth.resume();  // If paused, resume the speech
+      }
+
+      isPlaying = true;  // Set playing state to true
+      isPaused = false;  // Set paused state to false
+      toggleBtn.innerHTML = '<i class="fas fa-pause"></i>';  // Update the toggle button to show pause
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        if (isPaused) {
+          synth.resume();  // Resume the speech if it's paused
+        } else {
+          playSpeech();  // Start the speech if it's not playing
+        }
+        isPlaying = true;  // Set the playing state to true
+        isPaused = false;  // Set the paused state to false
+        toggleBtn.innerHTML = '<i class="fas fa-pause"></i>';  // Set the icon to pause
+        toggleBtn.title = "Pause";  // Set the button title to "Pause"
+      } else {
+        synth.pause();  // Pause the speech if it's playing
+        isPlaying = false;  // Set the playing state to false
+        isPaused = true;  // Set the paused state to true
+        toggleBtn.innerHTML = '<i class="fas fa-play"></i>';  // Set the icon to play
+        toggleBtn.title = "Play";  // Set the button title to "Play"
+      }
+    });
+
+    stopBtn.addEventListener('click', () => {
+      synth.cancel();  // Stop the speech synthesis
+      isPlaying = false;  // Set the playing state to false
+      isPaused = false;  // Set the paused state to false
+      wordIndex = 0;  // Reset the word index
+      words.forEach(word => word.classList.remove('highlight'));  // Remove all highlights
+      toggleBtn.innerHTML = '<i class="fas fa-play"></i>';  // Set the toggle button icon to play
+    });
+
+    // Event listener for the speed slider
+    const speedSlider = document.getElementById('speed-slider');
+    speedSlider.addEventListener('input', () => {
+      if (isPlaying) {
+        synth.cancel();  // Cancel the current speech
+        playSpeech();  // Replay the speech with the new speed
+      }
+    });
+
+    // Create a style element to define the CSS styles for the controls and highlight effects
+    const style = document.createElement('style');
+    style.innerHTML = `
+  .read-aloud-controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 5px 15px;
+    width: 100vw;
+    background: lightgray;
+    border-radius: 10px;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .read-aloud-controls button {
+    background: linear-gradient(135deg, #4CAF50, #2196F3);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .read-aloud-controls button:hover {
+    background: linear-gradient(135deg, #45a049, #1976D2);
+  }
+
+  #close-btn {
+    background: #f44336;
+  }
+
+  #close-btn:hover {
+    background: #d32f2f;
+  }
+
+  .word {
+    transition: background 0.3s ease;
+    display: inline;
+  }
+
+  .highlight {
+    background: rgba(126, 88, 88, 0.2);
+    color: red;
+    padding: 2px 4px;
+    border-radius: 5px;
+  }
+
+  .speed-container {
+    position: fixed;
+    top: 50px;
+    right: 15px;
+    padding: 15px;
+    width: 200px;
+    background: #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(8, 7, 8, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .speed-container.show {
+    display: flex;
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  #speed-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 15px;
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  #speed-slider {
+    width: 180px;
+    cursor: pointer;
+  }
+`;
+
+    // Add the style to the document head
+    document.head.appendChild(style);
+
+
+    // ---------------------------------DOWNLOAD --------------------------------------
+
+
+
+    document.getElementById('download').addEventListener('click', async () => {
+      const { jsPDF } = window.jspdf; // Get jsPDF object from the jsPDF library.
+      const pdf = new jsPDF('p', 'mm', 'a4'); // Initialize a new PDF document with 'p' (portrait) orientation, mm units, and A4 size.
+      const pageHeight = pdf.internal.pageSize.getHeight(); // Get the height of the PDF page.
+      const pageWidth = pdf.internal.pageSize.getWidth(); // Get the width of the PDF page.
+
+      // Close the menu content
+      const menuContent = document.querySelector('.menu-content'); // Select the menu content element.
+      const menuBtn = document.querySelector('.menu-btn'); // Select the menu button element.
+      if (menuContent) {
+        menuContent.style.display = 'none'; // Hide the menu content if it exists.
+      }
+      if (menuBtn) {
+        menuBtn.classList.remove('menu-open'); // Remove the 'menu-open' class from the menu button.
+      }
+
+      // Disable scrolling by fixing the body
+      const originalBodyStyle = document.body.style.cssText; // Save the current body style (to restore later).
+      document.body.style.position = 'fixed'; // Fix the body position to prevent scrolling.
+      document.body.style.width = '100%'; // Set body width to 100% to cover the whole screen.
+      document.body.style.overflow = 'hidden'; // Hide the overflow (prevent scrolling).
+
+      // Show a loading message and dim the background
+      const loadingMessage = document.createElement('div'); // Create a div element for the loading message.
+      loadingMessage.id = 'loadingMessage'; // Set the ID of the loading message div.
+      loadingMessage.textContent = 'Downloading Lecture... Please wait.'; // Set the text content of the loading message.
+      loadingMessage.style.position = 'fixed'; // Fix the position of the loading message.
+      loadingMessage.style.top = '50%'; // Center the loading message vertically.
+      loadingMessage.style.left = '50%'; // Center the loading message horizontally.
+      loadingMessage.style.transform = 'translate(-50%, -50%)'; // Use translate to adjust the centering.
+      loadingMessage.style.backgroundColor = '#ffffff'; // Set a white background color for the message.
+      loadingMessage.style.color = '#ff0000'; // Set the text color to red.
+      loadingMessage.style.padding = '40px'; // Add padding inside the message div.
+      loadingMessage.style.borderRadius = '8px'; // Round the corners of the message div.
+      loadingMessage.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Add a shadow effect for the message.
+      loadingMessage.style.fontSize = '19px'; // Set the font size of the message text.
+      loadingMessage.style.fontWeight = 'bold'; // Make the message text bold.
+      loadingMessage.style.zIndex = '9999'; // Ensure the loading message appears above other content.
+      document.body.appendChild(loadingMessage); // Append the loading message to the body.
+
+      // Dim the background
+      const dimBackground = document.createElement('div'); // Create a div for dimming the background.
+      dimBackground.id = 'dimBackground'; // Set the ID of the dim background.
+      dimBackground.style.position = 'fixed'; // Fix the position of the dim background.
+      dimBackground.style.top = '0'; // Align it to the top of the screen.
+      dimBackground.style.left = '0'; // Align it to the left of the screen.
+      dimBackground.style.width = '100%'; // Make it cover the entire screen width.
+      dimBackground.style.height = '100%'; // Make it cover the entire screen height.
+      dimBackground.style.backgroundColor = 'rgba(0, 0, 0, 0.3)'; // Set the background color with opacity for a dim effect.
+      dimBackground.style.zIndex = '9998'; // Make sure it's below the loading message.
+      document.body.appendChild(dimBackground); // Append the dim background to the body.
+
+      try {
+        // Get the current lecture content from the page
+        const lectureContent = document.querySelector('#lecture-content'); // Select the element containing the lecture content.
+        if (!lectureContent) {
+          throw new Error('Lecture content not found on the page.'); // Throw an error if the lecture content is not found.
+        }
+
+        // Get the lecture title (assuming it's in an h1 or h2 tag)
+        const lectureTitleElement = document.querySelector('h1, h2'); // Select the first h1 or h2 element (assumed title).
+        const lectureTitle = lectureTitleElement ? lectureTitleElement.textContent.trim() : 'Lecture'; // Extract the text content for the title.
+
+        // Use html2canvas to convert the content into an image
+        const canvas = await html2canvas(lectureContent, { scale: 2 }); // Capture the content as a canvas image with increased scale for clarity.
+        const imgData = canvas.toDataURL('image/png'); // Convert the canvas image to a PNG data URL.
+        const canvasHeight = canvas.height; // Get the height of the canvas image.
+        const canvasWidth = canvas.width; // Get the width of the canvas image.
+
+        const visibleHeight = Math.floor((canvasWidth / pageWidth) * (pageHeight - 20)); // Calculate how much of the content fits on one page.
+        const pageCanvas = document.createElement('canvas'); // Create a new canvas for each page.
+
+        let pageY = 0; // Start at the top of the canvas.
+        let currentPageNumber = 1; // Start with page number 1.
+
+        while (pageY < canvasHeight) {
+          const sliceHeight = Math.min(visibleHeight, canvasHeight - pageY); // Determine how much content to fit on the current page.
+          pageCanvas.height = sliceHeight; // Set the height of the page canvas.
+
+          const pageContext = pageCanvas.getContext('2d'); // Get the drawing context of the page canvas.
+          pageContext.drawImage(
+            canvas, // Draw the content from the original canvas.
+            0, // X position to start drawing.
+            pageY, // Y position to start drawing.
+            canvasWidth, // Width to draw.
+            sliceHeight, // Height to draw (sliced portion of content).
+            0, // X position on the new canvas.
+            0, // Y position on the new canvas.
+            canvasWidth, // Width of the new canvas.
+            sliceHeight // Height of the new canvas.
+          );
+
+          const pageImgData = pageCanvas.toDataURL('image/png'); // Convert the drawn page to a PNG data URL.
+          if (pageY > 0 || currentPageNumber > 1) pdf.addPage(); // Add a new page in the PDF (if it's not the first page).
+          pdf.addImage(pageImgData, 'PNG', 10, 20, pageWidth - 20, (sliceHeight * pageWidth) / canvasWidth); // Add the image to the PDF.
+
+          pageY += visibleHeight; // Move the Y position for the next slice.
+          currentPageNumber++; // Increment the page number.
+        }
+
+        // Save the PDF with the lecture title as the filename
+        pdf.save(`${lectureTitle}.pdf`); // Save the generated PDF with the lecture title as filename.
+      } catch (error) {
+        console.error('Error downloading the lecture:', error); // Log any errors to the console.
+        alert('An error occurred while downloading the lecture. Please try again.'); // Show an error alert to the user.
+      } finally {
+        // Remove the loading message and dim background
+        document.body.removeChild(loadingMessage); // Remove the loading message from the DOM.
+        document.body.removeChild(dimBackground); // Remove the dim background from the DOM.
+        document.body.style.cssText = originalBodyStyle; // Restore the original body styles (to enable scrolling again).
+      }
+    });
+
+
+
+  </script>
+</body>
+
+</html>

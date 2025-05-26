@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.title }} Quiz</title>
+    <style>
+        :root {
+            --back-color: #f9f9f9;
+            --black: #333;
+            --white: #fff;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--back-color);
+            color: var(--black);
+            line-height: 1.6;
+            padding: 0 10px;
+            margin-top: 1rem;
+        }
+
+        .quiz-container {
+            padding: 20px 30px;
+            margin-top: 7rem;
+            background-color: var(--white);
+            margin: 0 auto 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            position: relative;
+        }
+        .quiz-container h1 {
+            text-align: center;
+            background-color: #c9b75f;
+            color: white;
+            font-size: 30px;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+        .question {
+            margin-bottom: 10px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 25px;
+        }
+        .options li {
+            margin-bottom: 8px;
+        }
+        .options li span {
+            margin-left: 10px;
+        }
+        .submit-btn,
+.view-score-btn, .vbtn{
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding: 10px;
+    background-color: #c9b75f;
+    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+        .submit-btn:hover, .view-score-btn:hover, .vbtn:hover {
+            background-color: #ddcd7a;
+        }
+        .hidden {
+            display: none;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+       .score {
+            margin-top: 4em;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #c9b75f;
+    padding: 10px;    position: absolute;      /* Changed from fixed to absolute */
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.top-right {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+}
+
+        .submitted-msg {
+    font-weight: bold;
+    color: green;
+    margin-top: 30px;
+}
+    </style>
+</head>
+<body>
+
+<div class="quiz-container" id="quiz-container">
+    <h1>{{ quiz.title }}</h1>
+
+    <div id="quiz"></div>
+    <div id="score-display" class="score hidden"></div>
+
+    <form method="post" id="quizForm">
+        {% csrf_token %}
+        <button type="submit" class="submit-btn">Submit</button>
+        <div id="error-message" class="error hidden"></div>
+        <div id="submitted-msg" class="submitted-msg hidden"></div>
+        <button type="button" class="view-score-btn hidden" onclick="viewScore()">View Score</button>
+    </form>
+
+    <a href="{% url 'course_detail' course.id %}">
+        <button class="vbtn hidden">Next chapter</button>
+    </a>
+</div>
+
+<script>
+    const questions = JSON.parse('{{ questions_json|escapejs }}');
+
+let score = 0;
+
+function loadQuiz() {
+    const quizDiv = document.getElementById("quiz");
+    questions.forEach((q, index) => {
+        const questionHtml = `
+            <div class="question" id="question${index}">
+                <p><strong>${index + 1}. ${q.question}</strong></p>
+                <ul class="options">
+                    <li><label><input type="radio" name="question${index}" value="A"> <span>${q.option_a}</span></label></li>
+                    <li><label><input type="radio" name="question${index}" value="B"> <span>${q.option_b}</span></label></li>
+                    <li><label><input type="radio" name="question${index}" value="C"> <span>${q.option_c}</span></label></li>
+                    <li><label><input type="radio" name="question${index}" value="D"> <span>${q.option_d}</span></label></li>
+                </ul>
+            </div>
+        `;
+        quizDiv.innerHTML += questionHtml;
+    });
+}
+
+function checkAnswers() {
+    const errorMessage = document.getElementById("error-message");
+    let allAnswered = true;
+    score = 0;
+
+    questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="question${index}"]:checked`);
+        if (!selected) {
+            allAnswered = false;
+            return;
+        }
+        if (selected.value === q.answer) {
+            score++;
+        }
+    });
+
+    if (!allAnswered) {
+        errorMessage.classList.remove("hidden");
+        errorMessage.innerText = "You must answer all questions before submitting.";
+        return;
+    }
+
+    errorMessage.classList.add("hidden");
+    document.querySelector('.submit-btn').style.display = "none";
+    document.getElementById("submitted-msg").classList.remove("hidden");
+    document.getElementById("submitted-msg").innerText = "Your quiz has been submitted successfully!";
+    document.querySelector('.view-score-btn').classList.remove("hidden");
+    document.querySelector(".vbtn").classList.remove("hidden");
+
+    document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+}
+
+function viewScore() {
+    const existingScore = document.getElementById("score-top");
+    if (existingScore) existingScore.remove();
+
+    questions.forEach((q, index) => {
+        const options = document.querySelectorAll(`#question${index} input`);
+        options.forEach(opt => {
+            const span = opt.parentElement.querySelector("span");
+            span.innerText = span.innerText.replace("✔️", "").replace("❌", "").trim();
+            if (opt.value === q.answer) {
+                span.innerText += " ✔️";
+            }
+            if (opt.checked && opt.value !== q.answer) {
+                span.innerText += " ❌";
+            }
+        });
+    });
+const scoreDisplay = document.createElement('div');
+scoreDisplay.id = "score-top";
+scoreDisplay.classList.add('score');  // <-- top-right hata diya
+scoreDisplay.innerText = `Score: ${score}/${questions.length}`;
+document.querySelector(".quiz-container").appendChild(scoreDisplay); // <-- quiz-container ke andar add karein
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.onload = loadQuiz;
+
+document.getElementById("quizForm").onsubmit = function (event) {
+    event.preventDefault();
+    checkAnswers();
+};
+
+</script>
+
+</body>
+</html>

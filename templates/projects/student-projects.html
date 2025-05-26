@@ -1,0 +1,57 @@
+{% load static %}  <!-- Loads static files (like CSS, JS) to be used in this template -->
+
+<!DOCTYPE html>  <!-- Declares the document type as HTML5 -->
+<html lang="en">  <!-- Opens the HTML document with the language set to English -->
+
+<head>  <!-- Contains meta-information about the HTML document -->
+    <meta charset="UTF-8">  <!-- Sets the character encoding to UTF-8 for proper text display -->
+    <title>My Projects</title>  <!-- Sets the title of the web page that will appear in the browser tab -->
+    
+    <!-- Links to the external CSS file for styling -->
+    <link rel="stylesheet" href="{% static 'css/student-projects.css' %}">  
+    <!-- Imports the 'Poppins' font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+</head>
+
+<body>  <!-- The body of the document that contains the main content -->
+
+    {% include 'header.html' %}  <!-- Includes the 'header.html' template at this point in the body -->
+
+    <div class="project-section">  <!-- A container div to hold the project-related content -->
+        <h2>✅ Approved Projects</h2>  <!-- Heading for approved projects section -->
+
+        {% if approved_projects %}  <!-- Checks if there are any approved projects -->
+            <ul>  <!-- Unordered list to display approved projects -->
+                {% for project in approved_projects %}  <!-- Iterates through each project in the approved_projects list -->
+                    <li class="approved">  <!-- List item for each approved project -->
+                        <span class="category-badge">{{ project.get_category_display }}</span>  <!-- Displays the category of the project -->
+                        <strong>{{ project.title }}</strong> - ✅ Approved on {{ project.updated_at|date:"M d, Y" }}  <!-- Displays project title and approval date -->
+                        <p>Your certificate will be sent via email.</p>  <!-- Informational message about certificate delivery -->
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}  <!-- If there are no approved projects -->
+            <p class="no-projects">No approved projects yet.</p>  <!-- Displays message indicating no approved projects -->
+        {% endif %}
+
+        <h2>❌ Rejected Projects</h2>  <!-- Heading for rejected projects section -->
+
+        {% if rejected_projects %}  <!-- Checks if there are any rejected projects -->
+            <ul>  <!-- Unordered list to display rejected projects -->
+                {% for project in rejected_projects %}  <!-- Iterates through each project in the rejected_projects list -->
+                    <li class="rejected">  <!-- List item for each rejected project -->
+                        <span class="category-badge">{{ project.get_category_display }}</span>  <!-- Displays the category of the project -->
+                        <strong>{{ project.title }}</strong> - ❌ Rejected GO to project page to resubmitted  <!-- Displays project title and rejection message -->
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}  <!-- If there are no rejected projects -->
+            <p class="no-projects">No rejected projects.</p>  <!-- Displays message indicating no rejected projects -->
+        {% endif %}
+    </div>
+
+    {% include 'footer.html' %}  <!-- Includes the 'footer.html' template at the end of the page -->
+
+</body>
+</html>

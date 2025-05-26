@@ -1,0 +1,525 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlignSkills</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{% static 'css/home-page-style.css' %}">
+
+
+    <!-- Icon Library -->
+
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+<!-- Inline Styles Chatbot -->
+<style>
+    .chat-input {
+        height: 35px;
+    }
+    .chat-input button {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 13px;
+    }
+</style>
+   
+</head>
+{% include 'header.html' %}
+
+<body>
+    <!-- Header Section -->
+  
+</body>
+<!--======Hero Banner Section======-->
+<header class="unique-banner hero"> <!-- Combined banner classes -->
+    <!-- Video Background -->
+    <video autoplay loop muted class="back-ground">
+        <source src="static/images/12345.mp4" type="video/mp4">
+    </video>
+
+    <!-- Banner Content -->
+    <div class="unique-content">
+        <h1>Brighten Your Future with E-Learning</h1>
+        <p>Learn anytime, anywhere with expert guidance. Join now to gain the skills you need for success.</p>
+        <form action="#">
+            <!-- <button onclick="window.location.href='/courses/'">Explore more Courses</button> -->
+            <a href="{% url 'courses' %}" class="btn-link" style="text-decoration: none;">Explore more Courses</a>
+    </div>
+
+    <!-- Banner Image -->
+    <div class="unique-image">
+        <video autoplay loop muted plays-inline class="back-video">
+            <source src="static/css/images/12345.mp4" type="video/mp4">
+        </video>
+    </div>
+</header>
+
+<!--====== Scrolling(Announcement) Marquee ======-->
+<marquee behavior="scroll" direction="left" scrollamount="10">
+    Transform your future: learn for free, earn certificates, and build your career! <!-- Marquee Text -->
+</marquee>
+
+<!--====== Top Categories Section ======-->
+<section class="top-courses">
+    <!-- Section Title -->
+        <h1>Top Categories</h1>
+
+    <hr class="section-line">
+
+    <!--= First Row - 5 Courses =-->
+    <div class="courses-container">
+            <!-- JavaScript Course -->
+            <div class="course-box" onclick="window.location.href='enroll-course-pages/4/'">
+
+            <div class="icon-wrapper">
+                <i class="fas fa-code"></i>
+            </div>
+            <p class="course-name">JavaScript</p>
+            <div class="action-btn">View Course <i class="fas fa-arrow-right"></i></div>
+            <div class="status-badge">Available</div>
+        </div>
+        <!-- IT -->
+        <div class="course-box" onclick="window.location.href='enroll-course-pages/3/'">
+
+            <div class="icon-wrapper">
+                <i class="fas fa-desktop"></i>
+            </div>
+            <p class="course-name">Introduction to IT</p>
+            <div class="action-btn">View Course <i class="fas fa-arrow-right"></i></div>
+            <div class="status-badge">Popular</div>
+        </div>
+            <!-- Marketing Course (Coming Soon) -->
+            <div class="course-box locked">
+            <div class="icon-wrapper">
+                <i class="fas fa-bullhorn"></i>
+                <i class="fas fa-lock lock-icon"></i>
+            </div>
+            <p class="course-name">Marketing</p>
+            <div class="action-btn disabled-btn">Coming Soon</div>
+            <div class="status-badge">Q3 2024</div>
+        </div>
+        <!-- Networking -->
+        <div class="course-box" onclick="window.location.href='enroll-course-pages/6/'">
+            <div class="icon-wrapper">
+                <i class="fas fa-network-wired"></i>
+            </div>
+            <p class="course-name">Networking</p>
+            <div class="action-btn">View Course <i class="fas fa-arrow-right"></i></div>
+            <div class="status-badge">Trending</div>
+        </div>
+        <!-- AI -->
+        <div class="course-box" onclick="window.location.href='enroll-course-pages/2/'">
+            <div class="icon-wrapper">
+                <i class="fas fa-robot"></i>
+            </div>
+            <p class="course-name">Artificial Intelligence</p>
+            <div class="action-btn">View Course <i class="fas fa-arrow-right"></i></div>
+            <div class="status-badge">Hot</div>
+        </div>
+    </div>
+
+    <!--= Second Row - 3 Courses =-->
+    <div class="courses-container" style="margin-top: 30px;">
+            <!-- Python Course -->
+            <div class="course-box" onclick="window.location.href='enroll-course-pages/5/'">
+            <div class="icon-wrapper">
+                <i class="fas fa-globe"></i>
+            </div>
+            <p class="course-name">Python</p>
+            <div class="action-btn">View Course <i class="fas fa-arrow-right"></i></div>
+            <div class="status-badge">Best</div>
+        </div>
+            <!-- Software Course (Coming Soon) -->
+            <div class="course-box locked">
+            <div class="icon-wrapper">
+                <i class="fas fa-cogs"></i>
+                <i class="fas fa-lock lock-icon"></i>
+            </div>
+            <p class="course-name">Software</p>
+            <div class="action-btn disabled-btn">In Development</div>
+            <div class="status-badge">Q1 2024</div>
+        </div>
+    <!-- Database Course -->
+    <div class="course-box locked">
+        <div class="icon-wrapper">
+                <i class=" fas fa-robot"></i>
+                <i class="fas fa-lock lock-icon"></i>
+
+            </div>
+            <p class="course-name">Database Course</p>
+            <div class="action-btn disabled-btn"> In Development</div>
+            <div class="status-badge">Q1 2024</div>
+        </div>
+    </div>
+</section>
+<div class="learning-opportunities">
+    <!--Content Section for Learning Opportunitie-->
+    <div class="learning-content">
+        <h2>Free Learning Opportunities for Everyone</h2>
+
+        <!-- Descriptive Paragraph -->
+       <p>
+    Empower yourself with free access to world-class learning resources! Whether you're a student, a professional, or someone exploring new skills, our platform is built to support you at every stage. Dive into a wide range of subjects — from programming and design to personal development and communication. 
+
+    Unlock your potential with structured courses, expert-led content, and hands-on projects that give you real-world skills. No registration fees, no hidden costs — just pure learning. Join a growing global community of learners who are transforming their futures, one course at a time.
+</p>
+
+
+    
+
+    </div>
+</div>
+
+
+    <!--====== Statistics Section ======-->
+<div class="stats-container">
+    <!-- Active Students -->
+    <div class="stat-item">
+        <div class="icon-wrapper">
+            <i class="fas fa-user-graduate"></i>
+        </div>
+        <h2 class="stat-number" id="active-students">{{ active_students }}</h2>
+        <p>Active Students</p>
+    </div>
+    <!-- Graduate Students -->
+    <div class="stat-item">
+        <div class="icon-wrapper">
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+        <h2 class="stat-number" id="graduate-students">{{ graduate_students }}</h2>
+        <p>Graduate Students</p>
+    </div>
+    <!-- Certified Students -->
+    <div class="stat-item">
+        <div class="icon-wrapper">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </div>
+        <h2 class="stat-number" id="certified-students">{{ certified_students }}</h2>
+        <p>Certified Students</p>
+    </div>
+</div>
+
+    <!--====== Our Popular Courses Section ======-->
+<div class="unique-course-section">
+    <!-- Section Heading and Description -->
+    <h1 class="section-heading">Our Popular Courses</h1> <!-- Main heading for the course section -->
+    <p class="section-description">
+        Explore our hand-picked, most popular courses that will help you build the skills you need to succeed in your
+        career.
+        From web development to artificial intelligence, we offer courses that fit your needs.
+    </p>
+    <div class="unique-courses-container">
+        <!-- Database Course Card -->
+        <div class="unique-course-card">
+            <img src="static/images/it.png" alt="Database Course"> <!-- Course image -->
+            <h2>Information Technology Course</h2> <!-- Course title -->
+            <p>This course provides a comprehensive overview of information technology, covering networking and IT
+                solutions for modern businesses to solve the problems.</p>
+            <p>Free of Cost</p> <!-- Price information -->
+            <p>Hands-on project at the end of the course.</p> <!-- Course feature -->
+            <p>Certificate Provided</p> <!-- Certification detail -->
+            <a href="enroll-course-pages/3/" class="unique-btn" 
+            onclick="event.preventDefault(); window.location.href='/enroll-course-pages/3/'">
+            View Course</a>        
+        </div>
+        <!-- Artificial Intelligence Course Card -->
+<div class="unique-course-card">
+    <img src="static/images/AI.jpeg" alt="Artificial Intelligence">
+    <h2>Artificial Intelligence Course</h2>
+    <p>Learn the basics and advanced concepts of Artificial Intelligence</p>
+    <p>Free of Cost</p>
+    <p>Hands-on project at the end of the course.</p>
+    <p>Certificate Provided</p>
+    <a href="enroll-course-pages/2/" class="unique-btn" 
+       onclick="event.preventDefault(); window.location.href='enroll-course-pages/2/'">
+       View Course</a>
+</div>
+        <!-- JavaScript Course Card -->
+        <div class="unique-course-card">
+            <img src="static/images/JS.jpeg" alt="JavaScript"> <!-- Course image -->
+            <h2>JavaScript Course</h2> <!-- Course title -->
+            <p>This course covers JavaScript essentials like variables, functions, and DOM manipulation, equipping you
+                to build responsive websites and web apps.</p>
+            <p>Free of Cost</p> <!-- Price information -->
+            <p>Hands-on project at the end of the course.</p> <!-- Course feature -->
+            <p>Certificate Provided</p> <!-- Certification detail -->
+            <a href="enroll-course-pages/4/" class="unique-btn" 
+            onclick="event.preventDefault(); window.location.href='enroll-course-pages/4/'">
+            View Course
+         </a>       
+         </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="{% static 'js/home-script.js' %}"></script><!--// Prevent clicking on locked courses-->
+<!-- ========= LEARNING TIPS CONTAINER ========= -->
+<div class="learning-tips">
+    <div class="tip-container">
+        <!-- Main heading with animated icon -->
+        <h3 class="tip-heading">📚 Pro Learning Tips <span class="pulse-icon">💡</span></h3>
+        
+        <!-- Wrapper for the tip text (for animations) -->
+        <div class="tip-wrapper">
+            <!-- Actual tip text will appear here -->
+            <p class="tip-text">Loading tips...</p>
+        </div>
+        
+        <!-- Progress bar container -->
+        <div class="progress-track">
+            <!-- Animated progress bar -->
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+</div>
+    <!--====== Course Offerings Section(What kind of Courses we offer) ======-->
+<div class="courses-section">
+    <!-- Image Section -->
+    <div class="image-wrapper">
+        <img src="static/images/img7.png" alt="Courses Image"> <!-- Image related to courses -->
+    </div>
+    <!-- Details Section -->
+    <div class="details-wrapper">
+        <h3>What Kind of Courses We Offer</h3> <!-- Heading for course offerings -->
+        <p>We offer courses in Web Development, Data Science, Digital Marketing, Graphic Design, and Cybersecurity. Each
+            course is designed for both beginners and professionals, with practical projects to apply skills in
+            real-world scenarios. On completion, you will receive a certificate that can be added to your resume.</p>
+        <!-- Course Facilities Section -->
+        <div class="course-facilities">
+            <h4>Facilities We Provide:</h4> <!-- Subheading for facilities -->
+            <ul>
+                <!-- Certification Facility -->
+                <li><i class="fas fa-certificate"></i> <strong>Certification:</strong> Receive a certificate after
+                    completing each course.</li>
+                <!-- Resume Builder Facility -->
+                <li><i class="fas fa-file-alt"></i> <strong>Resume Builder:</strong> Easily create a professional
+                    resume.</li>
+                <!-- Chatbot Support Facility -->
+                <li><i class="fas fa-comments"></i> <strong>Chatbot Support:</strong> Get 24/7 assistance from our AI
+                    chatbot.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <!--====== How It Works Section =======-->
+    <div class="categories-container">
+    <!--Heading -->
+    <h2 class="categories-heading">How Does It Work for You?</h2> <!-- Heading for explaining course process -->
+
+    <!-- Course Category -->
+    <div class="category-item">
+        <div class="icon-wrapper">
+            <i class="fas fa-book"></i> <!-- Icon for courses -->
+        </div>
+        <h3>Courses</h3> <!-- Course category title -->
+        <p>Explore a variety of courses.</p> <!-- Short description -->
+    </div>
+    <!-- Quiz Category -->
+    <div class="category-item">
+        <div class="icon-wrapper">
+            <i class="fas fa-question-circle"></i> <!-- Icon for quizzes -->
+        </div>
+        <h3>Quiz</h3> <!-- Quiz category title -->
+        <p>Test your knowledge with quizzes.</p> <!-- Short description -->
+    </div>
+    <!-- Project Category -->
+    <div class="category-item">
+        <div class="icon-wrapper">
+            <i class="fas fa-tasks"></i> <!-- Icon for projects -->
+        </div>
+        <h3>Project</h3> <!-- Project category title -->
+        <p>Work on hands-on projects.</p> <!-- Short description -->
+    </div>
+    <!-- Certification Category -->
+    <div class="category-item">
+        <div class="icon-wrapper">
+            <i class="fas fa-certificate"></i> <!-- Icon for certification -->
+        </div>
+        <h3>Certification</h3> <!-- Certification category title -->
+        <p>Earn certifications to showcase skills.</p> <!-- Short description -->
+    </div>
+    <!-- Resume Builder Category -->
+    <div class="category-item">
+        <div class="icon-wrapper">
+            <i class="fas fa-file-alt"></i> <!-- Icon for resume builder -->
+        </div>
+        <h3>Resume Builder</h3> <!-- Resume builder category title -->
+        <p>Create professional resumes easily.</p> <!-- Short description -->
+    </div>
+</div>
+
+<!--====== Why Choose Us Section =======-->
+<section id="why-join-us">
+    <div class="text-content">
+        <h2>Why Choose Us?</h2> <!-- Heading for the section -->
+        <!-- List of reasons to choose the platform -->
+        <ul>
+            <!-- Reason 1: Expert Instructors -->
+            <li>
+                <i class="fas fa-graduation-cap"></i> <!-- Icon representing graduation/cap -->
+                <strong>Expert Instructors:</strong> Learn from experienced professionals.
+            </li>
+            <!-- Reason 2: Hands-on Projects -->
+            <li>
+                <i class="fas fa-cogs"></i> <!-- Icon representing tools or hands-on work -->
+                <strong>Hands-on Projects:</strong> Apply your knowledge to real-world problems.
+            </li>
+            <!-- Reason 3: Certification -->
+            <li>
+                <i class="fas fa-certificate"></i> <!-- Icon representing certificate -->
+                <strong>Certification:</strong> Earn a certificate to showcase your skills.
+            </li>
+            <!-- Reason 4: Community Support -->
+            <li>
+                <i class="fas fa-user-friends"></i> <!-- Icon representing a community of people -->
+                <strong>Community Support:</strong> Join a community of learners.
+            </li>
+            <!-- Reason 5: Cutting-edge Tools -->
+            <li>
+                <i class="fas fa-laptop-code"></i> <!-- Icon representing a laptop with code -->
+                <strong>Cutting-edge Tools:</strong> Work with the latest technologies.
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Include this inside your home.html -->
+<!-- Chat Icon -->
+
+
+
+
+
+
+{% include 'includes/chatbot.html' %}
+
+
+
+
+
+
+<!-- Footer Section -->
+{% include 'footer.html' %}
+
+<!-- JavaScript -->
+<script>
+    // Check if the user is logged in
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        document.getElementById('auth-buttons').style.display = 'none'; // Hide Sign Up/Sign In
+        document.getElementById('student-pane').style.display = 'block'; // Show Student Pane button
+    }
+
+    // Redirect to the sign-up page
+    document.getElementById('signup-btn').onclick = function () {
+        window.location.href = 'signup.html'; // Redirect to sign-up page
+    };
+
+    // Redirect to the sign-in page
+    document.getElementById('signin-btn').onclick = function () {
+        window.location.href = 'signin.html'; // Redirect to sign-in page
+    };
+    function toggleChat() {
+        let chatBox = document.getElementById("chatBox");
+        chatBox.style.display = chatBox.style.display === "none" ? "block" : "none";
+    }
+
+    function openChat() {
+        document.getElementById("chatBox").style.display = "block";
+    }
+
+
+
+
+   
+
+
+
+
+    document.getElementById("newsletter-form").addEventListener("submit", function(event){
+        event.preventDefault();
+
+        var email = document.getElementById("newsletter-email").value;
+        var csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "{% url 'ajax_subscribe_newsletter' %}", true);
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        
+        xhr.onload = function() {
+            var response = JSON.parse(xhr.responseText);
+            var messageElement = document.getElementById("newsletter-message");
+
+            if (response.status === "success") {
+                messageElement.textContent = response.message;
+                messageElement.style.color = "green";
+            } else if (response.status === "info") {
+                messageElement.textContent = response.message;
+                messageElement.style.color = "orange";
+            } else {
+                messageElement.textContent = response.message;
+                messageElement.style.color = "red";
+            }
+        };
+
+        xhr.send("email=" + encodeURIComponent(email) + "&csrfmiddlewaretoken=" + csrfToken);
+    });
+
+
+
+
+
+
+</script>
+<!-- Main script -->
+<script src="{% static 'js/script.js' %}"></script>
+<!-- Chatbot script -->
+<script src="{% static 'js/chatbot.js' %}"></script>
+
+</html>

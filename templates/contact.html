@@ -1,0 +1,339 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlignSkills</title>
+
+    <!-- External CSS -->
+    <!-- <link rel="stylesheet" href="static/css/chatbot.css"> -->
+    <link rel="stylesheet" href="{% static 'css/contact-us-style.css' %}">
+
+
+
+
+    <!-- Icon Library -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!--Owl Carousel CSS-->
+    <!-- <link rel="stylesheet" href=" static 'app/css/owl.carousel.min.css"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/static/css/chatbot.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        .form-group input {
+            border-radius: 25px;
+            /* Makes input fields rounded (pill-shaped) */
+        }
+
+        .chat-input {
+            height: 35px;
+            /* Fixed height of the chat input area */
+            display: flex;
+            /* Use flexbox for horizontal layout */
+            gap: 8px;
+            /* Space between input and button */
+            padding: 10px;
+            /* Inner spacing around input and button */
+            background-color: #fff;
+            /* White background */
+        }
+
+        .chat-input button {
+            margin-top: 0;
+            /* Remove top margin */
+            margin-bottom: 0;
+            /* Remove bottom margin */
+            font-size: 13px;
+            /* Set smaller font size for button */
+        }
+
+        /* Success message style */
+        .success {
+            color: green;
+            /* Green text for success */
+            background-color: #d4edda;
+            /* Light green background */
+            border: 1px solid #c3e6cb;
+            /* Border matching background */
+            padding: 10px;
+            /* Inner spacing */
+            margin: 10px 0;
+            /* Vertical space around message */
+            border-radius: 5px;
+            /* Rounded corners */
+            font-weight: bold;
+            /* Bold text */
+        }
+
+        /* Error message style */
+        .error {
+            color: red;
+            /* Red text for errors */
+            background-color: #f8d7da;
+            /* Light red/pink background */
+            border: 1px solid #f5c6cb;
+            /* Border matching background */
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* Informational message style */
+        .info {
+            color: #0c5460;
+            /* Deep blue text */
+            background-color: #d1ecf1;
+            /* Light blue background */
+            border: 1px solid #bee5eb;
+            /* Border matching background */
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    {% include 'header.html' %}
+
+
+
+
+
+
+
+
+
+    <!-- Contact Us Header Section -->
+    <div class="contact-us">
+        <h2>Contact Us</h2> <!-- Main heading for the contact section -->
+        <p>We are here to assist you with all your learning needs.</p> <!-- Introductory text -->
+        <p>Reach out to us for any questions or support regarding Align Skills.</p> <!-- Additional info -->
+    </div>
+
+    <!-- Main Container for Contact Info and Form -->
+    <div class="container">
+
+        <!-- Contact Information Section -->
+        <div class="contact-info">
+            <h2>Get in Touch</h2> <!-- Heading for contact details -->
+            <p>We'd love to hear from you! Reach out to us via the following options.</p> <!-- Info text -->
+
+            <!-- Address Section -->
+            <div class="info-item">
+                <i class="fas fa-location-arrow"></i> <!-- Font Awesome icon for address -->
+                <div>
+                    <h3>Address</h3> <!-- Subheading -->
+                    <p>University OF Education<br>Township - Lahore</p> <!-- Physical address -->
+                </div>
+            </div>
+
+            <!-- Email Section -->
+            <div class="info-item">
+                <i class="fas fa-envelope-open-text"></i> <!-- Font Awesome icon for email -->
+                <div>
+                    <h3>Email Us</h3>
+                    <p>allignskills456@gmail.com</p> <!-- Email address -->
+                </div>
+            </div>
+
+            <!-- Phone Section -->
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i> <!-- Font Awesome icon for phone -->
+                <div>
+                    <h3>Call Us</h3>
+                    <p>Phone: +9210004578<br>Fax: +6221.2002.2013</p> <!-- Phone and fax -->
+                </div>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="social-media">
+                <h3>Follow our social media</h3> <!-- Heading -->
+                <hr> <!-- Horizontal line -->
+                <div class="icons">
+                    <a href="https://www.facebook.com/profile.php?id=61574998993810"><i
+                            class="fab fa-facebook-f"></i></a> <!-- Facebook -->
+                    <a href="https://www.instagram.com/alignskills?igsh=MWVoZHZ5b3BnMzE3cQ="><i
+                            class="fab fa-instagram"></i></a> <!-- Instagram -->
+                    <a href="https://github.com/Alignskill"><i class="fab fa-github"></i></a> <!-- GitHub -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="form-container">
+            <h2 class="centered">Send Us a Message</h2> <!-- Form title -->
+
+            <!-- Contact form using POST method -->
+            <form method="POST" action="{% url 'contact' %}">
+                {% csrf_token %} <!-- Django's security token to prevent CSRF -->
+
+                <!-- First row of inputs -->
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Name" required> <!-- Name input -->
+                    <input type="email" name="email" placeholder="Email" required> <!-- Email input -->
+                </div>
+
+                <!-- Subject input -->
+                <div class="form-group">
+                    <input type="text" name="subject" placeholder="Subject" required>
+                </div>
+
+                <!-- Message textarea -->
+                <div class="form-group">
+                    <textarea name="message" placeholder="Message" required></textarea>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" id="button"><i class="fas fa-paper-plane"></i> Send</button>
+            </form>
+
+            <!-- Display Django messages (success, error, etc.) -->
+            {% if messages %}
+            {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p> <!-- Styled message output -->
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Chatbot HTML inclusion -->
+    {% include 'includes/chatbot.html' %}
+
+    <!-- FAQ Section -->
+    <div class="faq-container">
+        <h2>Frequently Asked Questions</h2> <!-- FAQ section title -->
+
+        <!-- FAQ Item 1 -->
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>What is AlignSkills?</h3> <!-- Question -->
+                <i class="fas fa-chevron-down"></i> <!-- Dropdown arrow icon -->
+            </div>
+            <p class="faq-answer">
+                AlignSkills is an e-learning platform designed to provide high-quality courses and resources for skill
+                development. You can learn at your own pace and earn certifications.
+            </p> <!-- Answer -->
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>How do I register?</h3>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <p class="faq-answer">
+                Simply click on the 'Login button' at the top-right corner of the page,then the login page will be appear now click the 'sign up button' on the right and then enter your details, and start
+                exploring courses!
+            </p>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>Are the courses free?</h3>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <p class="faq-answer">
+                Yes! All courses on AlignSkills are completely free. Our platform is designed to offer high-quality
+                educational resources without any hidden fees.
+            </p>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>Can I earn a certificate?</h3>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <p class="faq-answer">
+                Yes, once you complete a course, you will receive a certificate via email that you can add to your resume or share
+                with potential employers.
+            </p>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>How does the Resume Builder work?</h3>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <p class="faq-answer">
+                The Resume Builder is completely free to use. You can input your personal information, skills,
+                education, and experience, and download a professional resume template.
+            </p>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>How can I contact support?</h3>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <p class="faq-answer">
+                You can reach our support team via the 'Contact Us' section on our website. We are available 24/7 to
+                assist you.
+            </p>
+        </div>
+    </div>
+
+
+
+
+    <!-- Footer Section -->
+    {% include 'footer.html' %}
+
+
+    <script>
+        // --------------------------------------faq ------------------------------------------------
+        // Select all elements with the class 'faq-item' and store them in the 'faqItems' NodeList
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        // Loop through each FAQ item
+        faqItems.forEach(item => {
+            // Select the question div inside the current FAQ item
+            const question = item.querySelector('.faq-question');
+
+            // Select the answer paragraph inside the current FAQ item
+            const answer = item.querySelector('.faq-answer');
+
+            // Select the icon (chevron) inside the question div
+            const icon = question.querySelector('i');
+
+            // Add a click event listener to the question section
+            question.addEventListener('click', () => {
+                // Toggle the 'active' class on the answer, which controls its visibility
+                answer.classList.toggle('active');
+
+                // Check if the answer is currently visible (i.e., has 'active' class)
+                if (answer.classList.contains('active')) {
+                    // If active, change the icon to 'up' arrow
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    // If not active, change the icon back to 'down' arrow
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>

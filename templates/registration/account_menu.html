@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    text-align: center;
+    margin: 50px;
+}
+.menu {
+    background: white;
+    width: 300px;
+    padding: 20px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.menu a {
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    text-decoration: none;
+    color: white;
+    background: #007bff;
+    border-radius: 5px;
+}
+.menu a:hover {
+    background: #0056b3;
+}
+
+</style></head>
+<body>
+    <div class="menu">
+        <h2>Account Settings</h2>
+        <a href="#">Change Email</a>
+        <a href="#">Change Password</a>
+        <a href="#">Account Connections</a>
+        <a href="#">Sign Out</a>
+        <a href="#">Sign In Via Google</a>
+        <p>You are about to sign in using a third-party account from Google.</p>
+    </div>
+</body>
+</html>

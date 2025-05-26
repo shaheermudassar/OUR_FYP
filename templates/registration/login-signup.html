@@ -1,0 +1,275 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/login-signup-style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+e-learning.jpgLLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/login-signup-style.css' %}">
+  <title>Login Page</title>
+</head>
+<style>
+/* Wrapper for the password input field, including the toggle icon */
+.password-wrapper {
+  position: relative; /* Makes the wrapper a positioning context for the eye icon */
+  display: inline-block; /* Ensures the wrapper is inline with other elements */
+  width: 100%; /* Takes the full width of its parent container */
+}
+
+/* Style for the actual password input field */
+.password-wrapper .password-input {
+  width: 100%; /* Ensures the input takes up the entire width of its container */
+  padding-right: 40px; /* Provides space for the toggle icon (eye) on the right */
+  height: 40px; /* Sets the height of the input field */
+  box-sizing: border-box; /* Ensures padding and border are included in the width/height calculation */
+}
+
+/* Style for the toggle icon (eye) to show/hide password */
+.toggle-password i {
+  position: absolute; /* Positions the icon relative to the parent wrapper */
+  right: 12px; /* Adds some space from the right edge of the input */
+  top: 50%; /* Positions the icon vertically centered */
+  transform: translateY(-50%); /* Adjusts the icon to be perfectly centered */
+  cursor: pointer; /* Changes the cursor to a pointer when hovered */
+  user-select: none; /* Prevents the icon text from being selected */
+  font-size: 16px; /* Sets the size of the icon */
+  line-height: 1; /* Removes extra line height, aligning the icon perfectly */
+  display: flex; /* Makes the icon a flex container (although it’s just for centering here) */
+  align-items: center; /* Vertically centers the content of the flex container */
+  height: 100%; /* Ensures the icon fills the height of the input */
+  color: #555; /* Sets the color of the icon */
+}
+
+/* Basic styling for the password input to match design */
+.password-input {
+  height: 42px; /* Sets the height of the password input */
+  padding-right: 40px; /* Adds padding on the right for the toggle icon */
+  box-sizing: border-box; /* Ensures padding and border are included in height/width calculations */
+}
+
+/* General styling for text, email, and password inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  height: 40px; /* Sets the height of the input fields */
+  line-height: 40px; /* Centers the text inside the input field */
+  padding: 0 10px; /* Adds padding to the left and right sides */
+  box-sizing: border-box; /* Includes padding in width/height calculations */
+}
+
+/* Styling for error messages (e.g., form validation errors) */
+h5 {
+  color: red; /* Sets the color of the error message to red */
+}
+
+.messages-container {
+  margin-top: 0rem;
+  padding: 0 15px;
+}
+
+.alert {
+  padding: 12px 18px;
+  font-weight: 500;
+}
+
+.alert.error {
+  color: #d8000c;
+}
+
+.alert.success {
+  background-color: #e5f9e7;
+  color: #2e7d32;
+}
+
+</style>
+
+
+<body>
+  <!-- Show Django messages at the top -->
+  
+
+ <!-- Main container for the page content -->
+<div class="container" id="container" data-show-signup="{% if show_signup %}true{% else %}false{% endif %}">
+
+
+  <!-- Show Django messages at the top -->
+  
+
+  <!-- Hidden input field to store the "next" parameter from the URL (used for redirecting after successful login/signup) -->
+  <input type="hidden" name="next" value="{{ request.GET.next }}">
+
+  <!-- Sign-up form -->
+  <div class="sign-up">
+    <form action="" method="POST">
+      {% csrf_token %} <!-- CSRF token to protect against cross-site request forgery -->
+      <h1>Create Account</h1> <!-- Title for sign-up form -->
+      <input type="text" name="username" placeholder="Full Name" /> <!-- Input field for username -->
+      <input type="email" name="email" placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required />
+      
+      <!-- Password input field with a toggle icon to show/hide the password -->
+      <div class="password-wrapper">
+        <input type="password" name="password" class="password-input" placeholder="Password" />
+        <span class="toggle-password" onclick="togglePassword(this)">
+            <i class="fas fa-eye-slash"></i> <!-- Default: Slash visible to indicate hidden password -->
+        </span>
+      </div>
+{% if messages %}
+  <div class="messages-container">
+    {% for message in messages %}
+      {% if 'signup' in message.tags %}
+        <div class="alert {{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
+
+      <!-- Sign up button -->
+      <a href="/"><button class="signup-btn">Sign Up</button></a>
+   
+    </form>
+  </div>
+
+  <!-- Login form -->
+  <div class="Login">
+      <!-- Section for displaying messages (e.g., success or error messages) -->
+  
+    <form action="{% url 'login' %}" method="POST">
+      {% csrf_token %} <!-- CSRF token -->
+      <h1>Login</h1> <!-- Title for login form -->
+      <input type="text" name="identifier" placeholder="Email or Username" required /> <!-- Input field for email/identifier -->
+      
+      <!-- Password input field with toggle for showing/hiding the password -->
+      <div class="password-wrapper">
+        <input type="password" name="password" class="password-input" placeholder="Password" />
+        <span class="toggle-password" onclick="togglePassword(this)">
+            <i class="fas fa-eye-slash"></i> <!-- Default: Slash visible -->
+        </span>
+      </div>
+      {% if messages %}
+  <div class="messages-container">
+    {% for message in messages %}
+      {% if 'login' in message.tags %}
+        <div class="alert {{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
+
+      <!-- Login button -->
+      <button class="login-btn">Login</button>
+      
+      <!-- Forgot password link -->
+      <a href="{% url 'password_reset' %}" class="forgot-password">Forgot password?</a>
+
+      
+    </form>
+  </div>
+
+
+  <!-- Panel for toggling between login and sign-up forms -->
+  <div class="toogle-container">
+    <div class="toogle">
+      <!-- Left side of the toggle panel (for existing users to log in) -->
+      <div class="toogle-panel toogle-left">
+        <h1>Hello User!</h1>
+        <p>If you already have an account</p>
+        <button class="hidden" id="login">Login</button> <!-- Button for login (will be shown when toggled) -->
+      </div>
+
+      <!-- Right side of the toggle panel (for new users to register) -->
+      <div class="toogle-panel toogle-right">
+        <h1>Welcome Back!</h1>
+        <p>If you don't have an account</p>
+        <button class="hidden" id="register">Sign Up</button> <!-- Button for sign-up (will be shown when toggled) -->
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script>
+// ------------------------Form Toggling Between Login and Register-------------------------
+
+
+
+
+    // Get the elements by their ID
+const container = document.getElementById("container");  // The main container of the forms
+const registerbtn = document.getElementById("register");  // The 'Register' button
+const loginbtn = document.getElementById("login");  // The 'Login' button
+
+// When the 'Register' button is clicked, add the "active" class to the container to show the sign-up form
+registerbtn.addEventListener("click", () => {
+  container.classList.add("active");
+});
+
+// When the 'Login' button is clicked, remove the "active" class to show the login form
+loginbtn.addEventListener("click", () => {
+  container.classList.remove("active");
+});
+
+
+
+
+
+
+
+// -------------------------------Sign-Up Form Submission------------------------------
+
+
+// This function listens for the sign-up form submission
+document.getElementById('signupForm').addEventListener('submit', function (event) {
+  event.preventDefault();  // Prevent the form from being submitted normally
+
+  // Normally, you would send data to the server here
+  // For this example, we assume the sign-up is successful.
+
+  // Save login status and user details in localStorage for the session
+  localStorage.setItem('isLoggedIn', 'true');
+  localStorage.setItem('username', document.getElementById('username').value);
+
+  // Redirect the user to the homepage after successful sign-up
+  window.location.href = 'home.html';
+});
+
+
+
+
+
+
+
+
+
+// ------------------Function to toggle the password visibility (show/hide password)-------------
+function togglePassword(iconWrapper) {
+  const passwordField = iconWrapper.closest('.password-wrapper').querySelector('.password-input');  // Get the password input field
+  const icon = iconWrapper.querySelector('i');  // Get the icon inside the toggle wrapper
+
+  if (passwordField.type === 'password') {  // If the password is hidden
+    passwordField.type = 'text';  // Show the password
+    if (icon.classList.contains('fa-eye-slash')) {
+      icon.classList.remove('fa-eye-slash');  // Replace the eye-slash icon with the eye icon
+      icon.classList.add('fa-eye');
+    }
+  } else {  // If the password is visible
+    passwordField.type = 'password';  // Hide the password
+    if (icon.classList.contains('fa-eye')) {
+      icon.classList.remove('fa-eye');  // Replace the eye icon with the eye-slash icon
+      icon.classList.add('fa-eye-slash');
+    }
+  }
+}
+
+  </script>
+</body>

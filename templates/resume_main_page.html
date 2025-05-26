@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Resume Page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/css/resume_template_style.css">
+    <style>
+        .resume-btn {
+  font-size: 14.5px;  /* Set font size */
+  font-weight: 600;  /* Font weight */
+  padding: 1.4rem 1.6rem;  /* Padding inside button */
+  border-radius: 4px;  /* Rounded corners */
+  display: inline-block;  /* Inline-block display */
+}
+
+/* Primary button styling */
+.btn-primary {
+  background-color: var(--green);  /* Set background color */
+  color: var(--clr-white);  /* Set text color */
+  border: 1px solid var(--clr-blue);  /* Border style */
+  transition: var(--transition);  /* Transition effect */
+}
+
+.btn-primary:hover {
+  background-color: var(--light-color);  /* Change background on hover */
+  color: var(--clr-dark);  /* Change text color on hover */
+  border-color: var(--clr-grey);  /* Change border color */
+}
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    {% include 'header.html' %}
+
+
+    <header class="header bg-bright" id="header">
+        <div class="container">
+            <div class="header-content text-center">
+                <!-- Subheading for the Resume Builder section -->
+                <h6 class="h6">align resume builder</h6>
+
+                <!-- Main Title for the section -->
+                <h1 class="lg-title">From Learning to Earning: Your Resume, Ready.</h1>
+
+                <!-- Descriptive Paragraph about the platform -->
+                <p class="text-dark fs-18">
+                    Align Skill is an innovative e-learning platform designed to help users enhance their skills and
+                    showcase their achievements with a built-in resume builder. Align Skill empowers users to present
+                    their competencies effectively, improving their chances of securing job opportunities and advancing
+                    their careers.
+                </p>
+
+                <!-- Call-to-action button to create a resume -->
+                <a href="/choose_template" class="resume-btn btn-primary text-uppercase">create my resume</a>
+
+                <!-- Optional Image (currently commented out) -->
+                <!-- <img src = "static/images/resume_main_page.png" class="img"> -->
+            </div>
+        </div>
+    </header>
+
+    {% include 'includes/chatbot.html' %}
+
+    <!-- Section One: Introduction to the Resume Maker -->
+    <div class="section-one">
+        <div class="container">
+            <div class="section-one-content">
+                <!-- Left Section: Image -->
+                <div class="section-one-l">
+                    <img src="static/images/re.png.jpg">
+                </div>
+
+                <!-- Right Section: Text and Button -->
+                <div class="section-one-r text-center">
+                    <h2 class="lg-title">Let the Best Resume Maker Lead the Way!</h2>
+                    <p class="text">
+                        Getting hired can be challenging, but with our top-rated resume maker, you’ll have a real
+                        advantage.
+                        Built by experts, improved by data, and relied upon by professionals worldwide.
+                    </p>
+                    <!-- Button to create resume -->
+                    <div class="btn-group">
+                        <a href="/choose_template" class="resume-btn btn-primary text-uppercase">create my resume</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Two: Features of the Resume Maker -->
+    <div class="section-two bg-bright">
+        <div class="container">
+            <div class="section-two-content">
+                <div class="section-items">
+                    <!-- Feature 1: Ease of Creating Resumes -->
+                    <div class="section-item">
+                        <div class="section-item-icon">
+                            <img src="static/images/pencil.webp" alt="">
+                        </div>
+                        <h5 class="section-item-title">Creating Resumes Has Never Been Easier</h5>
+                        <p class="text">
+                            Writing a resume is now simple and fast. With pre-generated content, sleek designs, and more
+                            –
+                            all you need to do is add your details.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2: Trusted by Recruiters -->
+                    <div class="section-item">
+                        <div class="section-item-icon">
+                            <img src="static/images/feature-2-a7a471bd973c02a55d1b3f8aff578cd3c9a4c5ac4fc74423d94ecc04aef3492b.svg"
+                                alt="">
+                        </div>
+                        <h5 class="section-item-title">A CV Maker Trusted by Recruiters</h5>
+                        <p class="text">
+                            With content carefully tested by hiring experts, our CV builder ensures your resume is
+                            competitive
+                            and ready to impress recruiters.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3: Stand Out with a Great Resume -->
+                    <div class="section-item">
+                        <div class="section-item-icon">
+                            <img src="static/images/feature-3-4e87a82f83e260488c36f8105e26f439fdc3ee5009372bb5e12d9421f32eabdd.svg"
+                                alt="">
+                        </div>
+                        <h5 class="section-item-title">Craft a Resume That Stands Out!</h5>
+                        <p class="text">
+                            Utilize our resume creation tools to highlight your strengths and make a lasting impression
+                            on employers.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    {% include 'footer.html' %}
+
+    <!-- JavaScript -->
+    <script>
+        // Check if the user is logged in
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById('newsletter-form'); // Get the newsletter form
+            const message = document.getElementById('newsletter-message'); // Get the message element to show success or error
+
+            // Check if form and message elements exist
+            if (form && message) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault(); // Prevent the default form submission (page reload)
+
+                    const email = document.getElementById('newsletter-email').value; // Get the email from the input field
+                    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Get the CSRF token
+
+                    // Make AJAX request to the server with the email data
+                    fetch("{% url 'ajax_subscribe_newsletter' %}", {
+                        method: 'POST', // POST method to send the data
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded', // Specify form data format
+                            'X-CSRFToken': csrfToken, // Add CSRF token for security
+                            'X-Requested-With': 'XMLHttpRequest', // Indicate that it's an AJAX request
+                        },
+                        body: new URLSearchParams({ email: email }) // Send email as the body of the request
+                    })
+                        .then(response => response.json()) // Parse JSON response from the server
+                        .then(data => {
+                            // Display message based on the response status (success, info, or error)
+                            message.textContent = data.message; // Set the response message
+                            message.style.color = data.status === 'success' ? 'green' : (data.status === 'info' ? 'orange' : 'red'); // Set message color based on status
+
+                            // If the subscription is successful, reset the form
+                            if (data.status === 'success') {
+                                form.reset();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error); // Log any errors
+                            message.textContent = 'Something went wrong. Please try again.'; // Display a generic error message
+                            message.style.color = 'red'; // Set the error message color to red
+                        });
+                });
+            } else {
+                console.error("Form or message element not found"); // Log an error if the form or message element is not found
+            }
+        });
+
+
+    </script>
+    <script src="{% static 'js/resume_script.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Resume Template</title>
+    <style>
+/* Universal styles to remove default margin, padding, and ensure consistent box sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* This ensures padding and borders don't affect element width */
+}
+
+/* Body styling for overall layout */
+body {
+    font-family: Arial, sans-serif; /* Font style for the entire page */
+    background-color: #f4f4f4; /* Light background color for the body */
+    padding: 20px; /* Add space around the body content */
+}
+
+/* Container for centering the main content */
+.container {
+    max-width: 1200px; /* Maximum width of the container */
+    margin: 0 auto; /* Center the container horizontally */
+    text-align: center; /* Center the text inside the container */
+}
+
+/* Styling for main title (h1) */
+h1 {
+    margin-bottom: 30px; /* Space below the title */
+    font-size: 2.5rem; /* Size of the title */
+}
+
+/* Template selection section with flexible layout */
+.template-selection {
+    display: flex; /* Display as a flex container */
+    justify-content: center; /* Center the templates horizontally */
+    gap: 20px; /* Space between the templates */
+    flex-wrap: wrap; /* Allow wrapping of templates if screen size is small */
+}
+
+/* Individual template box styling */
+.template {
+    background-color: #fff; /* White background for each template */
+    border-radius: 8px; /* Rounded corners for the template box */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    width: 250px; /* Fixed width for each template */
+    padding: 20px; /* Padding inside the template */
+    text-align: center; /* Center text inside the template */
+    transition: transform 0.3s ease; /* Smooth scale transition when hovering */
+}
+
+/* Hover effect for the template: slightly enlarges the template */
+.template:hover {
+    transform: scale(1.05); /* Scale the template when hovered */
+}
+
+/* Styling for images inside each template */
+.template img {
+    width: 100%; /* Make the image take full width of the container */
+    border-radius: 8px; /* Round the corners of the image */
+    display: block; /* Make the image behave like a block element */
+}
+
+/* Button styling */
+button {
+    background-color: #c9b75f; /* Gold-like background color for the button */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Padding inside the button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Change cursor to pointer when hovering over the button */
+    margin-top: 10px; /* Space above the button */
+}
+
+/* Button hover effect: changes background color */
+button:hover {
+    background-color: #dfcc60; /* Lighter shade of gold when hovered */
+}
+
+/* Styling for the selected template message */
+#selected-template {
+    margin-top: 50px; /* Space above the selected template text */
+    margin-bottom: 20px; /* Space below the selected template text */
+    font-size: 1.3rem; /* Font size for the selected template text */
+    color: #333; /* Dark color for the text */
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Main heading for the page -->
+        <h1>Choose Your Resume Template</h1>
+
+        <!-- Section displaying the selected template -->
+        <div id="selected-template">
+            <h2>You have selected: <span id="template-name">None</span></h2> <!-- Shows which template is selected -->
+        </div>
+
+        <!-- Section for selecting templates -->
+        <div class="template-selection">
+
+            <!-- Template 1: Modern -->
+            <div class="template" id="modern-template">
+                <img src="static/images/modern-resume.png" alt="Modern Template" class="template-image"> <!-- Image for the template -->
+                <h2>Modern Template</h2> <!-- Title of the template -->
+                <a href="resumeTemplates/modern_template"><button onclick="selectTemplate('modern')">Choose This</button></a> <!-- Button to select the template -->
+            </div>
+
+            <!-- Template 2: Classic -->
+            <div class="template" id="classic-template">
+                <img src="static/images/classic_resume.png" alt="Classic Template" class="template-image"> <!-- Image for the template -->
+                <h2>Classic Template</h2> <!-- Title of the template -->
+                <a href="resumeTemplates/classic_resume_template"><button onclick="selectTemplate('classic')">Choose This</button></a> <!-- Button to select the template -->
+            </div>
+
+            <!-- Template 3: Creative -->
+            <div class="template" id="creative-template">
+                <img src="static/images/creative-resume.png" alt="Creative Template" class="template-image"> <!-- Image for the template -->
+                <h2>Creative Template</h2> <!-- Title of the template -->
+                <a href="resumeTemplates/creative_resume_template"><button onclick="selectTemplate('creative')">Choose This</button></a> <!-- Button to select the template -->
+            </div>
+
+            <!-- Template 4: Professional -->
+            <div class="template" id="professional-template">
+                <img src="static/images/professional_resume.png" alt="Professional Template" class="template-image"> <!-- Image for the template -->
+                <h2>Professional Template</h2> <!-- Title of the template -->
+                <a href="resumeTemplates/professional_resume_template"><button onclick="selectTemplate('professional')">Choose This</button></a> <!-- Button to select the template -->
+            </div>
+
+            <!-- Template 5: Elegant -->
+            <div class="template" id="elegant-template">
+                <img src="static/images/elegant_resume.png" alt="Elegant Template" class="template-image"> <!-- Image for the template -->
+                <h2>Elegant Template</h2> <!-- Title of the template -->
+                <a href="resumeTemplates/Elegant_resume_template"><button onclick="selectTemplate('elegant')">Choose This</button></a> <!-- Button to select the template -->
+            </div>
+
+            <!-- Template 6: Minimal -->
+            <div class="template" id="minimal-template">
+                <img src="static/images/minimal_resume.png" alt="Minimal Template" class="template-image"> <!-- Image for the template -->
+                <h2>Minimal Template</h2> <!-- Title of the template -->
+                <a href="resumeTemplates/minimal_resume_template"><button onclick="selectTemplate('minimal')">Choose This</button></a> <!-- Button to select the template -->
+            </div>
+
+            <!-- Template 7: Modern Light -->
+            <div class="template" id="modern-light-template">
+                <img src="static/images/modern_light_resume.png" alt="Modern Light Template" class="template-image"> <!-- Image for the template -->
+                <h2>Modern Light Template</h2> <!-- Title of the template -->
+                <a href="resumeTemplates/modern_light_template"><button onclick="selectTemplate('modern-light')">Choose This</button></a> <!-- Button to select the template -->
+            </div>
+
+            <!-- Template 8: Bold -->
+            <div class="template" id="bold-template">
+                <img src="static/images/bold_resume.png" alt="Bold Template" class="template-image"> <!-- Image for the template -->
+                <h2>Bold Template</h2> <!-- Title of the template -->
+                <a href="resumeTemplates/bold_resume_template"><button onclick="selectTemplate('bold')">Choose This</button></a> <!-- Button to select the template -->
+            </div>
+
+            <!-- Template 9: Artistic -->
+            <div class="template" id="artistic-template">
+                <img src="static/images/arthtic_resume.png" alt="Artistic Template" class="template-image"> <!-- Image for the template -->
+                <h2>Artistic Template</h2> <!-- Title of the template -->
+                <a href="resumeTemplates/arthtic_resume_template"><button onclick="selectTemplate('artistic')">Choose This</button></a> <!-- Button to select the template -->
+            </div>
+
+            <!-- Template 10: Techie -->
+            <div class="template" id="techie-template">
+                <img src="static/images/techie_resume.png" alt="Techie Template" class="template-image"> <!-- Image for the template -->
+                <h2>Techie Template</h2> <!-- Title of the template -->
+                <a href="resumeTemplates/techie_resume_template"><button onclick="selectTemplate('techie')">Choose This</button></a> <!-- Button to select the template -->
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+
+// --------------------------selectTemplate(templateName)-------------------------------------
+
+
+
+        function selectTemplate(templateName) {
+    // Update the text with the selected template name
+    document.getElementById("template-name").textContent = templateName.charAt(0).toUpperCase() + templateName.slice(1) + " Template";
+
+}
+
+    </script>
+</body>
+</html>

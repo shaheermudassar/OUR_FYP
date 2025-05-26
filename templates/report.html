@@ -1,0 +1,62 @@
+{% load static%}
+
+
+<!-- 📄 PDF Download Button -->
+<a href="{% url 'report' %}" style="float: right; margin-bottom: 10px;" title="Download PDF">
+    <img src="{% static 'pdf-icon.png' %}" alt="Download PDF" width="32">
+</a>
+<h2>Overall Summary</h2>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Total Courses</td>
+      <td>{{ total_courses }}</td>
+    </tr>
+    <tr>
+      <td>Total Enrollments</td>
+      <td>{{ total_enrollments }}</td>
+    </tr>
+    <tr>
+      <td>Total Feedback</td>
+      <td>{{ total_comments }}</td>
+    </tr>
+    <tr>
+      <td>Active Students</td>
+      <td id="active-students">{{ active_students }}</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Enrollment Report</h2>
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Course Title</th>
+            <th>Total Enrollments</th>
+            <th>Avg Enrollments/Month</th>
+            <th>Total Project submitted</th>
+            <th>Comments</th>
+            <th>Revenue</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in report %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.total_enrollments }}</td>
+            <td>{{ item.average_enrollment_per_month|floatformat:2 }}</td>
+            <td>{{ item.project_requirements_count }}</td>
+            <td>{{ item.comments_count }}</td>
+            <td>${{ item.revenue|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+

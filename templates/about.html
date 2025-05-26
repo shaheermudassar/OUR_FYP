@@ -1,0 +1,396 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>About-page</title> 
+    <head>
+        <!-- Add Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    </head>
+    
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{% static 'css/header-about-style.css' %}">
+
+    <!-- Icon Library -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+ <style>
+    #comments-container .user img {
+    width: 50px;   /* Choti width */
+    height: 50px;  /* Choti height */
+    object-fit: cover; /* Image ko container ke hisaab se fit karega */
+    border-radius: 50%; /* Gol (circle) profile picture ke liye */
+}
+
+ </style>
+</head>
+<body>
+    <!-- Header Section -->
+    {% include 'header.html' %}
+
+
+    <!-- about section start here  -->
+     <section class="about">
+    <!-- This is the "about" section where you describe what your platform is about -->
+    <div class="row">
+        <!-- A row container to arrange content in a layout with image on one side and text on the other -->
+        
+        <div class="img">
+            <!-- This div holds the image -->
+             <img src="{% static 'images/about-page-img.png' %}" alt="About Image">
+
+            <!-- Image representing the "About" section, possibly the platform or a visual that illustrates the message -->
+        </div>
+        
+        <div class="content">
+            <!-- This div contains the text content of the "About" section -->
+            
+            <h3>Why choose us?</h3>
+            <!-- A heading asking "Why choose us?" which is the core of the section -->
+            
+            <p>
+                At Align Skills, we are passionate about empowering individuals to achieve their professional goals through personalized learning and development. Our mission is to bridge the gap between education and employment by providing a unique platform that helps users not only acquire new skills but also effectively showcase their competencies.
+                <!-- Introduction explaining the core mission and vision of Align Skill -->
+                
+                Align Skills offers an intuitive and accessible e-learning experience combined with a powerful resume-building feature. Whether you're a student, professional, or someone looking to upskill, our platform helps you track your progress and highlight your achievements, ensuring you're ready to take the next step in your career journey.
+                <!-- Description of what Align Skill offers: e-learning, resume building, tracking progress, and helping with career growth -->
+                
+                Join Align Skills today and start aligning your skills with your future success!
+                <!-- A call to action to motivate users to join Align Skill and start their journey -->
+            </p>
+            
+            <a href="{% url 'report' %}" class="about-btn" style="text-decoration: none;">our success</a>
+            <a href="{% url 'courses' %}" class="about-btn" style="text-decoration: none;">our courses</a>
+            <!-- A button linking to the "courses" page to explore the platform's offerings. The URL is dynamically created using Django's URL tag -->
+        </div>
+    </div>
+</section>
+<!-- End of about section -->
+
+<section id="services" class="services-section">
+    <!-- This section highlights the services offered by Align Skill -->
+
+    <h1 class="heading">Our Services</h1>
+    <!-- Main heading for the "Services" section -->
+
+    <p class="services-intro">
+        Discover how Align Skills can empower your learning journey and career growth.
+        <!-- A brief introduction that explains the purpose of the services section -->
+    </p>
+
+    <div class="services-container">
+        <!-- Container to hold all service cards -->
+
+        <div class="service-card">
+            <!-- Individual card for the first service -->
+            <div class="icon">📘</div>
+            <!-- Icon representing the service (book emoji for e-learning) -->
+
+            <h3>E-learning Platform</h3>
+            <!-- Title of the first service offered -->
+
+            <p>Interactive courses to help you learn in-demand skills and stay competitive.</p>
+            <!-- Description of the e-learning platform service -->
+        </div>
+
+        <div class="service-card">
+            <!-- Individual card for the second service -->
+            <div class="icon">📝</div>
+            <!-- Icon representing the service (notepad emoji for Resume Builder) -->
+
+            <h3>Resume Builder</h3>
+            <!-- Title of the resume builder service -->
+
+            <p>Create professional resumes that showcase your skills, certifications, and projects.</p>
+            <!-- Description of the resume builder service -->
+        </div>
+
+        <div class="service-card">
+            <!-- Individual card for the third service -->
+            <div class="icon">📊</div>
+            <!-- Icon representing the service (bar chart emoji for Skill Assessments) -->
+
+            <h3>Skill Assessments</h3>
+            <!-- Title of the skill assessments service -->
+
+            <p>Evaluate your skills with tests to highlight your strengths and areas for improvement.</p>
+            <!-- Description of the skill assessment service -->
+        </div>
+
+        <div class="service-card">
+            <!-- Individual card for the fourth service -->
+            <div class="icon">💼</div>
+            <!-- Icon representing the service (briefcase emoji for Hands-on Project Practice) -->
+
+            <h3>Hands on project practice</h3>
+            <!-- Title of the hands-on project practice service -->
+
+            <p>Get the practice on hands-on projects to enhance your resume with skills and certifications.</p>
+            <!-- Description of the hands-on project practice service, although there’s a typo ("pratiece" should be "practice") -->
+        </div>
+    </div>
+</section>
+<!-- End of services section -->
+
+    <!-- about section end here  -->
+
+    <!-- review section start here  -->     
+    <section class="reviews">
+    <!-- Section for displaying student reviews -->
+
+    <h1 class="heading">Students Review</h1>
+    <!-- Heading for the section, titled "Students Review" -->
+
+    <div class="box-container" id="comments-container">
+        <!-- Container to hold each individual review -->
+        
+        {% for comment in comments %}
+        <!-- Loop to iterate over all the comments in the "comments" variable -->
+        
+        <div class="box">
+            <!-- Individual review box -->
+            <p>{{ comment.text }}</p>
+            <!-- Display the text of the review (comment text) -->
+            
+            <div class="user">
+                <!-- Div for user information -->
+                
+                <img src="{{ comment.user.profile_picture.url }}" alt="">
+                <!-- Display the user's profile picture using the URL of the profile picture associated with the user -->
+                
+                <h3>{{ comment.user.username }}</h3>
+                <!-- Display the username of the user who posted the review -->
+                
+                <div class="stars">
+                    <!-- Container for displaying the star rating -->
+                    
+                    {% for i in "12345" %}
+                    <!-- Loop to display 5 stars (the rating scale) -->
+                    
+                    {% if i|add:"0" <= comment.rating %}
+                    <!-- If the current star index is less than or equal to the rating, display a full star -->
+                    <i class="fas fa-star"></i>
+                    {% elif i|add:"0" == comment.rating|floatformat %}
+                    <!-- If the current star index is equal to the rating with a float format, display a half star -->
+                    <i class="fas fa-star-half-alt"></i>
+                    {% else %}
+                    <!-- Otherwise, display an empty star -->
+                    <i class="far fa-star"></i>
+                    {% endif %}
+                    
+                    {% endfor %}
+                    <!-- End of star loop -->
+                </div>
+                <!-- End of stars container -->
+            </div>
+            <!-- End of user div -->
+        </div>
+        <!-- End of individual review box -->
+        
+        {% endfor %}
+        <!-- End of loop through comments -->
+        
+    </div>
+    <!-- End of box-container div -->
+</section>
+<!-- End of reviews section -->
+
+
+
+
+
+    {% include 'includes/chatbot.html' %}
+
+    
+    <!-- Footer Section -->
+    
+            {% include 'footer.html' %}
+            
+    <script>
+// ----------------------------------------commets---------------------------------------
+
+
+
+let comments = [];  // Stores all comments fetched from the server.
+let index = 0;  // Tracks the current batch of comments being displayed.
+
+// Function to update and display comments dynamically
+function updateComments() {
+    const container = document.getElementById("comments-container");  // Get the container element where comments will be displayed.
+    container.innerHTML = ""; // Clear any existing comments to avoid appending new comments to old ones.
+
+    // Loop through the next 5 comments to display them
+    for (let i = 0; i < 5; i++) {
+        let comment = comments[(index + i) % comments.length];  // Fetch the current comment based on the index and ensure circular display.
+        if (!comment) break;  // If no comment is available, stop the loop.
+
+        let commentBox = document.createElement("div");  // Create a new div element to represent a comment.
+        commentBox.classList.add("box");  // Add a "box" class for styling the comment box.
+
+        // Ensure the profile picture URL is correct, using fallback for errors.
+        let profilePic = comment.user__profile_picture;  // Fetch the profile picture URL of the user who posted the comment.
+
+        // Generate the stars dynamically based on the comment's rating.
+        let starsHtml = "";
+        for (let j = 1; j <= 5; j++) {  // Loop through 5 stars to create the star rating.
+            if (j <= comment.rating) {  // If the star index is less than or equal to the comment's rating, show a full star.
+                starsHtml += `<i class="fas fa-star"></i>`;
+            } else if (j - 0.5 === comment.rating) {  // If the star index is half of the rating, show a half star.
+                starsHtml += `<i class="fas fa-star-half-alt"></i>`;
+            } else {  // Otherwise, show an empty star.
+                starsHtml += `<i class="far fa-star"></i>`;
+            }
+        }
+
+        // Set the HTML content of the comment box with the comment text, user's profile picture, username, and stars.
+        commentBox.innerHTML = `
+            <p>${comment.text}</p>  <!-- Display the comment text -->
+            <div class="user">
+                <img src="${profilePic}" alt="User Profile" onerror="this.onerror=null;this.src='/media/profile_pics/pic1-jpg';">  <!-- Show the user's profile picture with a fallback if the image is missing -->
+                <h3>${comment.user__username}</h3>  <!-- Display the user's username -->
+                <div class="stars">${starsHtml}</div>  <!-- Display the generated stars based on the rating -->
+            </div>
+        `;
+
+        // Append the comment box to the container so it is visible on the page.
+        container.appendChild(commentBox);
+    }
+
+    // Update the index to point to the next batch of 5 comments (with circular indexing).
+    index = (index + 5) % comments.length;
+}
+
+// Fetch comments from the server to populate the comments array.
+function fetchComments() {
+    fetch("/get_comments/")  // Send a request to fetch comments from the server.
+        .then(response => response.json())  // Parse the response as JSON.
+        .then(data => {
+            comments = data.comments;  // Store the fetched comments in the comments array.
+            index = 0;  // Reset the index to start displaying the comments from the beginning.
+            updateComments();  // Display the first batch of comments.
+        })
+        .catch(error => console.error("Error fetching comments:", error));  // Log any error that occurs during the fetch process.
+}
+
+// Fetch the comments once and start updating them at regular intervals.
+fetchComments();  // Fetch comments when the page loads.
+setInterval(updateComments, 7000);  // Update the displayed comments every 7 seconds to show the next batch.
+
+
+
+
+
+// news letter  footer
+
+
+
+
+// This event listener waits for the DOM content to be fully loaded before running the script
+document.addEventListener("DOMContentLoaded", function () {
+    // Get the form and message elements by their IDs
+    const form = document.getElementById('newsletter-form');
+    const message = document.getElementById('newsletter-message');
+
+    // Check if both the form and message elements exist
+    if (form && message) {
+        // Add an event listener to the form for the 'submit' event
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent the form from submitting normally (the page won't reload)
+
+            // Get the email value from the form input field
+            const email = document.getElementById('newsletter-email').value;
+
+            // Get the CSRF token for security purposes (Django requirement)
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            // Make an AJAX (asynchronous) request to the server to subscribe to the newsletter
+            fetch("{% url 'ajax_subscribe_newsletter' %}", {
+                method: 'POST', // HTTP method (POST because we're sending data)
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded', // Specify that we are sending URL-encoded data
+                    'X-CSRFToken': csrfToken, // Send the CSRF token for protection against CSRF attacks
+                    'X-Requested-With': 'XMLHttpRequest', // Indicate that this is an AJAX request
+                },
+                // Send the email in the body of the request
+                body: new URLSearchParams({ email: email })
+            })
+            .then(response => response.json()) // Wait for the response and parse it as JSON
+            .then(data => {
+                // Display a message based on the response from the server
+                message.textContent = data.message;
+
+                // Change the color of the message based on the response status
+                message.style.color = data.status === 'success' ? 'green' : 
+                                     (data.status === 'info' ? 'orange' : 'red');
+
+                // If the subscription is successful, reset the form
+                if (data.status === 'success') {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                // If there's an error during the request, display an error message
+                console.error('Error:', error);
+                message.textContent = 'Something went wrong. Please try again.'; // Display error message
+                message.style.color = 'red'; // Set the error message color to red
+            });
+        });
+    } else {
+        // Log an error if the form or message element is not found
+        console.error("Form or message element not found");
+    }
+});
+
+// Duplicate code block – this part is identical to the one above, so it does the same thing
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('newsletter-form');
+    const message = document.getElementById('newsletter-message');
+
+    if (form && message) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+            const email = document.getElementById('newsletter-email').value;
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            // Make AJAX request
+            fetch("{% url 'ajax_subscribe_newsletter' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: new URLSearchParams({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display message based on the response
+                message.textContent = data.message;
+                message.style.color = data.status === 'success' ? 'green' : (data.status === 'info' ? 'orange' : 'red');
+                if (data.status === 'success') {
+                    form.reset(); // Reset the form if subscription is successful
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                message.textContent = 'Something went wrong. Please try again.';
+                message.style.color = 'red';
+            });
+        });
+    } else {
+        console.error("Form or message element not found");
+    }
+});
+
+    </script>
+    <!-- JavaScript -->
+    </body>
+</html>

@@ -1,0 +1,565 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {{ course.title }} Page</title>
+    <link rel="stylesheet" href="/static/css/enroll-page.css">
+    <!-- Icon Library -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .already-enrolled-badge {
+            padding: 6px 16px;
+            font-size: 20px;
+            font-weight: 600;
+            color: black;
+            line-height: 1;
+            white-space: nowrap;
+            transition: all 0.2s ease-in-out;
+            text-align: center;
+            margin: 40px 40px;
+            /* Centers horizontally */
+            display: block;
+            /* Important: make it a block to use margin auto */
+        }
+        .comment-input-container {
+    width: 90%;
+    margin: 15px auto;  /* Centered with automatic horizontal margins */
+    padding: 12px;      /* Internal spacing */
+    display: flex;
+    align-items: center;
+    gap: 15px;         /* Increased gap between elements */
+    background-color: #f9f9f9;  /* Light background for container */
+    border-radius: 15px;        /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow */
+}
+
+#comment-form {
+    display: flex;
+    width: 100%;
+    gap: 12px;         /* Space between input and button */
+    align-items: center;
+}
+
+#user-comment {
+    flex-grow: 1;
+    padding: 12px 18px;  /* Slightly larger padding */
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-right: 10px;  /* Explicit right margin */
+    transition: border 0.3s;
+}
+
+#user-comment:focus {
+    border-color: #c9b75f;  /* Gold border when focused */
+    outline: none;
+}
+
+#send-btn {
+    background: #c9b75f;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;        /* Slightly larger */
+    height: 45px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-left: 5px;   /* Additional left margin */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#send-btn:hover {
+    background: #b3a254;  /* Darker gold on hover */
+    transform: scale(1.05); /* Slight grow effect */
+}
+
+/* Font Awesome icon adjustment */
+#send-btn i {
+    font-size: 16px;
+    margin-left: 2px;  /* Optical adjustment for the icon */
+}
+  </style>
+
+</head>
+
+<body>
+    <!-- Header Section -->
+    {% include 'header.html' %}  <!-- Includes the 'header.html' template, which is likely the top navigation and header of the website -->
+
+    <!-- Banner Section -->
+    {% if banner %}
+        <img src="{{ banner.image.url }}" alt="Course Banner" class="header-image">  <!-- If there's a banner, display it. The image URL is dynamically fetched from the `banner` object -->
+    {% else %}
+        <p>No banner available for this course.</p>  <!-- If there's no banner, display a message saying no banner is available -->
+    {% endif %}
+
+    <section>
+        <div class="container">
+            <div class="category">
+                <div class="description">
+                    <h3 class="category-title">Category:</h3>
+                    <p class="category-description">{{ course.title }}</p>  <!-- Displays the title of the course dynamically -->
+                </div>
+                <div class="cta">
+                    <h3>Ready to Get Started?</h3>
+                    <p>Enroll now to begin your journey in {{ course.title }}. Start learning today and gain the skills needed to advance in the tech industry.</p>  <!-- Call-to-action message encouraging users to enroll in the course -->
+                </div>
+            </div>
+
+            <!-- Displaying Course Image -->
+            <img src="{{ course.image.url }}" alt="course-image" class="course-image">  <!-- Displays the course image dynamically fetched from the `course` object -->
+
+            <!-- Enrollment Button -->
+            {% if not is_enrolled %}
+                <form method="POST" action="{% url 'enroll_page' course.title %}">  <!-- If the user isn't enrolled, show an enrollment form -->
+                    {% csrf_token %}  <!-- CSRF token for security to protect against Cross-Site Request Forgery attacks -->
+                    <button type="submit" name="enroll_now" class="btns">
+                        Enroll Now
+                    </button>
+                </form>
+            {% else %}
+                <!-- Already Enrolled Message -->
+                <div class="already-enrolled-badge">
+                    ✅ You're enrolled! 
+                </div>
+                <div class="btns">
+                    <a href="{% url 'course_detail' course.id %}" style="text-decoration: none; color: white;"> Continue Learning →</a>  <!-- If the user is enrolled, show a link to continue learning -->
+                </div>
+            {% endif %}
+
+            <!-- Tab Buttons for Course Details -->
+            <div class="button-container">
+                <button class="tab-button" id="overview-btn" onclick="showTab('overview')">Overview</button>  <!-- Button to show the course overview tab -->
+                <button class="tab-button" id="qa-btn" onclick="showTab('qa')">Q/A</button>  <!-- Button to show the Q&A tab -->
+                <button class="tab-button" id="comments-btn" onclick="showTab('comments')">Comments</button>  <!-- Button to show the comments tab -->
+            </div>
+
+            <!-- Tab Content -->
+            <div id="tab-content">
+                <!-- Overview Tab -->
+                <div id="overview" class="tab-content-overview">
+                    <h2>Course Description</h2>
+                    <p>{{ course.description }}</p><br><br>  <!-- Displays the course description dynamically -->
+
+                    <h2>This Course Includes:</h2>
+                    <p><i class="fas fa-book-open"></i> <strong>Total Chapters:</strong> {{ total_chapters }}</p>  <!-- Displays total number of chapters -->
+                    <p><i class="fas fa-file-alt"></i> <strong>Total Lectures:</strong> {{ total_lectures }}</p>  <!-- Displays total number of lectures -->
+                    <p><i class="fas fa-dollar-sign"></i> <strong>Cost:</strong> {{ course.price }}. The course is completely free, making quality IT education accessible to everyone.</p>  <!-- Displays course price -->
+                    <p><i class="fas fa-question-circle"></i> <strong>Quizzes Included:</strong> Interactive quizzes help reinforce learning and test your knowledge at each stage of the course.</p>  <!-- Describes the quizzes -->
+                    <p><i class="fas fa-tasks"></i> <strong>Final Project:</strong> At the end of this course, students will complete a real-world project to apply their skills.</p>  <!-- Describes the final project -->
+                    <p><i class="fas fa-certificate"></i> <strong>Certificate:</strong> Upon successful completion, students will receive an industry-recognized certificate to showcase their skills.</p>  <!-- Information about the course certificate -->
+                </div>
+
+                <!-- Q&A Tab -->
+                <div id="qa" class="tab-content-qa" style="display: none;">
+                    <div class="faq-container">
+                        <h2>Frequently Asked Questions</h2>
+                        {% for faq in faqs %}
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaqAnswer(this)">
+                                    <h3>{{ faq.question }}</h3>
+                                    <i class="fas fa-chevron-down"></i>  <!-- Arrow icon to toggle the answer visibility -->
+                                </div>
+                                <p class="faq-answer">{{ faq.answer }}</p>  <!-- Displays the FAQ answer -->
+                            </div>
+                        {% empty %}
+                            <p>No FAQs available for this course.</p>  <!-- Message if no FAQs are available -->
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Comments Tab -->
+                <div id="comments" class="tab-content-comments" style="display: block;">
+                    <h3>Comments</h3>
+
+                    <div class="comment-section">
+                        <!-- Enrollment Section (for non-enrolled users) -->
+                        {% if not is_enrolled %}
+                        <div class="comment-input-container">
+                            <form method="POST" action="{% url 'enroll_page' course.title %}" class="comment-input-container">
+                                {% csrf_token %}
+                                <button type="submit" name="enroll_now" class="btn-enroll">
+                                    Enroll in this Course
+                                </button>
+                            </form>
+                        </div>
+                        {% endif %}
+
+                        <!-- Comment Input (only for enrolled users or authenticated users) -->
+                        <div class="comment-input-container">
+                            {% if user.is_authenticated and is_enrolled %}
+                            <form method="POST" action="{% url 'enroll_page' course.title %}" id="comment-form">
+                                {% csrf_token %}
+                                <input type="text" name="comment_text" id="user-comment" placeholder="Write your comment..." required maxlength="500">
+                                <button type="submit" id="send-btn">
+                                    <i class="fas fa-paper-plane"></i>  <!-- Send button with paper-plane icon -->
+                                </button>
+                            </form>
+                            {% elif user.is_authenticated %}
+                            <p class="login-prompt">Please enroll in the course to post comments.</p>  <!-- Message to inform user to enroll before commenting -->
+                            {% else %}
+                            <p class="login-prompt">Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to participate.</p>  <!-- Message to prompt user to log in before commenting -->
+                            {% endif %}
+                        </div>
+
+                        <!-- Display Comments -->
+                        <div id="comments-list">
+                            {% for comment in comments %}
+                            <div class="comment-item" data-comment-id="{{ comment.id }}">
+                                <div class="comment-header">
+                                    <strong>{{ comment.user.username }}</strong>
+                                    <span class="comment-date">{{ comment.created_at|date:"F d, Y H:i" }}</span>  <!-- Display the username and comment creation date -->
+                                </div>
+                                <p class="comment-content">{{ comment.message }}</p>  <!-- Display the actual comment message -->
+                            </div>
+                            {% empty %}
+                            <p id="no-comments-message">No comments yet. Be the first to comment!</p>  <!-- If there are no comments, show this message -->
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+
+            <!-- About Section -->
+            <div class="footer-section about">
+                <h2>Learning Redefined</h2>
+                <p>Your skills are the key to success. At AlignSkills, we provide the resources & training to help you unlock your true potential.</p>
+                <p>Empowering learners worldwide.</p>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="footer-section links">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about-us">About Us</a></li>
+                    <li><a href="/courses">Courses</a></li>
+                    <li><a href="/resume-main-page">Resume Builder</a></li>
+                    <li><a href="/contact-us/">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Section -->
+            <div class="footer-section newsletter">
+                <h2>Newsletter</h2>
+                <p>Stay updated with our latest courses and offers. Subscribe now!</p>
+                <form id="newsletter-form" class="newsletter-form">
+                    {% csrf_token %}
+                    <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p id="newsletter-message"></p>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="footer-section contact">
+                <h2>Contact Us</h2>
+                <p>Email: alignskills456@gmail.com</p>
+                <div class="social-icons">
+                    <!-- Social Media Icons -->
+                    <a href="https://www.facebook.com/profile.php?id=61574998993810"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/alignskills?igsh=MWVoZHZ5b3BnMzE3cQ="><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com/Alignskill"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Section -->
+        <div class="footer-bottom">
+            <div class="center">
+                <p>© 2025 AlignSkills, All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Include Footer Scripts -->
+    <script src="{% static 'js/courseDetail.js' %}"></script>  <!-- Include a JavaScript file for dynamic features like tab switching or form validation -->
+
+        <!-- Scroll to Top Button -->
+        <button id="scrollToTop" onclick="scrollToTop()">↑</button> <!-- Scroll button -->
+    </footer>
+<script>
+// ----------------------------Function to handle tab switching--------------------------------
+
+
+function showTab(tabId) {
+    // Hide all tab content sections by selecting them individually using a class selector
+    document.querySelectorAll('[class^="tab-content"]').forEach(tab => {
+        tab.style.display = 'none'; // Set the display style of all tab content to 'none' to hide them
+    });
+
+    // Remove 'active' class from all tab buttons (to reset button state)
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active'); // Remove the 'active' class from each button
+    });
+
+    // Show the selected tab content by setting its display to 'block'
+    document.getElementById(tabId).style.display = 'block';
+
+    // Add 'active' class to the clicked tab button to highlight the active tab
+    document.getElementById(tabId + '-btn').classList.add('active');
+}
+
+// Function to check URL parameters and auto-select the tab
+function checkURLParams() {
+    // Create a URLSearchParams object from the current URL's query string
+    const params = new URLSearchParams(window.location.search);
+    // Retrieve the value of the 'tab' parameter from the URL, defaulting to 'overview' if not found
+    const selectedTab = params.get('tab') || 'overview'; // Default to "overview"
+    // Call the showTab function to display the correct tab based on the URL parameter
+    showTab(selectedTab);
+}
+
+// Run when the page loads
+window.onload = checkURLParams; // Ensure the correct tab is shown when the page is loaded
+
+// Ensure FAQ functionality runs after the DOM is fully loaded
+const faqItems = document.querySelectorAll('.faq-item'); // Select all FAQ items (question-answer pairs)
+
+faqItems.forEach(item => {
+    // For each FAQ item, select the question, answer, and the arrow icon
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    const icon = question.querySelector('i');
+
+    // Add an event listener to each question element
+    question.addEventListener('click', () => {
+        // Toggle the visibility of the answer by adding/removing the 'active' class
+        answer.classList.toggle('active');
+
+        // Toggle the arrow direction (up or down) based on whether the answer is visible
+        if (answer.classList.contains('active')) {
+            icon.classList.remove('fa-chevron-down'); // Change icon to the "up" arrow when answer is shown
+            icon.classList.add('fa-chevron-up');
+        } else {
+            icon.classList.remove('fa-chevron-up'); // Change icon to the "down" arrow when answer is hidden
+            icon.classList.add('fa-chevron-down');
+        }
+    });
+});
+
+
+// ----------------------------Function to handle comment submission----------------------\
+
+        function submitComment() {
+            const commentText = document.getElementById('user-comment').value;
+            const commentsList = document.getElementById('comments-list');
+            const noCommentsMessage = document.getElementById('no-comments-message');
+
+            if (commentText.trim()) {
+                // Get current date and time (without seconds)
+                const currentDate = new Date();
+                const formattedDate = currentDate.toLocaleString('en-US', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+
+                // Create new comment item
+                const newComment = document.createElement('div');
+                newComment.classList.add('comment-item');
+                newComment.innerHTML = `
+            <p>${commentText}</p>
+            <span>Posted on ${formattedDate}</span>
+        `;
+
+                // Append the new comment inside the same comment box
+                commentsList.appendChild(newComment);
+
+                // Hide "0 comments yet!" message when there are comments
+                noCommentsMessage.style.display = 'none';
+
+                // Clear input field after submission
+                document.getElementById('user-comment').value = '';
+            } else {
+                alert('Please write a comment before posting!');
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+    // Tab functionality - keep this separate
+    function showTab(tabId) {
+        document.querySelectorAll('[class^="tab-content"]').forEach(tab => {
+            tab.style.display = 'none';
+        });
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.classList.remove('active');
+        });
+        document.getElementById(tabId).style.display = 'block';
+        document.getElementById(tabId + '-btn').classList.add('active');
+    }
+
+    // Enrollment form - separate handler
+    const enrollForm = document.querySelector('form[action*="enroll_AI_page"]:not(#comment-form)');
+    if (enrollForm) {
+        enrollForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showTab('comments'); // Show comments tab after successful enrollment
+                    location.reload(); // Refresh to update enrollment status
+                }
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            });
+        });
+    }
+
+    // Comment form - separate handler (keep your existing implementation)
+    const commentForm = document.getElementById('comment-form');
+    if (commentForm) {
+        // ... your existing comment submission code ...
+    }
+
+    // Initialize tabs
+    checkURLParams();
+});
+
+// Other existing functions remain the same
+function checkURLParams() {
+    const params = new URLSearchParams(window.location.search);
+    const selectedTab = params.get('tab') || 'overview';
+    showTab(selectedTab);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// footer newsletter
+// Wait until the DOM is fully loaded before executing the script
+document.addEventListener("DOMContentLoaded", function () {
+    // Select the form element with the ID 'newsletter-form'
+    const form = document.getElementById('newsletter-form');
+    
+    // Select the message element with the ID 'newsletter-message' (where feedback will be shown)
+    const message = document.getElementById('newsletter-message');
+
+    // Check if both the form and the message elements exist on the page
+    if (form && message) {
+        // Add an event listener for the form submission
+        form.addEventListener('submit', function (e) {
+            // Prevent the default form submission (which would reload the page)
+            e.preventDefault();
+
+            // Get the value entered in the email input field
+            const email = document.getElementById('newsletter-email').value;
+            
+            // Get the CSRF token from the page (for security purposes)
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            // Make an AJAX request using the fetch API
+            fetch("{% url 'ajax_subscribe_newsletter' %}", {
+                method: 'POST', // Use the POST method for sending data
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded', // Set content type for URL-encoded form data
+                    'X-CSRFToken': csrfToken, // Add the CSRF token to the request header for security
+                    'X-Requested-With': 'XMLHttpRequest', // Indicate that this is an AJAX request
+                },
+                // Create the body of the request with the email as a URL-encoded string
+                body: new URLSearchParams({ email: email })
+            })
+            // Handle the response when the request is successful
+            .then(response => response.json()) // Parse the JSON response from the server
+            .then(data => {
+                // Update the message element based on the response data
+                message.textContent = data.message;
+                
+                // Set the text color based on the response status ('success', 'info', or 'error')
+                message.style.color = data.status === 'success' ? 'green' : (data.status === 'info' ? 'orange' : 'red');
+                
+                // If the subscription was successful, reset the form
+                if (data.status === 'success') {
+                    form.reset(); // Clear the form fields
+                }
+            })
+            // Catch any errors that occur during the fetch request
+            .catch(error => {
+                // Log the error to the console for debugging purposes
+                console.error('Error:', error);
+                
+                // Display a generic error message to the user
+                message.textContent = 'Something went wrong. Please try again.';
+                
+                // Set the error message text color to red
+                message.style.color = 'red';
+            });
+        });
+    } else {
+        // If the form or message element doesn't exist, log an error
+        console.error("Form or message element not found");
+    }
+});
+
+</script>
+</body>
+</html>

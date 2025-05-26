@@ -1,0 +1,318 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate page</title>
+    <link rel="stylesheet" href="certificate-style.css">
+    <!-- Icon Library -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        /* General Reset */
+        :root {
+            /* Define custom properties (CSS variables) for consistent theming */
+            --main-color: #47445e;
+            /* Primary color for the site */
+            --green: #c9b75f;
+            /* Green color for buttons or highlights */
+            --back-color: #f9f9f9;
+            /* Background color */
+            --red: #e74c3c;
+            /* Red color, likely for errors or warnings */
+            --orange: #f39c12;
+            /* Orange color for accents or highlights */
+            --light-color: #888;
+            /* Light gray for less important text */
+            --light-bg: #eee;
+            /* Light background color */
+            --black: #2c3e50;
+            /* Dark gray/black color for text */
+            --white: #fff;
+            /* White color */
+            --border: .1rem solid rgba(0, 0, 0, .2);
+            /* Light border for elements */
+            --hover: #dfcc60;
+            /* Hover effect color */
+        }
+
+        body {
+            margin: 0rem;
+            /* Remove default margin for body */
+            font-family: Arial, sans-serif;
+            /* Set the font family to Arial */
+            background-color: #f9f9f9;
+            /* Set the background color to a light gray */
+        }
+
+        .content-container {
+            width: 80%;
+            /* Set width to 80% of the parent container */
+            margin: 50px auto;
+            /* Center the container with 50px margin from top and bottom */
+            padding: 20px;
+            /* Add padding inside the container */
+            background-color: #fff;
+            /* White background for the container */
+            border-radius: 8px;
+            /* Rounded corners for the container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Light shadow for the container */
+        }
+
+        .certificate-details .h2 {
+            font-size: 24px;
+            /* Set font size for h2 */
+            color: #333;
+            /* Set text color to dark gray */
+            margin-bottom: 10px;
+            /* Add bottom margin */
+            text-align: center;
+            /* Center-align the heading */
+        }
+
+        .certificate-details .p {
+            font-size: 16px;
+            /* Set font size for paragraphs */
+            color: #555;
+            /* Set text color to a lighter gray */
+            line-height: 1.6;
+            /* Set line height for readability */
+            text-align: justify;
+            /* Justify the text for even spacing */
+            margin-top: 10px;
+            /* Add top margin for spacing */
+        }
+
+        .certificate-details .p strong {
+            color: #333;
+            /* Make bold text inside paragraphs darker */
+        }
+
+        /* Add some styling for better spacing */
+        .content-container .p {
+            margin: 20px 0;
+            /* Add vertical spacing between paragraphs */
+        }
+
+        /* Ordered list styling */
+        .ol {
+            padding-left: 30px;
+            /* Add padding to the left for the ordered list */
+            font-size: 16px;
+            /* Set font size for the list */
+            color: #555;
+            /* Set list item text color */
+        }
+
+        /* List item styles */
+        .ol .li {
+            margin: 15px 0;
+            /* Add vertical spacing between list items */
+            line-height: 1.6;
+            /* Set line height for readability */
+            position: relative;
+            /* Allow positioning pseudo-element */
+        }
+
+        /* Styling the strong text within list items */
+        .ol .li .strong {
+            color: #333;
+            /* Make bold text darker inside the list items */
+            font-weight: bold;
+            /* Apply bold style */
+        }
+
+        /* Adding a custom bullet point with the use of pseudo-elements */
+        .ol .li::before {
+            content: "•";
+            /* Use a bullet point as the content before the list item */
+            position: absolute;
+            /* Position it absolutely relative to the list item */
+            left: -25px;
+            /* Shift it to the left by 25px */
+            top: 0;
+            /* Align it with the top of the list item */
+            font-size: 22px;
+            /* Set the size of the bullet point */
+            color: #4caf50;
+            /* Set bullet color to green */
+        }
+
+        /* Paragraph styling inside the content container */
+        .content-container p {
+            font-size: 16px;
+            /* Set font size for paragraphs */
+            line-height: 1.8;
+            /* Set line height for readability */
+            margin-top: 20px;
+            /* Add top margin for spacing */
+            color: #555;
+            /* Set text color to a lighter gray */
+        }
+
+        .contact-btn {
+            padding: 10px 20px;
+            /* Set padding for the button */
+            background-color: var(--green);
+            /* Set background color using the defined green color */
+            color: #fff;
+            /* Set button text color to white */
+            font-size: 16px;
+            /* Set font size for the button */
+            border: none;
+            /* Remove border from the button */
+            border-radius: 5px;
+            /* Add rounded corners to the button */
+            cursor: pointer;
+            /* Change cursor to pointer when hovered */
+            text-align: center;
+            /* Center-align text inside the button */
+            text-decoration: none;
+            /* Remove any underline (in case of a link) */
+            transition: background-color 0.3s ease;
+            /* Smooth transition for background color change */
+        }
+
+        /* Button Hover Effect */
+        .contact-btn:hover {
+            background-color: var(--hover);
+            /* Change background color to the hover color when hovered */
+        }
+
+        /* Positioning the button to the right within the container */
+        .certificate-details {
+            position: relative;
+            /* Set relative positioning to allow absolute positioning of the button */
+        }
+
+        /* Positioning the button */
+        .contact-btn {
+            position: absolute;
+            /* Set absolute positioning */
+            right: 0;
+            /* Align the button to the right */
+            bottom: 0;
+            /* Position the button at the bottom of the container */
+            text-decoration: none;
+            /* Remove any underline if the button is a link */
+        }
+
+        /* Responsive Header for small screens */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                /* Stack header items vertically on small screens */
+                align-items: center;
+                /* Center-align the header items */
+                padding: 15px;
+                /* Add padding to the header */
+            }
+
+            .logo-container {
+                margin-bottom: 10px;
+                /* Add bottom margin to logo */
+            }
+
+            nav {
+                flex-wrap: wrap;
+                /* Allow navigation items to wrap */
+                justify-content: center;
+                /* Center-align the navigation items */
+                gap: 10px;
+                /* Add gap between the items */
+            }
+
+            .search-bar {
+                width: 100%;
+                /* Make the search bar full width */
+                margin: 10px 0;
+                /* Add vertical margin */
+            }
+
+            .right-menu {
+                flex-direction: column;
+                /* Stack the right menu items vertically */
+                gap: 10px;
+                /* Add space between the items */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    {% include 'header.html' %}
+
+    <!-- Certificate Information Section -->
+    <div class="content-container">
+        <!-- Main container for content -->
+        <div class="certificate-details">
+            <!-- Section for certificate details -->
+            <h2 class="h2">Certificate Details</h2>
+            <!-- Heading for the certificate details section -->
+
+            <p class="p">
+                We are excited to award you a certificate once your project is approved. Your certificate will be mailed
+                to you after your project is approved.
+            </p>
+            <!-- Description paragraph explaining the process of receiving the certificate -->
+
+            <ol class="ol">
+                <!-- Ordered list for steps to receive a certificate -->
+
+                <li class="li">
+                    <strong class="strong">Submit Your Project:</strong><br>
+                    Once you're done, submit your project through the platform. Make sure you follow the submission
+                    instructions carefully to avoid any problems.
+                </li>
+                <!-- First step: Submit the project -->
+
+                <li class="li">
+                    <strong class="strong">Approval Process:</strong><br>
+                    After you submit, our team will review your project. You will receive an email once your project is
+                    approved.
+                </li>
+                <!-- Second step: Approval process -->
+
+                <li class="li">
+                    <strong class="strong">Certificate Issuance:</strong><br>
+                    Once approved, you’ll get your certificate in your inbox! It will include your name, project title,
+                    and completion date.
+                </li>
+                <!-- Third step: Issuance of certificate -->
+
+                <li class="li">
+                    <strong class="strong">Certificate Format:</strong><br>
+                    The certificate will be in PDF format, so you can easily download, print, or share it as needed.
+                </li>
+                <!-- Fourth step: Format of the certificate (PDF) -->
+            </ol>
+
+            <p>
+                If you need any help along the way or have any questions, don’t hesitate to reach out to us. We’re here
+                to support you!
+            </p>
+            <!-- Final paragraph offering support -->
+
+            <a href="/contact-us"><button class="contact-btn">contact-us</button></a>
+            <!-- Button linking to the contact-us page -->
+        </div>
+    </div>
+    <!-- Closing the content-container div -->
+
+    <!-- Footer Section -->
+    {% include 'footer.html' %}
+    <!-- Including the footer HTML from the footer.html template -->
+
+</body>
+
+</html>
+<!-- Closing the body and html tags -->

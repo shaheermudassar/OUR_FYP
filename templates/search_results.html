@@ -1,0 +1,81 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/search-result.css' %}">
+
+<style>
+    /* Styling for footer section heading (h2) */
+.footer-section h2 { 
+    text-align: left; /* Align the footer section heading text to the left */
+}
+
+/* Styling for the search form */
+#searchForm {
+    display: block; /* Makes the form a block element (it will take up the full width of its container) */
+    margin-top: 0em; /* Removes any top margin */
+    unicode-bidi: isolate; /* Ensures correct handling of text directionality (mostly used in bidirectional text) */
+    margin-block-end: 1em; /* Adds a margin at the end of the block (for vertical spacing) */
+    margin-bottom: 0; /* Removes any bottom margin */
+}
+
+
+
+</style>
+
+    
+
+
+{% include 'header.html' %}
+
+
+
+    
+<!-- Heading displaying the search query -->
+<h2>Search Results for "{{ query }}"</h2>
+
+<!-- Check if there are any courses available -->
+{% if courses %}
+
+    <!-- Container for course cards -->
+    <div class="container">
+        <!-- Loop through each course in the 'courses' list -->
+        {% for course in courses %}
+        
+            <!-- Each course is displayed inside a course card -->
+            <div class="course-card">
+                
+                <!-- Check if the course has an image -->
+                {% if course.image %}
+                    <!-- Display the course image -->
+                    <img src="{{ course.image.url }}" alt="{{ course.title }}" width="300">
+                {% else %}
+                    <!-- Display a message if no image is available -->
+                    <p>No image available</p>
+                {% endif %}
+
+                <!-- Display the course title -->
+                <h2>{{ course.title }}</h2>
+                
+                <!-- Display the course description -->
+                <p>{{ course.description }}</p>
+                
+                <!-- Display additional project information -->
+                <p><strong>Project Info:</strong> {{ course.project_info }}</p>
+                
+                <!-- Display the course price -->
+                <p><strong>Price:</strong> {{ course.price }}</p>
+                
+                <!-- Display certificate information -->
+                <p><strong>Certificate Info:</strong> {{ course.certificate_info }}</p><br>
+                
+                <!-- Link to the course page -->
+                <a href="{{ course.course_link }}" target="_blank" class="btn">View Course</a>
+            </div>
+        {% endfor %}
+    </div>
+    
+{% else %}
+    <!-- Display message if no courses were found -->
+    <p class="no-courses-message">No courses found.</p>
+{% endif %}
+
+{% include 'footer.html' %}
+
