@@ -1,0 +1,889 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+    --main-color: #47445e; /* Primary color for the theme */
+    --green: #c9b75f; /* Green color for buttons, highlights */
+    --back-color: #ffff; /* Background color */
+    --red: #e74c3c; /* Red color for danger or delete actions */
+    --orange: #f39c12; /* Orange for alerts or highlights */
+    --light-color: #888; /* Light gray color */
+    --light-bg: #eee; /* Light background for different sections */
+    --black: #2c3e50; /* Black color for text */
+    --white: #fff; /* White color */
+    --border: .1rem solid rgba(0, 0, 0, .2); /* Border style */
+    --hover: #dfcc60; /* Color when hovering */
+}
+
+* {
+    font-family: 'Nunito', sans-serif; /* Set font family globally */
+    margin: 0; /* Remove all default margins */
+    padding: 0; /* Remove all default padding */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    outline: none; /* Remove default focus outline */
+    text-decoration: none; /* Remove text decoration (like underlines) */
+    border: none; /* Remove border by default */
+}
+
+*::selection {
+    background-color: var(--main-color); /* Highlight text selection with main color */
+    color: #eee; /* Change selection text color */
+}
+
+*::-webkit-scrollbar {
+    height: .5rem; /* Set height for horizontal scrollbar */
+    width: 1rem; /* Set width for vertical scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+    background-color: transparent; /* Make the scrollbar track transparent */
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--main-color); /* Set the color of the scrollbar thumb */
+}
+
+html {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    font-size: 62.5%; /* 1rem = 10px, useful for scaling */
+}
+
+body {
+    background-color: var(--back-color); /* Set body background color */
+    padding-left: 20rem; /* Add padding on the left for the slide bar */
+}
+
+body.active {
+    padding-left: 0; /* Remove left padding when the body has 'active' class */
+}
+
+section {
+    padding: 2rem; /* Add padding to sections */
+    max-width: 1200px; /* Limit the max width of sections */
+    margin: 0 auto; /* Center sections */
+}
+
+.btn,
+.option-btn,
+.delete-btn,
+.inline-btn,
+.inline-option-btn,
+.inline-delete-btn {
+    border-radius: .5rem; /* Rounded corners for buttons */
+    padding: 1rem 3rem; /* Padding inside the buttons */
+    font-size: 1.5rem; /* Set font size for buttons */
+    color: #fff; /* White text color */
+    margin-top: 1rem; /* Add top margin */
+    text-transform: capitalize; /* Capitalize text in buttons */
+    cursor: pointer; /* Change cursor to pointer when hovering over button */
+    text-align: center; /* Center text inside the buttons */
+}
+
+.btn,
+.option-btn,
+.delete-btn {
+    display: block; /* Make these buttons block-level */
+    width: 100%; /* Make these buttons take full width */
+}
+
+.inline-btn,
+.inline-option-btn,
+.inline-delete-btn {
+    display: inline-block; /* Make these buttons inline-block */
+}
+
+.btn,
+.inline-btn {
+    background-color: var(--main-color); /* Set background color for main buttons */
+}
+
+.option-btn,
+.inline-option-btn {
+    background-color: var(--green); /* Set background color for option buttons */
+}
+
+.delete-btn,
+.inline-delete-btn {
+    background-color: var(--red); /* Set background color for delete buttons */
+}
+
+.btn:hover,
+.option-btn:hover,
+.delete-btn:hover,
+.inline-btn:hover,
+.inline-option-btn:hover,
+.inline-delete-btn:hover {
+    background-color: var(--black); /* Darken the background on hover */
+    color: var(--white); /* Change text color on hover */
+}
+
+.flex-btn {
+    display: flex; /* Use flexbox layout for buttons */
+    gap: 1rem; /* Space between buttons */
+}
+
+.header {
+    background-color: #c9b75f; /* Header background color */
+    border-bottom: var(--border); /* Add bottom border */
+    position: relative; /* Position relative to place child elements */
+    top: 0; left: 0; right: 0; z-index: 1000; /* Ensure header stays on top */
+}
+
+.header .flex {
+    padding: 1.5rem 2rem; /* Add padding inside the header */
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: space-between; /* Space out content in the header */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Make logo circular */
+    border: 2px solid hsl(50, 50%, 58%); /* Add border to logo */
+    object-fit: cover; /* Crop logo image */
+}
+
+.logoname {
+    font-size: 2.5rem;
+    font-weight: bolder; /* Make font bolder */
+    color: var(--main-color); /* Set logo name color */
+    border-radius: 50%; /* Round the corners of logo name */
+    object-fit: cover;
+}
+
+.header .flex .icon {
+    display: flex;
+    gap: 1rem; /* Add space between icon buttons */
+}
+
+.header .flex .icon .btn {
+    font-size: 1.2rem; /* Adjust font size */
+    border-radius: .5rem; /* Round button corners */
+    color: var(--black); /* Set icon color */
+    height: 3rem; /* Adjust button height */
+    padding: 0.5rem 1rem; /* Add padding to buttons */
+    cursor: pointer;
+    text-align: center;
+    background-color: var(--light-bg); /* Set background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.header .flex .icon .btn:hover {
+    background-color: var(--main-color); /* Change background color on hover */
+    color: var(--white); /* Change text color on hover */
+}
+
+.header .flex .profile {
+    position: absolute; /* Position the profile absolutely */
+    top: 120%; /* Position below the header */
+    right: 2rem; /* Position 2rem from the right */
+    background-color: var(--white); /* White background for the profile */
+    border-radius: .5rem;
+    padding: 2rem;
+    text-align: center;
+    width: 30rem;
+    transform: scale(0); /* Initially hide the profile */
+    transform-origin: top right; /* Set origin for scaling */
+    transition: .2s linear; /* Smooth transition for scaling */
+}
+
+.header .flex .profile.active {
+    transform: scale(1); /* Show profile on activation */
+}
+
+.header .flex .profile img {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%; /* Circular profile image */
+    object-fit: cover;
+    margin-bottom: .5rem;
+}
+
+.header .flex .profile h3 {
+    font-size: 2rem;
+    color: var(--black);
+}
+
+.header .flex .profile span {
+    color: var(--light-color);
+    font-size: 1.6rem;
+}
+
+.search-box {
+    display: flex; /* Flex layout for the search box */
+    align-items: center;
+    background: white; /* White background */
+    border-radius: 25px; /* Rounded corners */
+    padding: 10px;
+    padding-left: 15px; /* Add padding on the left */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+.search-box input {
+    border: none; /* Remove border from input */
+    outline: none; /* Remove outline on focus */
+    padding: 10px;
+    font-size: 16px;
+    width: 300px;
+    height: 0;
+}
+
+.search-box i {
+    font-size: 13px;
+    color: gray;
+    margin-right: 14px; /* Add space between icon and input */
+}
+
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Child items ko horizontally center karega */
+    justify-content: center;
+    /* (optional) Agar vertical bhi center chahte ho */
+}
+
+.text-avatar {
+    width: 70px;
+    height: 70px;
+    background-color: white;
+    /* Your golden color */
+    color: black;
+    font-weight: bold;
+    font-size: 24px;
+    border-radius: 50%;
+    /* Make it round */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    /* Space between avatar and username */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Little shadow for nice look */
+}
+
+.username {
+    font-size: 15px;
+    /* یا جتنا بڑا چاہیے اتنا */
+    font-weight: bold;
+    /* اگر تھوڑا موٹا (bold) کرنا ہو */
+    color: black;
+    /* یا جو بھی رنگ چاہیے */
+    margin-top: 5px;
+    /* تھوڑا space اوپر سے اگر چاہیے */
+}
+.flex {
+display: flex;
+align-items: center;
+justify-content: space-between; /* Automatically puts space between children */
+gap: 25rem; /* optional: adds extra gap between items */
+}
+@media (max-width: 768px) {
+    .search-box {
+        display: none; /* Make sure the search box is displayed as flex */
+        width: 100%; /* Make the search box full width */
+        padding: 8px 15px; /* Adjust padding for better spacing */
+        margin-right: 0; /* Remove right margin */
+    }
+
+    .search-box input {
+        width: 100%; /* Make the input field take full width */
+        font-size: 14px; /* Reduce font size for smaller screens */
+    }
+
+    .search-box i {
+        font-size: 12px; /* Adjust icon size */
+        margin-right: 10px; /* Adjust spacing between icon and input */
+    }
+}
+
+
+/* slide bar strt here  */
+
+.slide-bar {
+    top: 0; /* Position the slide bar at the top */
+    left: 0; /* Position the slide bar at the left */
+    height: 100vh; /* Full height of the viewport */
+    position: fixed; /* Fixed positioning so it stays in place */
+    width: 20rem; /* Set the width of the slide bar */
+    background-color: var(--green); /* Set the background color using a CSS variable */
+    border-right: var(--border); /* Add a border to the right using a CSS variable */
+    z-index: 1200; /* Set z-index for layering */
+    /* transition: .2s linear; */ /* Optional transition for slide-in effect */
+}
+
+.slide-bar .close-slide-bar {
+    text-align: right; /* Align the close button to the right */
+    padding: 1rem; /* Add padding around the button */
+    padding-bottom: 0; /* Remove bottom padding */
+    display: none; /* Initially hide the close button */
+}
+
+.slide-bar .close-slide-bar i {
+    height: 3rem; /* Set the height of the close button */
+    width: 3rem; /* Set the width of the close button */
+    line-height: 3rem; /* Vertically center the icon inside */
+    font-size: 1.5rem; /* Set the icon size */
+    color: var(--white); /* Set the icon color using a CSS variable */
+    background-color: var(--red); /* Set the background color using a CSS variable */
+    cursor: pointer; /* Make the icon clickable */
+    text-align: center; /* Center the icon text */
+    border-radius: .5rem; /* Round the corners of the button */
+}
+
+.slide-bar .close-slide-bar i:hover {
+    background-color: black; /* Change background color on hover */
+}
+
+.slide-bar .profile {
+    text-align: center; /* Center the profile section */
+    padding: 3rem 2rem; /* Add padding around the profile */
+}
+
+.slide-bar .profile img {
+    height: 10rem; /* Set the profile image height */
+    width: 10rem; /* Set the profile image width */
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    margin-bottom: .5rem; /* Add space below the image */
+}
+
+.slide-bar .profile .h3 {
+    font-size: 2rem; /* Set the font size of the profile name */
+    color: var(--black); /* Set the color of the profile name */
+}
+
+.slide-bar .profile .span {
+    color: var(--light-color); /* Set the color of the span text */
+    font-size: 5rem; /* Set the font size of the span text */
+}
+
+.slide-bar .navbar {
+    margin-top: 1rem; /* Add margin at the top of the navbar */
+}
+
+.slide-bar .navbar a {
+    display: block; /* Make each link a block element */
+    padding: 2.5rem; /* Add padding around the link */
+    margin: 1rem 0; /* Add margin between links */
+    font-size: 1.8rem; /* Set the font size of the navbar links */
+}
+
+.slide-bar .navbar a i {
+    color: var(--main-color); /* Set the icon color using a CSS variable */
+    margin-right: 1.5rem; /* Add space between the icon and text */
+    transition: .2s linear; /* Smooth transition on hover */
+}
+
+.slide-bar .navbar a span {
+    color: var(--main-color); /* Set the text color using a CSS variable */
+}
+
+.slide-bar .navbar a:hover {
+    background: var(--light-bg); /* Change background on hover */
+}
+
+.slide-bar .navbar a:hover i {
+    margin-right: 2.5rem; /* Add space between icon and text on hover */
+}
+
+.slide-bar.active {
+    left: -30rem; /* Move the slide bar off-screen when active */
+}
+
+/* quick selection strt  */
+
+.greeting-container {
+    background-color: var(--light-bg); /* Set background color using a CSS variable */
+    padding: 20px 20px; /* Add padding around the greeting container */
+    text-align: center; /* Center the text inside the container */
+    border-radius: 15px; /* Round the corners of the container */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    margin: 30px auto; /* Center the container with margin */
+    max-width: 900px; /* Limit the max width of the container */
+    width: 100%; /* Set the width to 100% */
+}
+
+/* Greeting message styling */
+#greeting-message {
+    background-color: var(--green); /* Set background color using a CSS variable */
+    color: #fff; /* Set text color to white */
+    padding: 5px 10px; /* Add padding inside the message */
+    text-align: center; /* Center the text */
+    border-radius: 15px; /* Round the corners of the greeting message */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Add shadow for depth */
+    margin-bottom: 10px; /* Add margin below the message */
+    font-size: 2.5rem; /* Set the font size */
+    font-weight: bold; /* Make the font bold */
+    text-transform: uppercase; /* Make the text uppercase */
+    letter-spacing: 1px; /* Add slight spacing between letters */
+}
+
+
+/* Time of day message */
+#time-of-day {
+    font-size: 1.6rem;  /* Sets the font size to 1.6 rem */
+    color: #555;  /* Sets the text color to a shade of grey */
+    margin-bottom: 30px;  /* Adds a 30px space below the element */
+    line-height: 1.8;  /* Sets the line height to 1.8 for better readability */
+}
+
+.heading{
+    padding-bottom: 2rem;  /* Adds 2rem padding to the bottom of the heading */
+    border-bottom: var(--border);  /* Adds a border at the bottom using a CSS variable */
+    font-size: 3rem;  /* Sets the font size to 3 rem */
+    color: var(--main-color);  /* Sets the font color using a CSS variable */
+    text-transform: capitalize;  /* Capitalizes the first letter of each word */
+    margin-bottom: 2rem;  /* Adds a margin of 2rem to the bottom */
+    text-align: center;  /* Centers the text */
+}
+
+.quick-select .box-container {
+    display: grid;  /* Uses grid display for the container */
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));  /* Creates columns with a minimum width of 20rem */
+    gap: 1.5rem;  /* Adds a gap of 1.5rem between grid items */
+    align-items: flex-start;  /* Aligns items at the start of the container */
+    justify-content: center;  /* Centers the content horizontally */
+    margin-bottom: 10rem;  /* Adds a margin of 10rem at the bottom */
+}
+
+.quick-select .box-container .box {
+    border-radius: .5rem;  /* Rounds the corners of the box */
+    background-color: var(--light-bg);  /* Sets the background color using a CSS variable */
+    padding: 1.5rem;  /* Adds 1.5rem padding inside the box */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Adds a subtle shadow around the box */
+    transition: all 0.3s ease-in-out;  /* Smooth transition effect for any change in properties */
+}
+
+/* Hover effect for the box */
+.quick-select .box-container .box:hover {
+    transform: translateY(-5px);  /* Moves the box upwards by 5px on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);  /* Increases the shadow effect on hover */
+}
+
+.quick-select .box-container .box p {
+    font-size: 1.4rem;  /* Sets the font size of the paragraph */
+    color: var(--light-color);  /* Sets the text color using a CSS variable */
+    line-height: 1.6;  /* Sets line height to improve readability */
+    margin-bottom: 1.5rem;  /* Adds 1.5rem margin to the bottom */
+}
+
+.quick-select .box-container .box .title {
+    font-size: 2rem;  /* Sets the font size of the title */
+    color: var(--main-color);  /* Sets the title color using a CSS variable */
+}
+
+.quick-select .box-container .box p {
+    line-height: 1.5;  /* Adjusts line height for paragraph text */
+    color: var(--main-color);  /* Sets text color to the main color */
+    padding-top: 1.5rem;  /* Adds 1.5rem padding to the top of the paragraph */
+    font-size: 1.5rem;  /* Sets the font size to 1.5 rem */
+}
+
+.quick-select .box-container .box p span {
+    color: var(--main-color);  /* Sets the span color to the main color */
+}
+
+.quick-select .box-container #resume {
+    text-align: center;  /* Centers the resume section */
+}
+
+.quick-select .box-container #resume p {
+    padding-bottom: 1rem;  /* Adds 1rem padding to the bottom of the paragraph */
+}
+
+.quick-select .box-container .box .flex {
+    display: flex;  /* Uses flexbox to arrange items */
+    flex-wrap: wrap;  /* Allows items to wrap to the next line */
+    gap: 1rem;  /* Adds a gap of 1rem between items */
+    padding-top: 1.5rem;  /* Adds 1.5rem padding to the top */
+}
+
+.quick-select .box-container .box .flex a {
+    padding: 1rem 1.5rem;  /* Adds padding to the anchor element */
+    border-radius: .5rem;  /* Rounds the corners of the anchor element */
+    font-size: 1.5rem;  /* Sets the font size to 1.5 rem */
+    background-color: var(--white);  /* Sets the background color to white */
+}
+
+.quick-select .box-container .box .flex a i {
+    margin-right: 1rem;  /* Adds a margin to the right of the icon */
+    color: var(--main-color);  /* Sets the icon color to the main color */
+}
+
+.quick-select .box-container .box .flex a span {
+    color: var(--light-color);  /* Sets the text color of span to light color */
+}
+
+.quick-select .box-container .box .flex a:hover {
+    background-color: var(--main-color);  /* Changes background color on hover */
+}
+
+.quick-select .box-container .box .flex a:hover i {
+    color: var(--white);  /* Changes icon color to white on hover */
+}
+
+.quick-select .box-container .box .flex a:hover span {
+    color: var(--white);  /* Changes span text color to white on hover */
+}
+
+/* courses style here start */
+
+.courses-container {
+    display: flex;  /* Uses flexbox for layout */
+    flex-wrap: wrap;  /* Allows wrapping of course items */
+    justify-content: center;  /* Centers the items horizontally */
+    gap: 20px;  /* Adds a 20px gap between course items */
+    padding: 20px;  /* Adds padding inside the container */
+    margin-bottom: 10rem;  /* Adds a margin of 10rem at the bottom */
+    
+}
+
+
+.course-card {
+    flex: 1 1 calc(30% - 20px);  /* Defines flexible card size with a maximum width */
+    max-width: 320px;  /* Sets a maximum width of 320px for the cards */
+    background-color: var(--light-bg);  /* Sets the background color using a CSS variable */
+    border-radius: 20px;  /* Rounds the corners of the card */
+    box-shadow: 0 10px 15px var(--shadow);  /* Adds a shadow to the card */
+    overflow: hidden;  /* Hides any content that overflows the card */
+    display: flex;  /* Uses flexbox layout for the card content */
+    flex-direction: column;  /* Aligns the card content vertically */
+    transition: transform 0.3s, box-shadow 0.3s;  /* Smooth transition for hover effects */
+}
+
+.course-card img {
+    width: 100%;  /* Makes the image width 100% of its container */
+    height: 180px;  /* Sets a fixed height of 180px for the image */
+    object-fit: cover;  /* Ensures the image covers the space without distortion */
+    border-top-left-radius: 20px;  /* Rounds the top-left corner */
+    border-top-right-radius: 20px;  /* Rounds the top-right corner */
+}
+
+.course-card .card-content {
+    padding: 15px 20px;  /* Adds padding to the content inside the card */
+    flex-grow: 1;  /* Makes the content grow to fill available space */
+    display: flex;  /* Uses flexbox layout for the content */
+    flex-direction: column;  /* Aligns content vertically */
+    justify-content: space-between;  /* Spaces out the content evenly */
+}
+
+.course-card h3 {
+    font-size: 1.7rem;  /* Sets the font size of the course title */
+    color: var(--primary-color);  /* Sets the title color using a CSS variable */
+    margin-bottom: 10px;  /* Adds a margin of 10px below the title */
+    text-align: center;  /* Centers the title text */
+}
+
+.course-card p {
+    color: var(--subtext-color);  /* Sets the text color of the description */
+    font-size: 1.2rem;  /* Sets the font size of the paragraph */
+    line-height: 1.5;  /* Adjusts line height for better readability */
+    margin-bottom: 20px;  /* Adds a 20px margin at the bottom */
+    text-align: center;  /* Centers the paragraph text */
+}
+
+.course-card .btn {
+    display: block;  /* Makes the button a block-level element */
+    margin: 0 auto;  /* Centers the button horizontally */
+    padding: 10px 20px;  /* Adds padding inside the button */
+    font-size: 1rem;  /* Sets the font size of the button */
+    font-weight: bold;  /* Makes the button text bold */
+    color: #fff;  /* Sets the button text color to white */
+    background-color: var(--green);  /* Sets the background color of the button */
+    text-decoration: none;  /* Removes any text decoration from the button */
+    border-radius: 50px;  /* Makes the button round */
+    box-shadow: 0 4px 10px var(--shadow);  /* Adds a shadow effect to the button */
+    text-align: center;  /* Centers the button text */
+    transition: background 0.3s, box-shadow 0.3s;  /* Smooth transition effect for hover */
+}
+
+.course-card .btn:hover {
+    background-color: var(--hover);  /* Changes the button background color on hover */
+    box-shadow: 0 6px 15px var(--hover-shadow);  /* Changes the box shadow on hover */
+}
+
+/* courses style here end */
+
+/* resume for student panel stat here */
+.resume-section {
+    background-color: var(--light-bg);  /* Sets the background color of the resume section */
+    color: var(--main-color);  /* Sets the text color using the main color */
+    padding: 10px 20px;  /* Adds padding inside the section */
+    text-align: center;  /* Centers the text inside the section */
+    border-radius: 15px;  /* Rounds the corners of the section */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);  /* Adds a shadow around the section */
+    margin: 30px auto;  /* Adds a margin of 30px on top and bottom, and centers the section */
+    max-width: 900px;  /* Sets the maximum width of the section */
+}
+
+.resume-section h1 {
+    font-size: 2.5rem;  /* Sets the font size of the heading */
+    font-weight: bold;  /* Makes the heading text bold */
+    margin-bottom: 15px;  /* Adds a margin of 15px below the heading */
+    color: var(--main-color);  /* Sets the heading color using a CSS variable */
+}
+
+.resume-section p {
+    font-size: 1.5rem;  /* Sets the font size of the paragraph */
+    margin-bottom: 40px;  /* Adds a margin of 40px below the paragraph */
+    line-height: 1.8;  /* Sets the line height for better readability */
+}
+
+.resume-button {
+    display: inline-flex;  /* Uses inline-flexbox to align the button */
+    align-items: center;  /* Vertically aligns the items inside the button */
+    justify-content: center;  /* Horizontally aligns the items inside the button */
+    padding: 15px 40px;  /* Adds padding inside the button */
+    font-size: 1.2rem;  /* Sets the font size of the button text */
+    font-weight: bold;  /* Makes the button text bold */
+    color: var(--light-bg);  /* Sets the text color inside the button */
+    background-color: var(--green);  /* Sets the background color of the button */
+    border: none;  /* Removes any border from the button */
+    border-radius: 50px;  /* Makes the button round */
+    text-transform: uppercase;  /* Transforms the text to uppercase */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);  /* Adds a shadow to the button */
+    transition: all 0.4s ease;  /* Smooth transition effect for hover */
+    text-decoration: none;  /* Removes text decoration */
+}
+
+.resume-button:hover {
+    background: var(--hover);  /* Changes the background color of the button on hover */
+    transform: translateY(-5px);  /* Moves the button up by 5px on hover */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);  /* Increases the shadow effect on hover */
+}
+
+.resume-button i {
+    margin-right: 10px;  /* Adds a margin of 10px to the right of the icon */
+    font-size: 1.5rem;  /* Sets the font size of the icon */
+}
+
+
+/* Animation for the image */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* resume for student panel END here */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* media qureies */
+/* slide bar media  */
+@media (max-width:1200px){
+
+    body{
+       padding-left: 0;
+    }
+ 
+    .slide-bar{
+       left: -30rem;
+       transition: .2s linear;
+    }
+ 
+    .slide-bar #close-slide-btn{
+       display: block;
+    }
+ 
+    .slide-bar.active{
+       left: 0;
+       box-shadow: 0 0 0 100vw rgba(0,0,0,.8);
+       /* border-right: 0; */
+    }
+ 
+ }
+@media (max-width:991px) {
+    html {
+        font-size: 55%;
+
+    }
+}
+/* courses media query */
+
+
+@media (max-width: 768px) {
+    .course-card {
+        width: 80vw; /* Adjust width for tablets */
+        height: auto; /* Allow height to adapt */
+    }
+
+    .course-card img {
+        height: 150px; /* Reduce image height for smaller screens */
+    }
+
+    .courses-container {
+        margin: 10px; /* Reduce margin for smaller screens */
+    }
+
+    .course-details {
+        flex-direction: column; /* Stack details vertically */
+        margin-left: 20px; /* Adjust margin */
+        gap: 20px; /* Reduce gap between items */
+    }
+
+    .course-details .detail-item {
+        justify-content: center; /* Center details on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px; /* Reduce heading size for smaller screens */
+    }
+
+    .course-card {
+        width: 90vw; /* Make cards almost full-width */
+    }
+
+    .course-card img {
+        height: 120px; /* Further reduce image height */
+    }
+
+    .btn {
+        padding: 8px 16px; /* Adjust button size */
+        font-size: 14px; /* Adjust button text size */
+    }
+
+    .icon {
+        font-size: 14px; /* Reduce icon size */
+    }
+
+    .course-details {
+        font-size: 12px; /* Reduce font size for details */
+        gap: 10px; /* Further reduce gap */
+    }
+}
+
+/* header media  */
+/* For screens smaller than or equal to 768px */
+/* For screens smaller than or equal to 768px */
+@media (max-width: 768px) {
+    .header {
+        position: relative;
+        width: auto;
+    }
+
+    .header .flex {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly; /* Distribute space evenly */
+        position: relative;
+        min-height: 200px; /* Ensure the container has enough height */
+        padding: 1rem; /* Add padding if needed */
+    }
+
+    .logoname {
+        font-size: 2rem;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .header .flex .icon {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        align-items: center; /* Ensure proper alignment */
+        overflow: visible; /* Prevent clipping */
+    }
+
+    .header .flex .icon .btn {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        display: inline-block;
+        visibility: visible;
+        max-width: 100%; /* Ensure the button doesn't overflow */
+        margin-top: 10px; /* Adjust margin to add space */
+        z-index: 1; /* Ensure the button is on top if necessary */
+    }
+
+    .header .flex .profile {
+        width: 80%;
+        padding: 1rem;
+    }
+
+    .header .flex .profile img {
+        height: 8rem;
+        width: 8rem;
+    }
+
+    .header .flex .profile h3 {
+        font-size: 1.5rem;
+    }
+
+    .header .flex .profile span {
+        font-size: 1.4rem;
+    }
+}
+
+/* For screens smaller than or equal to 480px */
+@media (max-width: 480px) {
+    .logoname {
+        font-size: 1.8rem;      /* Even smaller logo text */
+    }
+
+    .header .flex .icon .btn {
+        font-size: 1rem;        /* Same font size, but smaller padding */
+        padding: 0.4rem 0.8rem;
+    }
+
+    .header .flex .profile {
+        width: 100%;            /* Full width for profile section */
+        padding: 1rem;
+    }
+
+    .header .flex .profile img {
+        height: 6rem;           /* Even smaller profile image */
+        width: 6rem;
+    }
+
+    .header .flex .profile h3 {
+        font-size: 1.3rem;      /* Smaller heading text */
+    }
+
+    .header .flex .profile span {
+        font-size: 1.2rem;      /* Smaller subtitle */
+    }
+}

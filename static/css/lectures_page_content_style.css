@@ -1,0 +1,318 @@
+/* Root variables for colors and border */
+:root {
+  --main-color: #47445e; /* Main color for headings, etc. */
+  --green: #c9b75f; /* Green color for header */
+  --back-color: #f9f9f9; /* Background color */
+  --red: #e74c3c; /* Red color for errors or alerts */
+  --orange: #dfcc60; /* Orange color for highlights */
+  --light-color: #888; /* Light color for text */
+  --light-bg: #eee; /* Light background color */
+  --black: #2c3e50; /* Black color for text */
+  --white: #fff; /* White color */
+  --border: .1rem solid rgba(0, 0, 0, .2); /* Border style */
+  --highlight-color: #dfcc60; /* Highlight color for emphasis */
+}
+
+/* Universal reset: ensures consistent padding and margin across elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensures padding and border are included in element's total width */
+}
+
+/* Body styling */
+body {
+  font-family: 'Arial', sans-serif; /* Default font */
+  background-color: var(--back-color); /* Background color from root */
+  color: var(--black); /* Text color */
+  line-height: 1.6; /* Line height for readability */
+  font-size: 16px; /* Base font size */
+  padding: 0 10px; /* Horizontal padding */
+  margin-top: 1rem; /* Margin to separate from top of page */
+}
+
+/* Header styling */
+header {
+  background-color: var(--green); /* Green background */
+  color: var(--white); /* White text color */
+  padding: 40px 20px; /* Padding inside header */
+  text-align: center; /* Center the text */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  margin-bottom: 20px; /* Space below header */
+  position: relative; /* Positioning required for menu button */
+}
+
+/* Header title styling */
+header h1 {
+  margin-bottom: 15px; /* Space below header title */
+  font-size: 2.5em; /* Large font size */
+  font-weight: bold; /* Bold text */
+  letter-spacing: 2px; /* Increased spacing between letters */
+}
+
+/* Menu button container positioning */
+.menu {
+  position: absolute; /* Absolute positioning inside header */
+  bottom: 10px; /* 10px from bottom of header */
+  right: 20px; /* 20px from the right of the header */
+}
+
+/* Menu button (hamburger) styling */
+.menu-btn {
+  background: transparent; /* No background */
+  border: none; /* No border */
+  display: flex;
+  flex-direction: column; /* Stacks the lines */
+  justify-content: space-between; /* Space between the lines */
+  align-items: center; /* Centers the lines horizontally */
+  width: 30px; /* Width of the button */
+  height: 18px; /* Height of the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  padding: 0; /* No padding */
+  position: relative; /* Allows adjustment of positioning */
+  top: -5px; /* Moves the button upward slightly */
+  z-index: 2; /* Ensures button lines stay above the circle */
+}
+
+/* Styling for the lines in the menu button */
+.menu-btn .line {
+  pointer-events: none; /* Disables events on the line */
+  background-color: var(--white); /* White color for the lines */
+  height: 3px; /* Thickness of the lines */
+  width: 100%; /* Full width of the button */
+  border-radius: 2px; /* Rounded corners */
+  z-index: 3; /* Makes lines appear above other elements */
+  position: relative; /* Keeps lines above the pseudo-element */
+  transition: background-color 0.3s; /* Smooth color transition on hover */
+}
+
+/* Styling for the menu button circle (before pseudo-element) */
+.menu-btn::before {
+  content: ''; /* Empty content for circle */
+  position: absolute; /* Absolute positioning */
+  top: 50%; /* Centers vertically */
+  left: 50%; /* Centers horizontally */
+  transform: translate(-50%, -50%); /* Center alignment */
+  width: 40px; /* Width of the circle */
+  height: 32px; /* Height of the circle */
+  background-color: rgb(226, 224, 221); /* Light background for circle */
+  z-index: 1; /* Keeps circle behind the lines */
+  opacity: 0; /* Circle is hidden by default */
+  transition: opacity 0.3s, transform 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Hover effect on menu button (circle) */
+.menu-btn:hover::before {
+  opacity: 0.5; /* Makes circle partially visible */
+  transform: translate(-50%, -50%) scale(1.1); /* Slight zoom effect */
+}
+
+/* Menu open state for the button (when active) */
+.menu-btn.menu-open::before {
+  opacity: 0.5;
+  transform: translate(-50%, -50%) scale(1.1); /* Slight zoom effect */
+  background-color: rgb(192, 192, 191); /* Light gray background */
+  border: 2px solid #ffffff; /* White border */
+}
+
+/* Menu button hover effect on lines */
+.menu-btn:hover .line {
+  background-color: var(--white); /* Keep lines unchanged */
+}
+
+/* Menu content container styling */
+.menu-content {
+  overflow: hidden; /* Prevents content overflow */
+  font-family: Arial, sans-serif; /* Font styling */
+  display: none; /* Hidden by default */
+  position: absolute; /* Positioned relative to parent */
+  right: 0; /* Aligns to the right */
+  top: 30px; /* 30px from the top */
+  background: var(--white); /* White background */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+  z-index: 9; /* Ensure menu content appears above other elements */
+  width: 270px; /* Fixed width for the menu */
+}
+
+/* Styling for individual menu items */
+.menu-item {
+  display: flex; /* Flexbox for alignment */
+  align-items: center; /* Center the items */
+  padding: 15px 15px; /* Padding inside each item */
+  text-decoration: none; /* Removes underline */
+  color: #333; /* Dark text color */
+  font-size: 15px; /* Font size */
+  font-weight: bold; /* Bold font */
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+/* Hover effect for menu items */
+.menu-item:hover {
+  background-color: #f0f0f0; /* Light background on hover */
+}
+
+/* Icon styling inside menu items */
+.icon {
+  font-size: 19px; /* Icon size */
+  color: #555; /* Icon color */
+  margin-right: 25px; /* Space between icon and text */
+}
+
+/* Button styling for toggling content visibility */
+button.toggle-content {
+  background-color: var(--main-color); /* Background color from root */
+  color: var(--white); /* White text color */
+  border: none; /* No border */
+  padding: 12px 25px; /* Padding for button */
+  font-size: 1.1em; /* Font size */
+  cursor: pointer; /* Pointer cursor */
+  border-radius: 8px; /* Rounded corners */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+/* Hover effect on toggle button */
+button.toggle-content:hover {
+  background-color: var(--black); /* Dark background on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Main content area for lectures */
+.lecture-content {
+  padding: 30px; /* Padding inside lecture content */
+  height: 200vh; /* Height set to 200% of viewport */
+  background-color: var(--white); /* White background */
+  margin: 0 auto 40px; /* Center content with margin at the bottom */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  max-width: 1000px; /* Max width to prevent overflow */
+  transition: all 0.3s ease; /* Smooth transition on any change */
+}
+
+/* Paragraph styling inside lecture content */
+.lecture-content p {
+  font-size: 1.1em; /* Slightly larger text */
+  text-align: justify; /* Justify text alignment */
+  line-height: 1.8; /* Line height for readability */
+  margin-bottom: 20px; /* Space below paragraphs */
+}
+
+/* Heading styling for h2 */
+h2 {
+  color: var(--main-color); /* Color for h2 headings */
+  font-size: 1.8em; /* Font size */
+  margin-bottom: 10px; /* Bottom margin */
+  font-weight: 600; /* Semi-bold font weight */
+}
+
+/* Heading styling for h3 */
+h3 {
+  color: var(--main-color); /* Color for h3 headings */
+  font-size: 1.6em; /* Font size */
+  margin-bottom: 10px; /* Bottom margin */
+  font-weight: 600; /* Semi-bold font weight */
+}
+
+/* List styling */
+ul {
+  list-style-type: disc; /* Bullet points */
+  margin-left: 20px; /* Left margin for list */
+  padding-left: 10px; /* Padding for list items */
+  font-size: 1.1em; /* Font size */
+}
+
+/* List item styling */
+ul li {
+  margin-bottom: 10px; /* Space between list items */
+}
+/* Container for navigation buttons */
+.navigation-btns {
+  display: flex; /* Flexbox for layout */
+  justify-content: space-between; /* Space out buttons evenly */
+  margin-top: 20px; /* Margin at the top */
+}
+
+/* Adjustments for the navigation buttons container */
+.navigation-btns {
+  text-align: center; /* Center the text */
+  margin-top: 20px; /* Margin at the top */
+  padding-bottom: 3rem; /* Space at the bottom of the container */
+  margin-right: 32rem; /* Move the container 32rem from the right */
+  margin-left: 35rem; /* Move the container 35rem from the left */
+}
+
+/* Styling for individual buttons */
+.navigation-btns a.btn,
+.navigation-btns span.btn {
+  display: inline-block; /* Make the buttons inline-blocks */
+  padding: 15px 30px; /* Padding inside the buttons */
+  background-color: var(--green); /* Green background */
+  color: var(--white); /* White text color */
+  text-decoration: none; /* Remove underline from links */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 1.2em; /* Slightly larger font size */
+  margin: 0; /* Remove space between buttons */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth background and transform transitions */
+}
+
+/* Hover effect on the button */
+.navigation-btns a.btn:hover {
+  background-color: var(--highlight-color); /* Change background on hover */
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Disabled button styling */
+.navigation-btns .btn.disabled {
+  background-color: #cccccc; /* Gray background for disabled state */
+  color: #666666; /* Lighter text color */
+  cursor: not-allowed; /* Cursor changes to indicate it's not clickable */
+  pointer-events: none; /* Disable interactions */
+  transform: none; /* Remove any transform effects */
+}
+
+@media (max-width: 768px) {
+  header {
+      padding: 30px 15px;
+  }
+
+  header h1 {
+      font-size: 2em;
+  }
+
+  .lecture-content {
+      padding: 20px;
+      margin: 0 10px 30px;
+  }
+  .menu {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .menu-btn {
+    width: 20px; /* Adjust size for smaller screens */
+    height: 12px;
+  }
+
+  .menu-content {
+    width: 100%; /* Full width menu for mobile */
+    top: 50px;
+    right: 0;
+    border-radius: 0; /* Remove rounded corners for full width */
+  }
+
+  .menu-item {
+    font-size: 13px;
+    padding: 12px 10px; /* Smaller padding for items */
+  }
+
+  .icon {
+    font-size: 16px; /* Reduce icon size */
+    margin-right: 15px;
+  }
+  .navigation-btns button {
+      padding: 12px 25px;
+  }
+}
+

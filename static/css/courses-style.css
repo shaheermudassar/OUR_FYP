@@ -1,0 +1,201 @@
+/* Define global color variables using CSS custom properties */
+:root {
+    --main-color: #47445e;        /* Dark grey used for text and accents */
+    --green: #c9b75f;             /* Olive green used for buttons/icons */
+    --back-color:#f9f9f9;         /* Light grey background color */
+    --red: #e74c3c;               /* Red shade for alerts/errors */
+    --orange: #f39c12;            /* Orange shade for highlights */
+    --light-color: #888;          /* Light grey for subtle text */
+    --light-bg: #eee;             /* Very light grey for backgrounds */
+    --black: #2c3e50;             /* Dark blue-black for strong text */
+    --white: #fff;                /* White color */
+    --border: .1rem solid rgba(0, 0, 0, .2); /* Light border for elements */
+}
+
+/* Basic body styling */
+body {
+    font-family: Arial, sans-serif;   /* Set default font */
+    margin: 0;                        /* Remove default margin */
+    padding: 0;                       /* Remove default padding */
+    box-sizing: border-box;          /* Include padding/border in element width */
+    background-color: var(--back-color); /* Set background from variable */
+}
+
+/* Container for all course cards */
+.courses-container {
+    display: flex;                   /* Use flex layout */
+    justify-content: center;        /* Center content horizontally */
+    flex-wrap: wrap;                /* Wrap to new line on small screens */
+    margin: 20px;                   /* Outer spacing */
+}
+
+/* Full-width header image */
+.header-image {
+    width: 100%;                    /* Make image span full width */
+    height: auto;                   /* Maintain aspect ratio */
+    margin-bottom: 40px;           /* Space below image */
+    display: block;                /* Treat as block-level element */
+}
+
+/* Page heading */
+h1 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+ h1::after {
+    content: '';
+    display: block;
+    width: 60px; /* length of the line */
+    height: 3px;  /* thickness of the line */
+    background-color: var(--green); /* or any color */
+    margin: 10px auto 0; /* spacing and centering */
+    border-radius: 2px;
+}
+
+/* Card styling for each course */
+.course-card {
+    background-color: white;        /* White background */
+    border: 1px solid #ddd;         /* Light border */
+    border-radius: 20px;            /* Rounded corners */
+    width: 60vh;                    /* Set card width based on viewport height */
+    height: 73vh;                   /* Set card height */
+    margin: 20px;                   /* Outer spacing */
+    margin-bottom: 30px;             /* Reduce bottom spacing */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    overflow: hidden;               /* Clip content that overflows */
+    text-align: center;             /* Center all text inside */
+    transition: transform 0.3s;     /* Smooth transform effect on hover */
+}
+
+/* Image inside course card */
+.course-card img {
+    width: 100%;                    /* Full width image */
+    height: 200px;                  /* Fixed height */
+    object-fit: cover;              /* Maintain image aspect ratio and crop excess */
+}
+
+/* Course title inside card */
+.course-card h3 {
+    margin: 10px 0;                /* Space above/below */
+    color: #333;                   /* Dark grey color */
+}
+
+/* Course description */
+.course-card p {
+    font-family: Arial, sans-serif; /* Set font */
+    padding: 0 10px;               /* Left-right padding */
+    color: #666;                   /* Medium grey text */
+    text-align: left;              /* Align text to left */
+    margin: 0 10px;                /* Inner margin */
+}
+
+/* Button inside card */
+.course-card .btn {
+    display: inline-block;         /* Button treated as inline block */
+    margin: 5px 0;                 /* Top-bottom spacing */
+    padding: 10px 20px;            /* Inner spacing */
+    background-color: #c9b75f;     /* Olive green background */
+    color: #fff;                   /* White text */
+    text-decoration: none;         /* Remove underline */
+    border-radius: 5px;            /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth hover transition */
+}
+
+/* Button hover effect */
+.course-card .btn:hover {
+    background-color: #dfcc60;     /* Lighter green on hover */
+}
+
+/* Container holding all cards - vertical stacking */
+.container {
+    display: flex;                 /* Flex container */
+    flex-direction: column;       /* Stack items vertically */
+    margin-bottom: 7vh;           /* Space below */
+}
+
+/* Responsive layout for header on tablets */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;   /* Stack header items */
+        align-items: center;      /* Center align items */
+        padding: 15px;            /* Inner spacing */
+    }
+
+    .logo-container {
+        margin-bottom: 10px;      /* Space below logo */
+    }
+
+    nav {
+        flex-wrap: wrap;          /* Wrap nav items */
+        justify-content: center;  /* Center nav items */
+        gap: 10px;                /* Space between nav links */
+    }
+
+    .search-bar {
+        width: 100%;              /* Full width search */
+        margin: 10px 0;           /* Top-bottom margin */
+    }
+
+    .right-menu {
+        flex-direction: column;   /* Stack menu vertically */
+        gap: 10px;                /* Space between items */
+    }
+}
+
+/* Responsive layout for course cards and content on tablets */
+@media (max-width: 768px) {
+    .course-card {
+        width: 80vw;              /* Card width based on viewport */
+        height: auto;             /* Let height adjust */
+    }
+
+    .course-card img {
+        height: 150px;            /* Smaller image height */
+    }
+
+    .courses-container {
+        margin: 10px;             /* Smaller outer spacing */
+    }
+
+    .course-details {
+        flex-direction: column;   /* Stack detail items */
+        margin-left: 20px;        /* Left margin */
+        gap: 20px;                /* Space between items */
+    }
+
+    .course-details .detail-item {
+        justify-content: center;  /* Center each detail item */
+    }
+}
+
+/* Responsive layout for mobile devices */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;          /* Smaller heading */
+    }
+
+    .course-card {
+        width: 90vw;              /* Almost full width on mobile */
+    }
+
+    .course-card img {
+        height: 120px;            /* Even smaller image height */
+    }
+
+    .btn {
+        padding: 8px 16px;        /* Smaller buttons */
+        font-size: 14px;          /* Smaller text */
+    }
+
+    .icon {
+        font-size: 14px;          /* Smaller icons */
+    }
+
+    .course-details {
+        font-size: 12px;          /* Smaller text for details */
+        gap: 10px;                /* Less spacing between items */
+    }
+}

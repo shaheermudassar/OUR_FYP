@@ -1,0 +1,314 @@
+/* General Reset */
+:root {
+    /* Define color variables */
+    --main-color: #47445e; /* Main color for text */
+    --green: #c9b75f; /* Green color for buttons */
+    --back-color: #f9f9f9; /* Background color */
+    --red: #e74c3c; /* Red color for alerts or errors */
+    --orange: #f39c12; /* Orange color for highlights */
+    --light-color: #888; /* Light gray color for text */
+    --light-bg: #eee; /* Light background color */
+    --black: #2c3e50; /* Black color for text */
+    --white: #fff; /* White color */
+    --border: .1rem solid rgba(0, 0, 0, .2); /* Border style */
+    --hover: #dfcc60; /* Hover color for buttons */
+}
+
+body {
+    margin: 0rem; /* Remove default body margin */
+    font-family: Arial, sans-serif; /* Set the font family */
+    background-color: #f9f9f9; /* Set the background color */
+}
+
+/* About Section */
+.about .row {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    gap: 1.5rem; /* Space between items */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+}
+
+.about .row .img {
+    flex: 1 1 40rem; /* Set width of image section */
+}
+
+.about .row .img img {
+    width: 100%; /* Make image fill its container */
+    height: 30rem; /* Set image height */
+    margin: .5rem; /* Add margin around the image */
+}
+
+.about .row .content {
+    flex: 1 1 40rem; /* Set width of content section */
+    text-align: center; /* Center-align text */
+}
+
+.about .row .content h3 {
+    font-size: 2.5rem; /* Set size of heading */
+    color: var(--black); /* Set text color */
+}
+
+.about .row .content p {
+    line-height: 2; /* Set line height for better readability */
+    font-size: 1rem; /* Set font size for paragraph */
+    color: var(--light-color); /* Set text color */
+    padding: 1rem 0; /* Add padding on top and bottom */
+}
+
+/* Heading Style */
+.heading {
+    padding-bottom: 2rem; /* Add space below heading */
+    border-bottom: var(--border); /* Add bottom border */
+    font-size: 2.5rem; /* Set font size */
+    color: var(--main-color); /* Set text color */
+    text-transform: capitalize; /* Capitalize heading */
+    margin-bottom: 2rem; /* Add bottom margin */
+    text-align: center; /* Center-align text */
+}
+
+/* About Button Style */
+.about-btn {
+    border-radius: .5rem; /* Round corners */
+    padding: 1rem 3rem; /* Add padding */
+    background-color: var(--green); /* Set background color */
+    font-size: 1rem; /* Set font size */
+    color: #fff; /* Set text color */
+    margin: 1rem; /* Add margin around button */
+    margin-top: 1rem; /* Add top margin */
+    margin-bottom: 1rem; /* Add bottom margin */
+    text-transform: capitalize; /* Capitalize button text */
+    cursor: pointer; /* Change cursor on hover */
+    text-align: center; /* Center-align text */
+    display: inline-block; /* Make the button inline */
+}
+
+.about-btn:hover {
+    background-color: var(--hover); /* Change background on hover */
+}
+
+/* Services Section */
+.services-section {
+    padding: 3em 1em; /* Add padding around section */
+    text-align: center; /* Center-align text */
+    background: #ffffff; /* Set background color */
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.05); /* Add shadow effect */
+}
+
+/* Services Heading */
+.services-section h2 {
+    font-size: 2.5em; /* Set font size */
+    color: #4CAF50; /* Set text color */
+    margin-bottom: 0.5em; /* Add margin below heading */
+}
+
+.services-intro {
+    margin-bottom: 2em; /* Add bottom margin */
+    font-size: 1.2em; /* Set font size */
+    color: #555; /* Set text color */
+    text-align: center; /* Center-align text */
+}
+
+/* Services Container Grid */
+.services-container {
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Auto adjust columns */
+    gap: 2em; /* Add space between items */
+    padding: 1em; /* Add padding */
+    max-width: 1200px; /* Limit container width */
+    margin: 0 auto; /* Center container */
+}
+
+/* Service Card Style */
+.service-card {
+    background: linear-gradient(135deg, #ffffff, #f9f9f9); /* Add gradient background */
+    padding: 2em; /* Add padding */
+    border-radius: 12px; /* Round corners */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Add shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    text-align: center; /* Center-align text */
+}
+
+.service-card:hover {
+    transform: translateY(-10px); /* Lift card on hover */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Add more shadow on hover */
+}
+
+/* Service Card Icon */
+.service-card .icon {
+    font-size: 3em; /* Set icon size */
+    margin-bottom: 1em; /* Add space below icon */
+    color: #4CAF50; /* Set icon color */
+}
+
+/* Service Card Title */
+.service-card h3 {
+    font-size: 1.5em; /* Set title size */
+    color: #333; /* Set title color */
+    margin-bottom: 0.5em; /* Add space below title */
+}
+
+/* Service Card Text */
+.service-card p {
+    font-size: 1em; /* Set text size */
+    color: #666; /* Set text color */
+    line-height: 1.6; /* Set line height for readability */
+}
+
+/* Reviews Section Layout */
+.reviews .heading {
+    padding-bottom: 2rem; /* Add space below heading */
+    border-bottom: var(--border); /* Add bottom border */
+    font-size: 2.5rem; /* Set font size */
+    color: var(--main-color); /* Set text color */
+    text-transform: capitalize; /* Capitalize heading */
+    margin-bottom: 2rem; /* Add bottom margin */
+    text-align: center; /* Center-align text */
+}
+
+/* Review Box Container */
+.reviews .box-container {
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); /* Adjust grid columns */
+    gap: 1.2rem; /* Space between boxes */
+    justify-content: center; /* Center content */
+    align-items: flex-start; /* Align items at the top */
+    padding: 2rem; /* Add padding */
+}
+
+/* Review Box Style */
+.reviews .box-container .box {
+    border-radius: .5rem; /* Round corners */
+    background-color: var(--white); /* Set background color */
+    padding: 1.5rem; /* Add padding */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+/* Review Text */
+.reviews .box-container .box p {
+    line-height: 1; /* Set line height */
+    font-size: 1rem; /* Set font size */
+    color: var(--light-color); /* Set text color */
+    margin-bottom: 1.5rem; /* Add bottom margin */
+}
+
+
+/* Review Student Section */
+.reviews .box-container .box .student {
+    margin-top: 1.5rem; /* Add top margin */
+    display: flex; /* Use flexbox */
+    align-items: center; /* Align items vertically */
+    gap: 1.2rem; /* Space between image and text */
+}
+
+/* Student Image */
+.reviews .box-container .box .student img {
+    height: 4rem; /* Set image size */
+    width: 4rem; /* Set image size */
+    object-fit: cover; /* Maintain image aspect ratio */
+    border-radius: 50%; /* Make image circular */
+}
+
+/* Student Name */
+.reviews .box-container .box .student h3 {
+    font-size: 1.6rem; /* Set font size */
+    color: var(--black); /* Set text color */
+    margin-bottom: .2rem; /* Add bottom margin */
+}
+
+/* Star Rating */
+.reviews .box-container .box .student .stars {
+    font-size: 1.3rem; /* Set star size */
+    color: var(--orange); /* Set star color */
+}
+
+/* Tablet view (≤ 768px) */
+@media (max-width: 768px) {
+    .about .row {
+        flex-direction: column; /* Stack elements vertically */
+        text-align: center; /* Center-align text */
+    }
+
+    .about .row .img img {
+        height: 25rem; /* Adjust image size */
+    }
+
+    .about .row .content h3 {
+        font-size: 2rem; /* Adjust font size */
+    }
+
+    .about .row .content p {
+        font-size: 0.95rem; /* Adjust font size */
+    }
+
+    .services-section h2 {
+        font-size: 2rem; /* Adjust heading size */
+    }
+
+    .services-intro {
+        font-size: 1rem; /* Adjust intro text size */
+    }
+
+    .service-card h3 {
+        font-size: 1.3em; /* Adjust card title size */
+    }
+
+    .service-card p {
+        font-size: 0.95em; /* Adjust card text size */
+    }
+
+    .reviews .box-container {
+        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); /* Adjust grid layout */
+    }
+
+    .reviews .box-container .box p {
+        font-size: 0.95rem; /* Adjust review text size */
+    }
+}
+
+/* Mobile view (≤ 480px) */
+@media (max-width: 480px) {
+    .about .row .img img {
+        height: 20rem; /* Adjust image size */
+    }
+
+    .about .row .content h3 {
+        font-size: 1.8rem; /* Adjust font size */
+    }
+
+    .about .row .content p {
+        font-size: 0.9rem; /* Adjust font size */
+    }
+
+    .about-btn {
+        padding: 0.8rem 2rem; /* Adjust button padding */
+        font-size: 0.9rem; /* Adjust button font size */
+    }
+
+    .services-section {
+        padding: 2em 1em; /* Adjust section padding */
+    }
+
+    .services-section h2 {
+        font-size: 1.8em; /* Adjust heading size */
+    }
+
+    .services-intro {
+        font-size: 0.9em; /* Adjust intro text size */
+    }
+
+    .service-card h3 {
+        font-size: 1.2em; /* Adjust card title size */
+    }
+
+    .service-card p {
+        font-size: 0.9em; /* Adjust card text size */
+    }
+
+    .reviews .box-container {
+        grid-template-columns: 1fr; /* Stack reviews in a single column */
+    }
+
+    .reviews .box-container .box p {
+        font-size: 0.9rem; /* Adjust review text size */
+    }
+}

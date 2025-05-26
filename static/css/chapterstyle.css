@@ -1,0 +1,198 @@
+:root {
+    --main-color: #47445e; /* Primary theme color */
+    --green: #c9b75f; /* Custom green shade */
+    --back-color: #f9f9f9; /* Background color */
+    --red: #e74c3c; /* Red used for error or alert styling */
+    --orange: #f39c12; /* Orange for warnings or highlights */
+    --light-color: #888; /* Light text color */
+    --light-bg: #eee; /* Light background color */
+    --black: #2c3e50; /* Dark shade for text or UI */
+    --white: #fff; /* White color */
+    --border: .1rem solid rgba(0, 0, 0, .2); /* Border with slight transparency */
+    --gradient-main: linear-gradient(135deg, #4caf50, #81c784); /* Green gradient */
+    --gradient-light: linear-gradient(135deg, #ffffff, #f1f1f1); /* Light grey gradient */
+}
+
+* {
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+body {
+    font-family: Arial, sans-serif; /* Set default font */
+    background-color: #f4f4f9; /* Set background color */
+    padding: 20px; /* Add padding around content */
+}
+
+.container {
+    max-width: 1200px; /* Limit width of content area */
+    margin: 0 auto; /* Center the container */
+}
+
+.chapter {
+    display: flex; /* Arrange children in a row */
+    align-items: center; /* Align items vertically */
+    background-color: #ffffff; /* White background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-bottom: 20px; /* Space below each chapter block */
+    padding: 20px; /* Inner spacing */
+}
+
+.chapter-img {
+    flex: 1; /* Take 1 portion of flex space */
+    max-width: 150px; /* Limit image container width */
+    margin-right: 20px; /* Space between image and text */
+}
+
+.chapter-img img {
+    width: 100%; /* Responsive image width */
+    border-radius: 8px; /* Rounded corners for image */
+}
+
+.chapter-description {
+    flex: 2; /* Take 2 portions of flex space */
+}
+
+/* Incorrect class selector, possibly unused */
+.chapter-description .h2 {
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.chapter-description h2 {
+    color: #333; /* Dark grey text */
+    font-size: 24px; /* Header size */
+    margin-bottom: 10px; /* Space below heading */
+}
+
+.chapter-description p {
+    color: #666; /* Medium grey text */
+    line-height: 1.6; /* Increase line spacing */
+    font-size: 16px; /* Set paragraph text size */
+}
+
+.lecture-count {
+    margin-top: 15px; /* Space above count */
+    font-size: 16px; /* Size of text */
+    font-weight: bold; /* Emphasize text */
+    color: #333; /* Dark grey color */
+}
+
+.lecture-label {
+    margin-right: 5px; /* Space between label and number */
+    color: #007bff; /* Bootstrap-like blue color */
+}
+
+.lecture-number {
+    color: #333; /* Dark grey color */
+}
+
+/* ===== Popup Modal Styles ===== */
+.enrollment-popup {
+    display: none; /* Hide popup by default */
+    position: fixed; /* Stay in same place even on scroll */
+    top: 0; /* Start at top */
+    left: 0; /* Start at left */
+    width: 100%; /* Cover entire width */
+    height: 100%; /* Cover entire height */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    z-index: 9999; /* Appear above other elements */
+}
+
+.popup-content {
+    background-color: #fff; /* White popup background */
+    padding: 20px; /* Space inside popup */
+    border-radius: 8px; /* Rounded corners */
+    max-width: 500px; /* Limit width */
+    text-align: center; /* Center text inside popup */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Drop shadow */
+    position: relative; /* For absolute child positioning */
+}
+
+.popup-content h2 {
+    color: var(--main-color); /* Use main theme color */
+    font-size: 1.5em; /* Heading size */
+}
+
+.popup-content p {
+    font-size: 1.2em; /* Paragraph size */
+    color: #333; /* Dark grey text */
+}
+
+.close-btn {
+    position: absolute; /* Position relative to parent */
+    top: 10px; /* From top of popup */
+    right: 10px; /* From right of popup */
+    font-size: 1.5em; /* Size of close icon */
+    color: #333; /* Default color */
+    cursor: pointer; /* Pointer cursor on hover */
+    background: none; /* No background */
+    border: none; /* No border */
+}
+
+.close-btn:hover {
+    color: var(--main-color); /* Change color on hover */
+}
+
+
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+    .chapter {
+        flex-direction: column; /* Stack image and text */
+        text-align: center;
+        height: 50px;
+         /* Center text */
+    }
+
+    .chapter-img {
+        max-width: 100%; /* Make image full width */
+        margin: 0 0 15px 0; /* Space below image */
+    }
+
+    .chapter-description {
+        flex: none; /* Override flex behavior */
+    }
+
+    .popup-content {
+        width: 90%; /* Responsive width for popup */
+    }
+}
+
+/* Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px; /* Less padding */
+    }
+
+    .chapter {
+        padding: 15px;
+        height: 50px; /* Less inner spacing */
+    }
+
+    .chapter-description h2 {
+        font-size: 20px; /* Smaller heading */
+    }
+
+    .chapter-description p {
+        font-size: 14px; /* Smaller paragraph */
+    }
+
+    .lecture-count {
+        font-size: 14px; /* Smaller count */
+    }
+
+    .popup-content {
+        padding: 15px; /* Less padding */
+    }
+
+    .close-btn {
+        font-size: 1.2em; /* Smaller close icon */
+    }
+}

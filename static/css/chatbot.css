@@ -1,0 +1,124 @@
+/* Chat Icon */
+.chat-icon {
+    position: fixed; /* Fix position on screen */
+    bottom: 20px; /* 20px from bottom */
+    right: 20px; /* 20px from right */
+    width: 60px; /* Width of chat icon */
+    height: 60px; /* Height of chat icon */
+    background: rgba(201, 183, 95, 0.9); /* Semi-transparent gold background */
+    color: white; /* Icon color */
+    border-radius: 50%; /* Make it a circle */
+    display: flex; /* Use flexbox for centering content */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 28px; /* Icon/text size */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Shadow for elevation */
+    transition: transform 0.3s ease; /* Smooth scale on hover */
+    z-index: 999; /* Appear above most elements */
+}
+
+.chat-icon:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    background-color: #dfcc60; /* Slightly lighter gold on hover */
+}
+
+/* Chat Container */
+.chat-container {
+    display: none; /* Initially hidden */
+    position: fixed; /* Fixed on screen */
+    bottom: 100px; /* Positioned above the chat icon */
+    right: 20px; /* Aligned with chat icon */
+    width: 350px; /* Width of chat window */
+    background: rgba(255, 255, 255, 0.95); /* Almost white background with slight transparency */
+    border-radius: 16px; /* Rounded corners */
+    backdrop-filter: blur(10px); /* Frosted glass blur effect */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Deep shadow */
+    overflow: hidden; /* Hide overflowed content */
+    z-index: 998; /* Below chat icon */
+    animation: fadeIn 0.3s ease; /* Animate when shown */
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); } /* Start transparent and lower */
+    to { opacity: 1; transform: translateY(0); } /* End fully visible in place */
+}
+
+/* Chat Header */
+.chat-header {
+    background: #c9b75f; /* Gold background */
+    color: white; /* White text */
+    padding: 14px; /* Inner spacing */
+    font-weight: 600; /* Semi-bold text */
+    font-size: 1.1rem; /* Text size */
+    text-align: center; /* Centered text */
+}
+
+/* Chat Messages */
+.chat-messages {
+    height: 220px; /* Fixed height scroll area */
+    overflow-y: auto; /* Enable vertical scroll */
+    padding: 10px; /* Inner spacing */
+    background-color: #fdfdfd; /* Very light background */
+    font-size: 0.95rem; /* Text size */
+    color: #333; /* Dark grey text */
+    border-top: 1px solid #eee; /* Top border */
+    border-bottom: 1px solid #eee; /* Bottom border */
+}
+
+/* Spinner (loading animation) */
+.spinner {
+    display: none; /* Hidden by default */
+    margin: 10px auto; /* Centered horizontally with margin */
+    width: 24px; /* Width of spinner */
+    height: 24px; /* Height of spinner */
+    border: 3px solid rgba(0, 0, 0, 0.1); /* Light outer border */
+    border-top: 3px solid #c9b75f; /* Gold top border for animation */
+    border-radius: 50%; /* Circular shape */
+    animation: spin 1s linear infinite; /* Continuous spinning */
+}
+
+/* Spin Animation */
+@keyframes spin {
+    to { transform: rotate(360deg); } /* Full rotation */
+}
+
+/* Chat Input Container */
+.chat-input {
+    display: flex; /* Horizontal layout */
+    gap: 8px; /* Space between input and button */
+    padding: 10px; /* Inner spacing */
+    background-color: #fff; /* White background */
+}
+
+/* Chat Input Field */
+.chat-input input {
+    flex: 1; /* Take available space */
+    padding: 10px; /* Inner padding */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 0.95rem; /* Font size */
+    outline: none; /* Remove blue outline on focus */
+    transition: border-color 0.3s; /* Smooth border color change */
+}
+
+.chat-input input:focus {
+    border-color: #c9b75f; /* Gold border when focused */
+}
+
+/* Chat Send Button */
+.chat-input button {
+    background-color: #c9b75f; /* Gold background */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    padding: 10px 16px; /* Vertical and horizontal padding */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s ease; /* Smooth background change */
+}
+
+.chat-input button:hover {
+    background-color: #d1c06a; /* Slightly lighter gold on hover */
+}

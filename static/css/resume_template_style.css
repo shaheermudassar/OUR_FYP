@@ -1,0 +1,812 @@
+ /* Importing fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Poppins:ital,wght@0,0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* General Reset */
+:root {
+    /* Defining custom variables for colors */
+    --main-color: #47445e; /* Main dark color */
+    --green: #c9b75f; /* Green color */
+    --back-color: #f9f9f9; /* Background color */
+    --red: #e74c3c; /* Red color */
+    --orange: #f39c12; /* Orange color */
+    --light-color: #888; /* Light grey color */
+    --light-bg: #eee; /* Light background */
+    --black: #2c3e50; /* Black color */
+    --white: #fff; /* White color */
+    --border: .1rem solid rgba(0, 0, 0, .2); /* Border style */
+}
+
+/* Universal styles for all elements */
+* {
+    padding: 0; /* Removes padding from all elements */
+    margin: 0; /* Removes margin from all elements */
+    box-sizing: border-box; /* Sets box-sizing to border-box */
+}
+
+/* Global styling for the body */
+body {
+    font-size: 1rem; /* Setting font size */
+    font-family: var(--font-poppins); /* Applying Poppins font family */
+    background-color: var(--back-color); /* Background color */
+}
+
+/* Styling for button elements */
+button {
+    border: none; /* Removes button border */
+    background-color: transparent; /* Makes button background transparent */
+    outline: 0; /* Removes outline */
+    cursor: pointer; /* Changes cursor to pointer */
+    font-family: inherit; /* Inherits font family from the parent element */
+}
+
+/* Styling for image elements */
+img {
+    width: 100%; /* Makes the image take up full width */
+    display: block; /* Removes space below the image */
+}
+
+/* Styling for anchor (link) elements */
+a {
+    text-decoration: none; /* Removes underline from links */
+}
+
+/* Font family classes */
+.font-poppins {
+    font-family: var(--font-poppins); /* Applies Poppins font family */
+}
+
+.font-manrope {
+    font-family: var(--font-manrope); /* Applies Manrope font family */
+}
+
+/* Background color utility classes */
+.bg-blue {
+    background-color: var(--clr-blue); /* Applies blue background */
+}
+
+.bg-blue-mid {
+    background-color: var(--clr-blue-mid); /* Applies medium blue background */
+}
+
+.bg-blue-dark {
+    background-color: var(--clr-blue-dark); /* Applies dark blue background */
+}
+
+.bg-bright {
+    background-color: var(--clr-bright); /* Applies bright background */
+}
+
+.bg-dark {
+    background-color: var(--clr-dark); /* Applies dark background */
+}
+
+.bg-grey {
+    background-color: var(--clr-grey); /* Applies grey background */
+}
+
+.bg-white {
+    background-color: var(--clr-white); /* Applies white background */
+}
+
+.bg-black {
+    background-color: var(--clr-black); /* Applies black background */
+}
+
+.bg-green {
+    background-color: var(--clr-green); /* Applies green background */
+}
+
+/* Text alignment utility classes */
+.text-center {
+    text-align: center; /* Centers text */
+}
+
+.text-left {
+    text-align: left; /* Aligns text to the left */
+}
+
+.text-right {
+    text-align: right; /* Aligns text to the right */
+}
+
+/* Text transformation utility classes */
+.text-uppercase {
+    text-transform: uppercase; /* Transforms text to uppercase */
+}
+
+.text-lowercase {
+    text-transform: lowercase; /* Transforms text to lowercase */
+}
+
+.text-capitalize {
+    text-transform: capitalize; /* Capitalizes the first letter of each word */
+}
+
+/* Styling for text content */
+.text {
+    color: var(--black); /* Text color is black */
+    opacity: 0.9; /* Makes text slightly transparent */
+    margin: 2rem 0; /* Adds margin above and below the text */
+    line-height: 1.6; /* Increases line height for better readability */
+}
+
+/* Font weight utility classes */
+.fw-2 {
+    font-weight: 200; /* Sets font weight to 200 */
+}
+
+.fw-3 {
+    font-weight: 300; /* Sets font weight to 300 */
+}
+
+.fw-4 {
+    font-weight: 400; /* Sets font weight to 400 */
+}
+
+.fw-5 {
+    font-weight: 500; /* Sets font weight to 500 */
+}
+
+.fw-6 {
+    font-weight: 600; /* Sets font weight to 600 */
+}
+
+.fw-7 {
+    font-weight: 700; /* Sets font weight to 700 */
+}
+
+.fw-8 {
+    font-weight: 800; /* Sets font weight to 800 */
+}
+
+/* Font size utility classes */
+.fs-13 {
+    font-size: 13px; /* Sets font size to 13px */
+}
+
+.fs-14 {
+    font-size: 14px; /* Sets font size to 14px */
+}
+
+.fs-15 {
+    font-size: 15px; /* Sets font size to 15px */
+}
+
+.fs-16 {
+    font-size: 16px; /* Sets font size to 16px */
+}
+
+.fs-17 {
+    font-size: 17px; /* Sets font size to 17px */
+}
+
+.fs-18 {
+    font-size: 18px; /* Sets font size to 18px */
+}
+
+.fs-19 {
+    font-size: 19px; /* Sets font size to 19px */
+}
+
+.fs-20 {
+    font-size: 20px; /* Sets font size to 20px */
+}
+
+.fs-21 {
+    font-size: 21px; /* Sets font size to 21px */
+}
+
+.fs-22 {
+    font-size: 22px; /* Sets font size to 22px */
+}
+
+.fs-23 {
+    font-size: 23px; /* Sets font size to 23px */
+}
+
+.fs-24 {
+    font-size: 24px; /* Sets font size to 24px */
+}
+
+.fs-25 {
+    font-size: 25px; /* Sets font size to 25px */
+}
+
+/* Letter-spacing utility classes */
+.ls-1 {
+    letter-spacing: 1px; /* Adds 1px of letter spacing */
+}
+
+.ls-2 {
+    letter-spacing: 2px; /* Adds 2px of letter spacing */
+}
+
+       /* Header styling */
+body {
+    margin: 0rem; /* Removes margin from the body */
+    font-family: Arial, sans-serif; /* Sets the font family to Arial and sans-serif as a fallback */
+    background-color: #f9f9f9; /* Sets background color to a light grey */
+}
+
+/* Header Styling */
+header {
+    display: flex; /* Uses Flexbox for layout */
+    align-items: center; /* Vertically aligns items in the center */
+    justify-content: space-between; /* Spaces out the content evenly with space between */
+    background-color: #c9b75f; /* Sets the background color to a golden yellow */
+    padding: 20px 20px; /* Adds padding of 20px on all sides */
+    box-shadow: 0 4px 10px #c9b75f; /* Adds a subtle shadow to the header */
+    position: relative; /* Makes the header positioned relative to allow z-index usage */
+    z-index: 2; /* Sets z-index to ensure header is above other elements */
+}
+
+/* About button styling */
+.content .about-btn {
+    border-radius: .5rem; /* Rounded corners for the button */
+    padding: 1rem 3rem; /* Adds padding inside the button */
+    background-color: #47445e; /* Sets background color to dark grey */
+    font-size: 1rem; /* Sets font size */
+    color: #fff; /* Sets text color to white */
+    margin: 1rem; /* Adds margin around the button */
+    margin-top: 1rem; /* Adds margin to the top */
+    margin-bottom: 1rem; /* Adds margin to the bottom */
+    text-transform: capitalize; /* Capitalizes the first letter of each word */
+    cursor: pointer; /* Changes cursor to pointer when hovering */
+    text-align: center; /* Centers the text inside the button */
+    display: inline-block; /* Makes the button inline-block */
+}
+
+/* Logo Container styling */
+.logo-container {
+    display: flex; /* Uses Flexbox for layout */
+    align-items: center; /* Vertically aligns items in the center */
+}
+
+.logo {
+    width: 50px; /* Sets the width of the logo */
+    height: 50px; /* Sets the height of the logo */
+    border-radius: 50%; /* Makes the logo circular */
+    border: 2px solid hsl(50, 50%, 58%); /* Adds a border with a specific color */
+    object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+}
+
+.logoname {
+    font-size: 1.5rem; /* Sets the font size of the logo text */
+    font-weight: bold; /* Makes the logo text bold */
+    color: #4b3832; /* Sets text color to a dark brown */
+}
+
+/* Navigation Links styling */
+nav {
+    display: flex; /* Uses Flexbox for layout */
+    gap: 20px; /* Adds 20px space between each link */
+    align-items: center; /* Vertically aligns items in the center */
+}
+
+nav a {
+    text-decoration: none; /* Removes underline from links */
+    font-size: 1rem; /* Sets font size */
+    color: #fff; /* Sets text color to white */
+    font-weight: bold; /* Makes the text bold */
+    position: relative; /* Makes the link position relative to allow positioning of pseudo-elements */
+    transition: color 0.3s ease; /* Adds smooth color transition on hover */
+}
+
+nav a:hover {
+    color: #050505; /* Changes the link color on hover */
+}
+
+nav a::after {
+    content: ''; /* Adds an empty pseudo-element */
+    position: absolute; /* Positions it absolutely relative to the parent */
+    width: 0; /* Initial width set to 0 */
+    height: 2px; /* Sets the height of the underline */
+    background: #000; /* Sets the underline color to black */
+    left: 0; /* Aligns the underline to the left */
+    bottom: -5px; /* Positions the underline 5px below the link */
+    transition: width 0.3s ease; /* Smooth transition for the underline width */
+}
+
+nav a:hover::after {
+    width: 100%; /* Expands the underline to full width on hover */
+}
+
+/* Search Bar Styling */
+.search-bar {
+    display: flex; /* Uses Flexbox for layout */
+    align-items: center; /* Vertically aligns items in the center */
+    background-color: #fff; /* Sets background color to white */
+    border-radius: 30px; /* Adds rounded corners */
+    padding: 5px 15px; /* Adds padding inside the search bar */
+    width: 325px; /* Sets the width of the search bar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+.search-bar input {
+    border: none; /* Removes the border from the input field */
+    outline: none; /* Removes the outline */
+    padding: 5px 10px; /* Adds padding inside the input */
+    border-radius: 30px; /* Adds rounded corners */
+    font-size: 0.9rem; /* Sets font size */
+    width: 100%; /* Makes the input take full width */
+    padding-left: 20px; /* Adds padding to the left side */
+}
+
+.search-btn {
+    background-color: transparent; /* Makes the button background transparent */
+    border: none; /* Removes the button border */
+    color: #4b3832; /* Sets button color */
+    cursor: pointer; /* Changes cursor to pointer */
+    font-size: 1.2rem; /* Sets font size */
+}
+
+.search-btn:hover {
+    color: #808000; /* Changes the color of the search button on hover */
+}
+
+/* Right Menu (Login/Sign Up Buttons) */
+.right-menu {
+    display: flex; /* Uses Flexbox for layout */
+    align-items: center; /* Vertically aligns items in the center */
+    gap: 15px; /* Adds 15px gap between items */
+}
+
+.btn {
+    padding: 10px 20px; /* Adds padding inside the button */
+    font-size: 1rem; /* Sets font size */
+    font-weight: bold; /* Makes the text bold */
+    background-color: #bfa065; /* Sets background color */
+    color: solid black; /* Sets text color to black */
+    border: none; /* Removes the border */
+    border-radius: 20px; /* Adds rounded corners */
+    cursor: pointer; /* Changes cursor to pointer */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for background color and transformation */
+}
+
+.btn:hover {
+    background-color: #d1b26f; /* Changes background color on hover */
+    transform: scale(1.05); /* Slightly scales up the button */
+    color: white; /* Changes text color to white */
+}
+
+/* Bars Button */
+.bars {
+    display: flex; /* Uses Flexbox for layout */
+    flex-direction: column; /* Stacks the bars vertically */
+    justify-content: space-between; /* Adds space between bars */
+    height: 16.5px; /* Sets the height of the bars container */
+    width: 25px; /* Sets the width of the bars container */
+}
+
+.bars .bar {
+    width: 100%; /* Makes the bars take full width */
+    height: 2px; /* Sets the height of each bar */
+    background-color: var(--clr-blue); /* Sets the color of the bars */
+    transition: var(--transition); /* Adds transition effect */
+}
+
+.bars:hover .bar {
+    background-color: var(--clr-dark); /* Changes the bar color on hover */
+}
+
+/* Button styling */
+.btn {
+    font-size: 14.5px; /* Sets font size */
+    font-weight: 600; /* Makes the text bold */
+    padding: 1.4rem 1.6rem; /* Adds padding inside the button */
+    border-radius: 4px; /* Adds rounded corners */
+    display: inline-block; /* Makes the button inline-block */
+}
+
+/* Primary Button Styling */
+.btn-primary {
+    background-color: var(--green); /* Sets background color to green */
+    color: var(--clr-white); /* Sets text color to white */
+    border: 1px solid var(--clr-blue); /* Adds border with blue color */
+    transition: var(--transition); /* Adds smooth transition */
+}
+
+.btn-primary:hover {
+    background-color: var(--light-color); /* Changes background color on hover */
+    color: var(--clr-dark); /* Changes text color to dark */
+    border-color: var(--clr-grey); /* Changes border color on hover */
+}
+
+/* Secondary Button Styling */
+.btn-secondary {
+    background-color: transparent; /* Sets background color to transparent */
+    color: var(--clr-dark); /* Sets text color to dark */
+    border: 1px solid var(--clr-grey); /* Adds border with grey color */
+    transition: var(--transition); /* Adds smooth transition */
+}
+
+.btn-secondary:hover {
+    background-color: var(--clr-blue); /* Changes background color on hover */
+    color: var(--clr-white); /* Changes text color to white */
+    border-color: var(--clr-blue); /* Changes border color to blue */
+}
+
+/* Ensures there’s no margin-right on the first button in a button group */
+.btn-group button:first-child,
+.btn-group a:first-child {
+    margin-right: 1rem !important; /* Forces margin-right to 1rem */
+}
+
+
+
+
+
+
+
+
+/* Container style: sets the max width, centers the content horizontally, and adds padding */
+.container {
+    max-width: 1200px; /* Maximum width of the container */
+    margin: 0 auto; /* Centers the container horizontally */
+    padding: 0 1.6rem; /* Adds horizontal padding */
+}
+
+/* Header section: sets height, aligns items, and centers content */
+.header {
+    min-height: calc(100vh - 80px); /* Set minimum height to full screen height minus 80px */
+    display: flex; /* Uses flexbox for layout */
+    flex-direction: column; /* Aligns children elements vertically */
+    align-items: center; /* Horizontally centers children */
+    justify-content: center; /* Vertically centers children */
+}
+
+/* Styling for small headers (h6) */
+.h6 {
+    font-size: 2rem; /* Font size for small headers */
+    text-transform: uppercase; /* Makes text uppercase */
+    color: var(--black); /* Sets text color */
+}
+
+/* Header content section: centers content and limits its width */
+.header-content {
+    max-width: 740px; /* Sets the maximum width of header content */
+    margin-right: auto; /* Centers the content horizontally */
+    margin-left: auto; /* Centers the content horizontally */
+}
+
+/* Header image style */
+.header-content img {
+    max-width: 760px; /* Limits image width */
+    border-top-right-radius: 8px; /* Rounds top right corner */
+    border-top-left-radius: 8px; /* Rounds top left corner */
+    margin-top: 3.2rem; /* Adds top margin */
+}
+
+/* Large title in header section */
+.lg-title {
+    margin: 1.4rem 0; /* Adds top and bottom margins */
+    font-size: 37px; /* Font size for large title */
+    line-height: 1.4; /* Line height for better spacing */
+    color: var(--black); /* Sets the text color */
+}
+
+/* Paragraph styling in header section */
+.header-content p {
+    margin-bottom: 2.6rem; /* Adds bottom margin */
+    line-height: 1.6; /* Sets line height for better readability */
+}
+
+/* Section one styling: flexible layout with vertical alignment */
+.section-one {
+    min-height: 80vh; /* Minimum height of 80% of viewport height */
+    display: flex; /* Uses flexbox for layout */
+    align-items: center; /* Vertically aligns children */
+}
+
+/* Left section image in section one */
+.section-one-l img {
+    width: 600px; /* Sets image width */
+    margin-right: auto; /* Centers the image horizontally */
+    margin-top: 6rem; /* Adds top margin */
+    margin-left: auto; /* Centers the image horizontally */
+}
+
+/* Right section of section one */
+.section-one-r {
+    margin-top: 4rem; /* Adds top margin */
+}
+
+/* Button group styling in section one */
+.section-one .btn-group {
+    margin-top: 2rem; /* Adds top margin */
+}
+
+/* Right section content in section one with max-width */
+.section-one-r {
+    max-width: 545px; /* Sets maximum width */
+    margin-right: auto; /* Centers the section horizontally */
+    margin-left: auto; /* Centers the section horizontally */
+}
+
+/* Button group in right section of section one */
+.section-one-r .btn-group {
+    margin-top: 3rem; /* Adds top margin */
+}
+
+/* Section two styling: vertical padding */
+.section-two {
+    padding: 64px 0; /* Adds padding to top and bottom */
+}
+
+/* Section items in section two: grid layout */
+.section-two .section-items {
+    display: grid; /* Uses grid layout */
+    gap: 2rem; /* Adds space between grid items */
+}
+
+/* Individual section item in section two */
+.section-two .section-item {
+    max-width: 350px; /* Limits the width */
+    text-align: center; /* Centers text */
+    margin-right: auto; /* Centers the item horizontally */
+    margin-left: auto; /* Centers the item horizontally */
+}
+
+/* Icon styling in section items */
+.section-two .section-item-icon {
+    margin: 1rem 0; /* Adds margin to top and bottom */
+}
+
+/* Icon image styling in section items */
+.section-two .section-item-icon img {
+    width: 80px; /* Sets image width */
+    margin-right: auto; /* Centers the image horizontally */
+    margin-left: auto; /* Centers the image horizontally */
+}
+
+/* Title in section items */
+.section-two .section-item-title {
+    color: var(--black); /* Sets the text color */
+    font-size: 1.8rem; /* Font size for item titles */
+    font-weight: 600; /* Sets the font weight */
+}
+
+/* Text in section items */
+.section-two .text {
+    margin: 0.9rem 0; /* Adds top and bottom margin */
+    color: var(--black); /* Sets the text color */
+}
+
+/* Resume page styling */
+.resume_body {
+    margin-left: auto; /* Centers the container horizontally */
+    margin-right: auto; /* Centers the container horizontally */
+    background-color: var(--light-bg); /* Sets background color */
+    margin-bottom: 3rem; /* Adds bottom margin */
+    margin-top: 3rem; /* Adds top margin */
+    border-radius: 3rem; /* Rounds the corners */
+    margin-right: 3rem; /* Adds right margin */
+    padding: 2rem; /* Adds padding */
+    max-width: 1200px; /* Limits the width */
+}
+
+/* CV form layout using grid */
+.cv-form {
+    display: inline-block; /* Makes the form inline block */
+    grid-template-columns: repeat(2, 1fr); /* Defines two equal-width columns */
+    gap: 20px; /* Adds space between items */
+    width: 100%; /* Ensures it takes up full width */
+    box-sizing: border-box; /* Prevents overflow by including padding */
+}
+
+/* Block styling in CV form */
+.cv-form-blk {
+    background-color: #f4f4f4; /* Sets background color */
+    padding: 20px; /* Adds padding */
+    border-radius: 8px; /* Rounds corners */
+    margin-right: 3rem; /* Adds right margin */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Adds shadow effect */
+    box-sizing: border-box; /* Prevents overflow */
+}
+
+/* About section styling */
+#about-sc {
+    padding: 64px 0; /* Adds padding to top and bottom */
+    margin-left: 4rem; /* Adds left margin */
+    margin-right: 4rem; /* Adds right margin */
+}
+
+/* Title row in CV form */
+.cv-form-row-title {
+    background-color: var(--clr-dark); /* Sets background color */
+    padding: 0.8rem 1.6rem; /* Adds padding */
+    margin-bottom: 2rem; /* Adds bottom margin */
+    margin-right: 9rem; /* Adds right margin */
+}
+
+/* Title text in CV form row */
+.cv-form-row-title h3 {
+    color: var(--clr-white); /* Sets text color */
+    font-weight: 500; /* Sets font weight */
+    text-transform: uppercase; /* Makes text uppercase */
+    letter-spacing: 1.5px; /* Adds letter spacing */
+    font-size: 1.7rem; /* Font size */
+}
+
+/* Block styling for form row */
+.cv-form-blk {
+    margin: 3rem 0; /* Adds top and bottom margin */
+}
+
+/* Row in CV form */
+.cv-form-row {
+    padding: 3rem 2rem 0 2rem; /* Adds padding */
+    border: 1px solid rgba(0, 0, 0, 0.08); /* Adds border */
+    margin-bottom: 1rem; /* Adds bottom margin */
+    position: relative; /* Allows for positioning of elements inside */
+}
+
+/* Disable resizing of textarea */
+textarea {
+    resize: none; /* Prevents resizing of the textarea */
+}
+
+/* Form element styling */
+.form-elem {
+    margin-bottom: 3rem; /* Adds bottom margin */
+    position: relative; /* Allows positioning inside */
+}
+
+/* Label for form element */
+.form-label {
+    display: block; /* Makes label a block element */
+    font-weight: 600; /* Sets font weight */
+    font-size: 14px; /* Sets font size */
+    color: var(--clr-dark); /* Sets text color */
+    margin-bottom: 0.5rem; /* Adds bottom margin */
+}
+
+/* Form control (input fields, etc.) styling */
+.form-control {
+    border-radius: none; /* Removes border radius */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Adds border */
+    font-size: 14px; /* Sets font size */
+    padding: 0.8rem 1.6rem; /* Adds padding */
+    font-family: inherit; /* Inherits font family */
+    width: 100%; /* Makes the control take full width */
+    outline: 0; /* Removes outline on focus */
+    transition: var(--transition); /* Smooth transition for changes */
+}
+
+/* Focus state for form control */
+.form-control:focus {
+    border-color: rgba(0, 0, 0, 0.3); /* Changes border color on focus */
+}
+
+/* Error text styling for form */
+.form-text {
+    color: #ca0b00; /* Red color for error text */
+    font-size: 12px; /* Smaller font size */
+    position: absolute; /* Positions error text absolutely */
+    letter-spacing: 0.5px; /* Adds letter spacing */
+    top: calc(100% + 2px); /* Positions error text below the form control */
+    left: 0; /* Aligns error text to the left */
+    width: 100%; /* Makes error text span the full width */
+}
+
+/* Grid layout for 3-column and 2-column layouts */
+.cols-3,
+.cols-2 {
+    display: grid; /* Uses grid layout */
+}
+
+/* Button for adding repeatable items in form */
+.repeater-add-btn {
+    width: 25px; /* Sets button width */
+    height: 25px; /* Sets button height */
+    background-color: var(--clr-blue-mid); /* Sets background color */
+    font-size: 1.6rem; /* Sets font size */
+    color: var(--clr-white); /* Sets text color */
+    border-radius: 50%; /* Makes button circular */
+    position: absolute; /* Positions button absolutely */
+    right: 0; /* Aligns button to the right */
+    bottom: 0; /* Aligns button to the bottom */
+    z-index: 999; /* Ensures the button stays on top */
+}
+
+/* Button text styling in repeater */
+.repeater-add-btn span {
+    line-height: 30px; /* Centers the text vertically */
+    display: block; /* Makes text block level */
+}
+
+/* Tooltip styling for repeat button */
+.repeater-add-btn-tooltip {
+    position: absolute; /* Positions tooltip absolutely */
+    top: -28px; /* Positions tooltip above the button */
+    right: 0; /* Aligns tooltip to the right */
+    width: max-content; /* Tooltip width adjusts to text */
+    background-color: var(--clr-dark); /* Sets background color */
+    color: var(--clr-white); /* Sets text color */
+    font-size: 1.2rem; /* Sets font size */
+    padding: 8px 16px; /* Adds padding */
+    border-radius: 4px; /* Rounds corners */
+    font-weight: 500; /* Makes text slightly bold */
+}
+
+        @media screen and (min-width: 768px) {
+            .cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+                column-gap: 2rem;
+            }
+
+            .cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 2rem;
+            }
+        }
+
+        @media screen and (min-width: 992px) {
+            .cv-form-row {
+                padding: 3rem 3rem 0rem 3rem;
+            }
+
+            .cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .print-btn-sc {
+            margin: 2rem 0 6rem 0;
+        }
+
+        /* print section */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .non_print_area {
+                display: none;
+            }
+
+            .print_area,
+            .print_area * {
+                visibility: visible;
+            }
+
+            .print_area {
+                width: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                overflow: hidden;
+            }
+        }
+
+
+        /* media queries */
+        @media screen and (min-width: 768px) {
+            .section-two .section-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (min-width: 992px) {
+            .section-one-content {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 3rem;
+            }
+
+            .section-one-r {
+                text-align: left;
+            }
+
+            .section-two .section-items {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .section-two .section-item {
+                text-align: left;
+            }
+
+            .section-two .section-item-icon img {
+                margin-left: 0;
+            }
+        }

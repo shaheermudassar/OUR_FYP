@@ -1,0 +1,277 @@
+* {
+  margin: 0; /* Resets margin to zero for all elements */
+  padding: 0; /* Resets padding to zero for all elements */
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+  font-family: "Poppins", sans-serif; /* Sets the font family to Poppins for all elements */
+}
+
+body {  
+  background-image: url("../images/login-signup.png"); /* Sets a background image for the body */
+  background-size: cover; /* Makes the background image cover the entire screen */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Ensures the background image doesn't repeat */
+  height: 100vh; /* Sets the height of the body to be the full viewport height */
+  margin: 0; /* Removes default margin from the body */
+  font-family: Arial, sans-serif; /* Sets a fallback font family to Arial */
+  display: flex; /* Uses Flexbox to align the content */
+  align-items: center; /* Vertically centers content */
+  justify-content: center; /* Horizontally centers content */
+}
+
+.container {
+  background-color: #fff; /* Sets the background color of the container to white */
+  border-radius: 70px; /* Rounds the corners of the container */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); /* Adds a shadow effect around the container */
+  position: relative; /* Positions the container relatively */
+  overflow: hidden; /* Hides content that overflows the container */
+  width: 768px; /* Sets the width of the container */
+  max-width: 100%; /* Ensures the container width is responsive */
+  min-height: 480px; /* Sets a minimum height for the container */
+}
+
+.container p {
+  font-size: 16px; /* Sets the font size of paragraphs inside the container */
+  line-height: 20px; /* Sets the line height for better readability */
+  letter-spacing: 0.3px; /* Adds slight spacing between letters */
+  margin: 20px 0; /* Adds margin above and below paragraphs */
+}
+
+.container span {
+  font-size: 14px; /* Sets the font size of span elements */
+  margin-top: 30px; /* Adds top margin to span elements */
+}
+
+.container h1 {
+  margin-bottom: 20px; /* Adds margin below the heading */
+}
+
+.container a {
+  color: #333; /* Sets the link color to dark gray */
+  font-size: 15px; /* Sets the font size for links */
+  text-decoration: none; /* Removes the underline from links */
+  margin: 17px 0 10px; /* Adds margin around the links */
+}
+
+.container a:hover {
+  color: blue; /* Changes link color to blue on hover */
+}
+
+.container button {
+  background-color: #c9b75f; /* Sets the button background color */
+  color: #fff; /* Sets the button text color to white */
+  padding: 10px 45px; /* Adds padding inside the button */
+  border: 1px solid transparent; /* Removes the border but keeps space for hover effect */
+  border-radius: 8px; /* Rounds the button corners */
+  font-weight: 600; /* Makes the button text bold */
+  letter-spacing: 0.5px; /* Adds space between letters */
+  text-transform: uppercase; /* Transforms the text to uppercase */
+  margin-top: 20px; /* Adds margin above the button */
+  cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+}
+
+.container button:hover {
+  background-color: #dfcc60; /* Changes the background color on hover */
+  transform: scale(1.1); /* Scales the button up slightly on hover */
+  transition: transform 0.3s ease-in-out; /* Adds smooth transition for the scaling effect */
+}
+
+.container form {
+  background-color: #fff; /* Sets the form background color to white */
+  display: flex; /* Uses Flexbox to align form elements */
+  align-items: center; /* Vertically centers form elements */
+  justify-content: center; /* Horizontally centers form elements */
+  flex-direction: column; /* Arranges form elements in a column */
+  padding: 0 40px; /* Adds padding to the left and right sides */
+  height: 100%; /* Ensures the form takes up the full container height */
+}
+
+.container input {
+  background-color: #eee; /* Sets the background color of input fields */
+  border: none; /* Removes the border from input fields */
+  margin: 10px 0; /* Adds margin above and below the input fields */
+  padding: 10px 15px; /* Adds padding inside the input fields */
+  font-size: 14px; /* Sets the font size inside input fields */
+  border-radius: 8px; /* Rounds the corners of input fields */
+  width: 100%; /* Ensures input fields take up the full width of their container */
+  outline: none; /* Removes the outline on focus */
+}
+
+.container input:focus {
+  border: 1px solid rgb(128, 125, 125); /* Adds a border on focus */
+}
+
+.sign-up,
+.Login {
+  position: absolute; /* Positions the sign-up and login panels absolutely */
+  top: 0; /* Aligns the panels to the top */
+  height: 100%; /* Makes the panels take up the full height */
+  transition: all 0.6s ease-in-out; /* Adds a smooth transition effect */
+}
+
+.Login {
+  left: 0; /* Aligns the login panel to the left */
+  width: 50%; /* Sets the width of the login panel */
+  z-index: 2; /* Ensures the login panel is above other elements */
+}
+
+.container.active .Login {
+  transform: translateX(100%); /* Moves the login panel off-screen when active */
+}
+
+.sign-up {
+  left: 0; /* Aligns the sign-up panel to the left */
+  width: 50%; /* Sets the width of the sign-up panel */
+  z-index: 1; /* Ensures the sign-up panel is below the login panel */
+}
+
+.container.active .sign-up {
+  transform: translateX(100%); /* Moves the sign-up panel off-screen when active */
+  opacity: 1; /* Makes the sign-up panel fully visible */
+  z-index: 5; /* Brings the sign-up panel to the front */
+  animation: move 0.6s; /* Adds a movement animation */
+}
+
+.toogle-container {
+  position: absolute; /* Positions the toggle container absolutely */
+  top: 5%; /* Aligns the toggle container near the top */
+  bottom: 5%; /* Aligns the toggle container near the bottom */
+  left: 50%; /* Positions the toggle container in the center horizontally */
+  width: 50%; /* Sets the width of the toggle container */
+  height: 90%; /* Sets the height of the toggle container */
+  overflow: hidden; /* Hides overflowing content */
+  border-radius: 50px; /* Rounds the corners of the toggle container */
+  z-index: 1000; /* Ensures the toggle container is above other elements */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a shadow to the toggle container */
+  transition: all 0.5s ease-in-out; /* Adds a smooth transition effect */
+  border: 4px solid #c9b75f; /* Adds a border around the toggle container */
+}
+
+.container.active .toogle-container {
+  transform: translateX(-100%); /* Moves the toggle container off-screen when active */
+  border-radius: 40px; /* Rounds the corners of the toggle container more when active */
+}
+
+.toogle {
+  background-color: #eee; /* Sets the background color of the toggle */
+  height: 100%; /* Makes the toggle fill the container vertically */
+  color: black; /* Sets the text color of the toggle */
+  position: relative; /* Positions the toggle relative to its container */
+  left: -100%; /* Initially positions the toggle off-screen */
+  width: 200%; /* Sets the width of the toggle to 200% */
+  transform: translateX(0); /* Resets the horizontal position */
+  transition: all 0.5s ease-in-out; /* Adds a smooth transition effect */
+  box-shadow: inset 0 0 10px rgba(236, 196, 136, 0.5); /* Adds an inner shadow effect */
+}
+
+.container.active .toogle {
+  transform: translateX(50%); /* Moves the toggle into view when active */
+}
+
+.toogle-panel {
+  position: absolute; /* Positions the toggle panel absolutely */
+  width: 50%; /* Sets the width of the toggle panel */
+  height: 100%; /* Makes the toggle panel fill the container vertically */
+  display: flex; /* Uses Flexbox to align content */
+  justify-content: center; /* Horizontally centers the content */
+  align-items: center; /* Vertically centers the content */
+  flex-direction: column; /* Arranges content in a column */
+  padding: 20px; /* Adds padding inside the panel */
+  text-align: center; /* Centers text inside the panel */
+  top: 0; /* Aligns the panel to the top */
+  transition: all 0.5s ease-in-out; /* Adds a smooth transition effect */
+}
+
+.toogle-left {
+  transform: translateX(-200%); /* Initially moves the left panel off-screen */
+}
+
+.container.active .toogle-left {
+  transform: translateX(0); /* Brings the left panel into view when active */
+}
+
+.toogle-right {
+  right: 0; /* Positions the right panel to the right */
+  transform: translateX(0); /* Resets the horizontal position */
+}
+
+.container.active .toogle-right {
+  transform: translateX(200%); /* Moves the right panel off-screen when active */
+}
+
+/* Button Hover Effects */
+.toogle-panel button {
+  background-color: #c9b75f; /* Sets the button background color */
+  color: #fff; /* Sets the button text color */
+  padding: 12px 30px; /* Adds padding inside the button */
+  border-radius: 20px; /* Rounds the button corners */
+  border-color: #fff; /* Sets the border color */
+  font-weight: bold; /* Makes the button text bold */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Adds smooth transition effects */
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
+}
+
+.toogle-panel button:hover {
+  background-color: #dfcc60; /* Changes the button background color on hover */
+  transform: scale(1.1); /* Scales the button up slightly on hover */
+}
+
+/* Text Styles */
+.toogle-panel h1 {
+  font-size: 24px; /* Sets the font size of the heading */
+  margin-bottom: 15px; /* Adds margin below the heading */
+}
+
+.toogle-panel p {
+  font-size: 14px; /* Sets the font size of the paragraph */
+  color: black; /* Sets the text color of the paragraph */
+}
+
+/* responsive login page */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    border-radius: 20px;
+  }
+
+  .toogle-container {
+    border-radius: 20px;
+  }
+
+  .toogle-panel h1 {
+    font-size: 20px;
+  }
+
+  .toogle-panel p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    height: auto;
+    padding: 20px;
+  }
+
+  .container {
+    min-height: auto;
+    border-radius: 10px;
+  }
+
+  .toogle-panel h1 {
+    font-size: 18px;
+  }
+
+  .toogle-panel p {
+    font-size: 10px;
+  }
+
+  .toogle-panel button {
+    padding: 8px 20px;
+    font-size: 12px;
+  }
+
+  .icons a {
+    width: 30px;
+    height: 30px;
+  }
+}

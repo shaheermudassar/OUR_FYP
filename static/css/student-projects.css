@@ -1,0 +1,136 @@
+/* Reset and base styles */
+body {
+    font-family: Arial, sans-serif; /* Set a default font for the body */
+    margin: 0;                      /* Remove default margin */
+    padding: 0;                     /* Remove default padding */
+    box-sizing: border-box;        /* Include padding and border in element's total width and height */
+}
+
+/* Main container for the project section */
+.project-section {
+    max-width: 850px;              /* Limit the width of the section to 850px */
+    margin: 4rem auto;             /* Center the section with vertical margin of 4rem */
+    padding: 2.5rem;               /* Add space inside the container */
+    
+    /* Optional background gradient (commented out) */
+    /* background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); */
+
+    background: linear-gradient(135deg, rgba(99, 94, 94, 0.1), rgba(212, 212, 212, 0.05)); /* Apply a soft, diagonal gradient background */
+    border-radius: 20px;           /* Rounded corners */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); /* Drop shadow for depth */
+    backdrop-filter: blur(12px);   /* Blur the background behind the element */
+    -webkit-backdrop-filter: blur(12px); /* Safari support for backdrop blur */
+    border: 1px solid rgba(17, 15, 15, 0.25); /* Slight border to enhance separation */
+    color: #222;                   /* Set text color */
+    font-family: 'Poppins', 'Segoe UI', sans-serif; /* Override base font with modern fonts */
+    transition: all 0.3s ease;     /* Smooth transition for any changes */
+}
+
+/* Header style within project section */
+.project-section h2 {
+    font-size: 1.8rem;             /* Large font size for heading */
+    margin-bottom: 1.2rem;         /* Space below heading */
+    color: #c9b75f;                /* Yellowish heading color */
+    border-bottom: 2px solid #47445e; /* Bottom border for emphasis */
+    padding-bottom: 0.4rem;        /* Space between text and bottom border */
+}
+
+/* Unordered list styling */
+.project-section ul {
+    list-style: none;             /* Remove default bullet points */
+    padding-left: 0;              /* Remove default left padding */
+    margin-top: 1rem;             /* Space above the list */
+}
+
+/* List item styles */
+.project-section li {
+    background: rgba(255, 255, 255, 0.85); /* Light background for list items */
+    border-left: 6px solid #2ecc71; /* Green left border */
+    padding: 1.2rem 1rem;          /* Spacing inside the list item */
+    margin-bottom: 1.2rem;         /* Space between list items */
+    border-radius: 12px;           /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); /* Subtle shadow */
+    transition: transform 0.3s ease, background 0.3s ease; /* Smooth hover animations */
+}
+
+/* Hover effect for list items */
+.project-section li:hover {
+    background: #f0f8ff;           /* Change background on hover */
+    transform: scale(1.01);        /* Slightly enlarge item */
+}
+
+/* Highlight text inside list items */
+.project-section li strong {
+    color: #e74c3c;                /* Red color for important text */
+    font-weight: 600;              /* Bold weight */
+}
+
+/* Form inside project section */
+.project-section form {
+    margin-top: 1rem;              /* Space above form */
+    display: flex;                 /* Use flex layout */
+    flex-direction: column;       /* Stack items vertically */
+    gap: 0.6rem;                   /* Space between form elements */
+}
+
+/* File input styling */
+.project-section input[type="file"] {
+    border: 1px solid #bbb;        /* Light grey border */
+    padding: 0.6rem;               /* Space inside input */
+    border-radius: 8px;            /* Rounded corners */
+    font-size: 14px;               /* Font size */
+    background-color: #f9f9f9;     /* Light background */
+    transition: border-color 0.3s ease; /* Smooth border color change on hover */
+}
+
+/* Hover effect for file input */
+.project-section input[type="file"]:hover {
+    border-color: #0066ff;         /* Blue border on hover */
+}
+
+/* Submit button styles */
+.project-section button[type="submit"] {
+    padding: 0.6rem 1.2rem;        /* Button padding */
+    background: linear-gradient(135deg, #2a7cff, #0051ff); /* Blue gradient background */
+    color: white;                  /* White text */
+    border: none;                  /* Remove default border */
+    border-radius: 8px;            /* Rounded corners */
+    font-weight: 500;              /* Medium font weight */
+    cursor: pointer;               /* Pointer cursor on hover */
+    transition: background 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+}
+
+/* Hover effect for submit button */
+.project-section button[type="submit"]:hover {
+    background: linear-gradient(135deg, #1f5edb, #003ccc); /* Darker blue gradient */
+    transform: scale(1.03);        /* Slight enlargement on hover */
+}
+
+/* Paragraph styles inside project section */
+.project-section p {
+    color: #444;                   /* Dark grey text */
+    margin-top: 1rem;              /* Space above paragraph */
+    margin-bottom: 3rem;           /* Space below paragraph */
+    font-size: 15px;               /* Slightly smaller font size */
+}
+
+/* Responsive design for small screens */
+@media (max-width: 600px) {
+    .project-section {
+        padding: 1.5rem;           /* Reduce padding on small screens */
+        margin: 2rem 1rem;         /* Reduce margin for smaller devices */
+    }
+
+    .project-section h2 {
+        font-size: 1.5rem;         /* Smaller heading font */
+    }
+
+    .project-section li {
+        padding: 1rem 0.8rem;      /* Smaller padding in list items */
+    }
+
+    .project-section button[type="submit"] {
+        padding: 0.8rem 1rem;      /* Slightly larger padding for better touch */
+        font-size: 14px;           /* Smaller font for button */
+    }
+}

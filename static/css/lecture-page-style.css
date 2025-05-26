@@ -1,0 +1,191 @@
+/* Root Variables */
+:root {
+    --main-color: #47445e; /* Main color */
+    --green: #c9b75f; /* Green color */
+    --back-color: #f9f9f9; /* Background color */
+    --red: #e74c3c; /* Red color */
+    --orange: #f39c12; /* Orange color */
+    --light-color: #888; /* Light color */
+    --light-bg: #eee; /* Light background color */
+    --black: #2c3e50; /* Black color */
+    --white: #fff; /* White color */
+    --border: .1rem solid rgba(0, 0, 0, .2); /* Border style */
+    --gradient-main: linear-gradient(135deg, #4caf50, #81c784); /* Main gradient */
+    --gradient-light: linear-gradient(135deg, #ffffff, #f1f1f1); /* Light gradient */
+}
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Global Styles */
+body {
+    font-family: 'Arial', sans-serif; /* Font family */
+    background-color: var(--back-color); /* Background color */
+    color: #fff; /* Text color */
+    width: 100%;
+    margin-top: 4rem; /* Top margin */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the page */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Main Container */
+.page-container {
+    width: 100%;
+    max-width: 1200px; /* Max width for content */
+    padding: 0px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* Header Styling */
+.header {
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 42px; /* Large font size for the header */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    color: black;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+/* Topic Cards Container */
+.topics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px;
+    width: 100%; /* Full width */
+    max-width: 1200px; /* Max width for grid */
+    margin: 0 auto; /* Center the grid horizontally */
+}
+
+/* Individual Topic Card Styling */
+.topic-card {
+    background-color: #fff;
+    color: #34495e;
+    padding: 20px;
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Full width */
+    max-width: 250px; /* Max width of the card */
+}
+
+/* Card Hover Effect */
+.topic-card:hover {
+    transform: translateY(-5px); /* Slight upward movement */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Icon Styling in Topic Cards */
+.card-icon {
+    font-size: 36px; /* Larger icon */
+    margin-bottom: 15px;
+    color: #4e73df; /* Icon color */
+}
+
+/* Topic Title Styling */
+.topic-title {
+    font-size: 24px; /* Title font size */
+    font-weight: 600;
+    text-transform: capitalize;
+    color: black;
+    text-decoration: none; /* No underline */
+}
+
+/* Footer Styling */
+.footer {
+    position: absolute;
+    bottom: 20px;
+    text-align: center; /* Center the footer text */
+    padding: 10px;
+    background-color: #34495e; /* Dark background for footer */
+    color: #ecf0f1; /* Light text color */
+    border-radius: 10px; /* Rounded corners for footer */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Tablet View (≤ 768px) */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 32px;
+    }
+
+    .topics-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .topic-card {
+        max-width: 100%; /* Cards become flexible on smaller screens */
+    }
+
+    .card-icon {
+        font-size: 30px;
+    }
+
+    .topic-title {
+        font-size: 20px;
+    }
+}
+
+/* Mobile View (≤ 480px) */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .topics-container {
+        grid-template-columns: 1fr; /* Single column on small devices */
+    }
+
+    .topic-card {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .card-icon {
+        font-size: 26px;
+    }
+
+    .topic-title {
+        font-size: 18px;
+    }
+
+    .footer {
+        position: static;
+        margin-top: 20px;
+        padding: 15px;
+        font-size: 14px;
+}
+}
