@@ -28,8 +28,7 @@
             flex-direction: column;
         }
 
-        /* Template-specific styling */
-        .preview-cnt {
+        .preview-cnt { 
             display: flex;
             flex-direction: row-reverse;
             min-height: 100%;
@@ -41,6 +40,9 @@
             padding: 0.8rem;
         }
 
+
+
+        /*==========Left Column (preview-cnt-l): Personal info, contact details, skills========== */
         .preview-cnt-l {
             background-color: var(--primary-color);
             color: white !important;
@@ -54,18 +56,19 @@
         .preview-cnt-l * {
             color: inherit !important;
         }
-
-        .preview-cnt-r {
-            padding: 20px;
-            background: var(--white);
-            flex: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            border-radius: 8px;
-        }
-
+/*=============Right Column (preview-cnt-r): Professional sections==========*/
+       
+/* Right Panel Styling - around line 80 */
+    .preview-cnt-r {
+     padding: 20px;
+     background: var(--white);
+    flex: 2; /* Takes more space than left panel */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 8px;
+}
         .preview-image {
             width: 150px;
             height: 150px;
@@ -257,26 +260,8 @@
             color: white;
         }
 
-        /* Completion Checkmark */
-        .completed-check {
-            display: none;
-            margin-left: 8px;
-            color: #27ae60;
-        }
-
         .form-tab.completed .completed-check {
             display: inline-block;
-        }
-
-        /* Required field indicator */
-        .required {
-            color: var(--required-color);
-            font-weight: bold;
-        }
-
-        .opt-text {
-            color: var(--text-light);
-            font-size: 0.8em;
         }
 
         /* Print button section */
@@ -403,8 +388,12 @@
             </div>
 
             <form class="cv-form" id="cv-form">
-               <!-- Step 1: Theme Selection -->
-<div class="form-step active" data-step="1">
+
+
+
+<!-- Step 1: Theme Selection 
+     (User chooses the color theme for their CV) -->
+     <div class="form-step active" data-step="1">
     <div class="cv-form-blk">
         <div class="cv-form-row-title">
             <h3>Choose Your Theme</h3>
@@ -443,10 +432,15 @@
         <button type="button" class="btn btn-primary next-step" data-next="2">Continue to About</button>
     </div>
 </div>
-                <!-- Step 2: About Section -->
-                <div class="form-step" data-step="2">
+
+
+
+<!-- Step 2: About Section -->
+<!-- In this section, the user fills out -->
+<!-- their personal information -->
+<div class="form-step" data-step="2">
                     <div class="cv-form-blk">
-                        <div class="cv-form-row-title collapsed">
+                        <div class="cv-form-row-title collapsed"><
                             <h3>Personal Information</h3>
                             <span class="toggle-icon">▼</span>
                         </div>
@@ -455,17 +449,17 @@
                                 <div class="form-elem">
                                     <label class="form-label">First Name <span class="required">*</span></label>
                                     <input name="firstname" type="text" class="form-control firstname" onkeyup="generateCV()" placeholder="John">
-                                    <span class="form-text"></span>
+                                    <span class="help-text"></span>
                                 </div>
                                 <div class="form-elem">
                                     <label class="form-label">Middle Name <span class="opt-text">(optional)</span></label>
                                     <input name="middlename" type="text" class="form-control middlename" onkeyup="generateCV()" placeholder="Herbert">
-                                    <span class="form-text"></span>
+                                    <span class="help-text"></span>
                                 </div>
                                 <div class="form-elem">
                                     <label class="form-label">Last Name <span class="required">*</span></label>
                                     <input name="lastname" type="text" class="form-control lastname" onkeyup="generateCV()" placeholder="Doe">
-                                    <span class="form-text"></span>
+                                    <span class="help-text"></span>
                                 </div>
                             </div>
 
@@ -478,12 +472,12 @@
                                 <div class="form-elem">
                                     <label class="form-label">Designation <span class="required">*</span></label>
                                     <input name="designation" type="text" class="form-control designation" onkeyup="generateCV()" placeholder="Sr. Accountant">
-                                    <span class="form-text"></span>
+                                    <span class="help-text"></span><!--vlidation name, email, phone-->
                                 </div>
                                 <div class="form-elem">
                                     <label class="form-label">Address <span class="required">*</span></label>
                                     <input name="address" type="text" class="form-control address" onkeyup="generateCV()" placeholder="Lake Street-23">
-                                    <span class="form-text"></span>
+                                    <span class="help-text"></span><!--vlidation name, email, phone-->
                                 </div>
                             </div>
 
@@ -491,18 +485,18 @@
                                 <div class="form-elem">
                                     <label class="form-label">Email <span class="required">*</span></label>
                                     <input name="email" type="text" class="form-control email" onkeyup="generateCV()" placeholder="johndoe@example.com">
-                                    <span class="form-text"></span>
+                                    <span class="help-text"></span><!--vlidation name, email, phone-->
                                 </div>
                                 <div class="form-elem">
                                     <label class="form-label">Phone No: <span class="required">*</span></label>
                                     <input name="phoneno" type="text" class="form-control phoneno" onkeyup="generateCV()" placeholder="123-456-7890">
-                                    <span class="form-text"></span>
+                                    <span class="help-text"></span><!--vlidation name, email, phone-->
                                 </div>
                                 <div class="form-elem">
                                     <label class="form-label">Summary <span class="required">*</span></label>
                                     <textarea name="summary" class="form-control summary" onkeyup="generateCV()" placeholder="Brief about yourself"></textarea>
                                     <span class="help-text">Keep it concise (2-3 sentences)</span>
-                                    <span class="form-text"></span>
+                                    <span class="help-text"></span><!--vlidation name, email, phone-->
                                 </div>
                             </div>
                         </div>
@@ -513,12 +507,16 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Education Section -->
+
+
+<!-- Step 3: Education Section -->
+<!-- This section lets the user add details -->
+<!-- about their educational background -->
                 <div class="form-step" data-step="3">
                     <div class="cv-form-blk">
                         <div class="cv-form-row-title collapsed">
                             <h3>Education</h3>
-                            <span class="toggle-icon">▼</span>
+                            <!--<span class="toggle-icon">▼</span>-->
                         </div>
                         <div class="row-separator repeater">
                             <div class="repeater" data-repeater-list="group-c">
@@ -528,17 +526,17 @@
                                             <div class="form-elem">
                                                 <label class="form-label">School <span class="required">*</span></label>
                                                 <input name="edu_school" type="text" class="form-control edu_school" onkeyup="generateCV()" placeholder="University Name">
-                                                <span class="form-text"></span>
+                                    <span class="help-text"></span>
                                             </div>
                                             <div class="form-elem">
                                                 <label class="form-label">Degree <span class="required">*</span></label>
                                                 <input name="edu_degree" type="text" class="form-control edu_degree" onkeyup="generateCV()" placeholder="Bachelor of Science">
-                                                <span class="form-text"></span>
+                                    <span class="help-text"></span>
                                             </div>
                                             <div class="form-elem">
                                                 <label class="form-label">City <span class="required">*</span></label>
                                                 <input name="edu_city" type="text" class="form-control edu_city" onkeyup="generateCV()" placeholder="City">
-                                                <span class="form-text"></span>
+                                    <span class="help-text"></span>
                                             </div>
                                         </div>
 
@@ -546,25 +544,25 @@
                                             <div class="form-elem">
                                                 <label class="form-label">Start Date <span class="required">*</span></label>
                                                 <input name="edu_start_date" type="date" class="form-control edu_start_date" onkeyup="generateCV()">
-                                                <span class="form-text"></span>
+                                    <span class="help-text"></span>
                                             </div>
                                             <div class="form-elem">
                                                 <label class="form-label">End Date <span class="opt-text">(or expected)</span></label>
                                                 <input name="edu_graduation_date" type="date" class="form-control edu_graduation_date" onkeyup="generateCV()">
-                                                <span class="form-text"></span>
+                                    <span class="help-text"></span>
                                             </div>
                                             <div class="form-elem">
                                                 <label class="form-label">Description</label>
                                                 <textarea name="edu_description" class="form-control edu_description" onkeyup="generateCV()" placeholder="Major, achievements"></textarea>
                                                 <span class="help-text">Include GPA, honors, or relevant coursework</span>
-                                                <span class="form-text"></span>
+                                    <span class="help-text"></span>
                                             </div>
                                         </div>
                                         <button data-repeater-delete type="button" class="repeater-remove-btn">-</button>
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" data-repeater-create value="Add" class="repeater-add-btn">+ Add Another Education</button>
+                            <button type="button" data-repeater-create value="Add" class="repeater-add-btn">+</button>
                         </div>
                     </div>
                     <div class="btn-group">
@@ -573,12 +571,17 @@
                     </div>
                 </div>
 
-                <!-- Step 4: Experience Section -->
+
+
+
+<!-- Step 4: Experience Section -->
+<!-- This section allows the user to -->
+<!-- list their work experience -->
                 <div class="form-step" data-step="4">
                     <div class="cv-form-blk">
                         <div class="cv-form-row-title collapsed">
                             <h3>Experience</h3>
-                            <span class="toggle-icon">▼</span>
+                            <!--<span class="toggle-icon">▼</span>-->
                         </div>
                         <div class="row-separator repeater">
                             <div class="repeater" data-repeater-list="group-b">
@@ -624,7 +627,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" data-repeater-create value="Add" class="repeater-add-btn">+ Add Another Experience</button>
+                            <button type="button" data-repeater-create value="Add" class="repeater-add-btn">+</button>
                         </div>
                     </div>
                     <div class="btn-group">
@@ -633,12 +636,16 @@
                     </div>
                 </div>
 
-                <!-- Step 5: Achievements -->
+
+
+<!-- Step 5: Achievements -->
+<!-- This section lets users highlight -->
+<!-- their notable achievements -->
                 <div class="form-step" data-step="5">
                     <div class="cv-form-blk">
                         <div class="cv-form-row-title collapsed">
                             <h3>Achievements</h3>
-                            <span class="toggle-icon">▼</span>
+                            <!--<span class="toggle-icon">▼</span>-->
                         </div>
                         <div class="row-separator repeater">
                             <div class="repeater" data-repeater-list="group-a">
@@ -660,7 +667,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" data-repeater-create value="Add" class="repeater-add-btn">+ Add Another Achievement</button>
+                            <button type="button" data-repeater-create value="Add" class="repeater-add-btn">+</button>
                         </div>
                     </div>
                     <div class="btn-group">
@@ -669,20 +676,24 @@
                     </div>
                 </div>
 
-                <!-- Step 6: Projects -->
+
+
+<!-- Step 6: Projects -->
+<!-- Users can add details about -->
+<!-- their notable projects -->
                 <div class="form-step" data-step="6">
                     <div class="cv-form-blk">
-                        <div class="cv-form-row-title collapsed">
+                        <div class="cv-form-row-title collapsed"><!--choose your theme, personl-info,projects etc heding-->
                             <h3>Projects</h3>
-                            <span class="toggle-icon">▼</span>
+                            <!--<span class="toggle-icon">▼</span>-->
                         </div>
                         <div class="row-separator repeater">
                             <div class="repeater" data-repeater-list="group-d">
                                 <div data-repeater-item>
-                                    <div class="cv-form-row cv-form-row-experience">
-                                        <div class="cols-3">
+                                    <div class="cv-form-row cv-form-row-project">
+                                        <div class="cols-3"><!-- 3 columns echs column contin form element -->
                                             <div class="form-elem">
-                                                <label class="form-label">Project Name</label>
+                                                <label class="form-label">Project Name</label><!--Form Control (border styling input)-->
                                                 <input name="proj_title" type="text" class="form-control proj_title" onkeyup="generateCV()" placeholder="Project Title">
                                                 <span class="form-text"></span>
                                             </div>
@@ -701,7 +712,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" data-repeater-create value="Add" class="repeater-add-btn">+ Add Another Project</button>
+                            <button type="button" data-repeater-create value="Add" class="repeater-add-btn">+</button>
                         </div>
                     </div>
                     <div class="btn-group">
@@ -710,12 +721,18 @@
                     </div>
                 </div>
 
-                <!-- Step 7: Skills -->
+
+
+
+
+<!-- Step 7: Skills -->
+<!-- Users enter their professional -->
+<!-- skills relevant to the CV -->
                 <div class="form-step" data-step="7">
                     <div class="cv-form-blk">
                         <div class="cv-form-row-title collapsed">
                             <h3>Skills</h3>
-                            <span class="toggle-icon">▼</span>
+                            <!--<span class="toggle-icon">▼</span>-->
                         </div>
                         <div class="row-separator repeater">
                             <div class="repeater" data-repeater-list="group-e">
@@ -731,7 +748,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" data-repeater-create value="Add" class="repeater-add-btn">+ Add Another Skill</button>
+                            <button type="button" data-repeater-create value="Add" class="repeater-add-btn">+</button>
                         </div>
                     </div>
                     <div class="btn-group">
@@ -848,8 +865,8 @@
         </div>
     </section>
 
-    <!-- Floating Action Button -->
-    <button class="fab no-print" onclick="scrollToTop()">↑</button>
+    <!-- Floating Action Button 
+    <button class="fab no-print" onclick="scrollToTop()">↑</button>-->
 
     <!-- Confirmation Message -->
     <div class="confirmation-message no-print" id="confirmationMessage">
@@ -892,7 +909,7 @@
             experiencesDsp = document.getElementById('experiences_dsp');
 
         // Collapsible sections
-        document.querySelectorAll('.cv-form-row-title').forEach(title => {
+        document.querySelectorAll('.cv-form-row-title').forEach(title => {  
             title.addEventListener('click', function() {
                 this.classList.toggle('collapsed');
             });
@@ -1034,16 +1051,18 @@
             // Step 2 validation (About section)
             if (stepNum == 2) {
                 // Validate name fields
-                if (!firstnameElem.value.trim()) {
-                    firstnameElem.nextElementSibling.textContent = 'First name is required';
+                if (!firstnameElem.value.trim()) { // .trim (like user enter Neha remove before after names)
+                    //JavaScript ka built-in method hai jo string ke start 
+                    //aur end ke unnecessary spaces (whitespace characters) ko remove karta hai.
+                    firstnameElem.nextElementSibling.textContent = 'First name is required';//if empty then show error messge 
                     isValid = false;
-                } else if (!strRegex.test(firstnameElem.value)) {
-                    firstnameElem.nextElementSibling.textContent = 'Only letters and spaces allowed';
+                } else if (!strRegex.test(firstnameElem.value)) {//check letters or spaces allowed(if not)
+                    firstnameElem.nextElementSibling.textContent = 'Only letters and spaces allowed';//then show  error this message
                     isValid = false;
                 }
                 
                 if (middlenameElem.value && !strRegex.test(middlenameElem.value)) {
-                    middlenameElem.nextElementSibling.textContent = 'Only letters and spaces allowed';
+                    middlenameElem.nextElementSibling.textContent = 'Only letters and spaces allowed';//if numbers show error
                     isValid = false;
                 }
                 
@@ -1085,20 +1104,25 @@
                     isValid = false;
                 }
             }
-            
+
+
+
+
+            ////////////////////////////////////////
             // Step 3 validation (Education section)
+            ////////////////////////////////////////code ensure atleast 1 entery fill 
             if (stepNum == 3) {
-                const eduSchools = document.querySelectorAll('.edu_school');
-                let hasEducation = false;
+                const eduSchools = document.querySelectorAll('.edu_school');//take all classes that have fields(.edu_school)
+                let hasEducation = false;//abi ky liyn koi value nhi jasy hi value milti hn True
                 
-                eduSchools.forEach(school => {
+                eduSchools.forEach(school => { //(foreach) loop hn..check every education field if filled than haseduvcation true
                     if (school.value.trim()) {
-                        hasEducation = true;
+                        hasEducation = true;//True ho gi value given
                     }
                 });
                 
                 if (!hasEducation) {
-                    alert('Please add at least one education entry');
+                    alert('Please add at least one education entry');///alert messge show
                     isValid = false;
                 }
             }
@@ -1107,8 +1131,8 @@
         }
     
         // Fetch values from repeated fields
-        const fetchValues = (attrs, ...nodeLists) => {
-            let elemsAttrsCount = nodeLists.length;
+        const fetchValues = (attrs, ...nodeLists) => { //(attrs,...nodelists)parameters 
+            let elemsAttrsCount = nodeLists.length; //
             let elemsDataCount = nodeLists[0].length;
             let tempDataArr = [];
     
@@ -1123,28 +1147,32 @@
             return tempDataArr;
         }
     
-        // Get all user inputs
-        const getUserInputs = () => {
-            let achievementsTitleElem = document.querySelectorAll('.achieve_title'),
+
+
+
+        // this function(getUserInputs)collect all user input data in the form krky ek JavaScript object 
+        //banata hai, jo aage preview ya save karne ke liye use hota hai.
+        const getUserInputs = () => {//if remove then not shown in preview
+            let achievementsTitleElem = document.querySelectorAll('.achieve_title'),//collect .achieve-title class elemnts
                 achievementsDescriptionElem = document.querySelectorAll('.achieve_description');
-            let expTitleElem = document.querySelectorAll('.exp_title'),
+            let expTitleElem = document.querySelectorAll('.exp_title'),//take all experience session fields collect in Nodelist
                 expOrganizationElem = document.querySelectorAll('.exp_organization'),
                 expLocationElem = document.querySelectorAll('.exp_location'),
                 expStartDateElem = document.querySelectorAll('.exp_start_date'),
                 expEndDateElem = document.querySelectorAll('.exp_end_date'),
                 expDescriptionElem = document.querySelectorAll('.exp_description');
-            let eduSchoolElem = document.querySelectorAll('.edu_school'),
+            let eduSchoolElem = document.querySelectorAll('.edu_school'),//collect Education input Elemnts
                 eduDegreeElem = document.querySelectorAll('.edu_degree'),
                 eduCityElem = document.querySelectorAll('.edu_city'),
                 eduStartDateElem = document.querySelectorAll('.edu_start_date'),
                 eduGraduationDateElem = document.querySelectorAll('.edu_graduation_date'),
                 eduDescriptionElem = document.querySelectorAll('.edu_description');
-            let projTitleElem = document.querySelectorAll('.proj_title'),
+            let projTitleElem = document.querySelectorAll('.proj_title'),//collect project session inputs
                 projLinkElem = document.querySelectorAll('.proj_link'),
                 projDescriptionElem = document.querySelectorAll('.proj_description');
-            let skillElem = document.querySelectorAll('.skill');
+            let skillElem = document.querySelectorAll('.skill');//collect skill sections
     
-            return {
+            return {//return single field value
                 firstname: firstnameElem.value,
                 middlename: middlenameElem.value,
                 lastname: lastnameElem.value,
@@ -1153,6 +1181,7 @@
                 email: emailElem.value,
                 phoneno: phonenoElem.value,
                 summary: summaryElem.value,
+                //collect data in achievments through fetchvalues
                 achievements: fetchValues(['achieve_title', 'achieve_description'], achievementsTitleElem, achievementsDescriptionElem),
                 experiences: fetchValues(['exp_title', 'exp_organization', 'exp_location', 'exp_start_date', 'exp_end_date', 'exp_description'], 
                                        expTitleElem, expOrganizationElem, expLocationElem, expStartDateElem, expEndDateElem, expDescriptionElem),
@@ -1312,7 +1341,7 @@
         // Generate CV preview
         function generateCV() {
             // Get all user inputs
-            let userInputs = getUserInputs();
+            let userInputs = getUserInputs(); //call get user input function
             
             // Set personal information
             let fullName = '';
