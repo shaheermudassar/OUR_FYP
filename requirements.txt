@@ -64,7 +64,6 @@ python-dateutil==2.8.2
 python3-openid==3.2.0
 pyttsx3==2.90
 pytz==2024.1
-pywin32==306
 PyYAML==6.0.2
 qrcode==7.4.2
 regex==2024.11.6
