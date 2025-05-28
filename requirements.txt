@@ -14,7 +14,7 @@ defusedxml==0.7.1
 distlib==0.3.8
 distro==1.9.0
 Django==5.1.7
-django-allauth==0.44.0
+django-allauth==65.5.0
 django-cors-headers==4.7.0
 django-widget-tweaks
 dnspython==2.7.0
