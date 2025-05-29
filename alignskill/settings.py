@@ -40,7 +40,7 @@ SECRET_KEY = 'django-insecure-s=bafh5vy=fa-hu+c74no4lxo)=bqm@q!bnfzu5)!e97dtovr)
 DEBUG = True
 
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ["*"]
 
 LOGIN_URL = '/login-signup/'
 
